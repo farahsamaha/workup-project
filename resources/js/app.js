@@ -1,62 +1,33 @@
-import { InertiaProgress } from '@inertiajs/progress'
 import Vue from 'vue'
-import { InertiaApp, plugin } from '@inertiajs/inertia-vue'
+import { createInertiaApp, Head, Link } from '@inertiajs/inertia-vue'
+import { InertiaProgress } from '@inertiajs/progress'
 import vuetify from '@/plugins/vuetify'
-import Default from '@/Layouts/Default'
-// import { ValidationProvider } from 'vee-validate'
+import AdminLayout from '@/layouts/AdminLayout'
 
 require('./bootstrap')
 
-InertiaProgress.init({ color: '#4B5563' });
-Vue.use(plugin)
+const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel'
+InertiaProgress.init({ color: '#4B5563' })
 
-const el = document.getElementById('app')
+createInertiaApp({
+  title: (title) => `${title} - ${appName}`,
+  resolve: (name) => {
+    const page = require(`./pages/${name}.vue`)
+    page.layout = page.layout || AdminLayout
+    return page
+  },
+  setup ({ el, App, props, plugin }) {
+    Vue.use(plugin)
 
-// Vue.component('ValidationProvider', ValidationProvider)
-Vue.prototype.route = route
-new Vue({
-    render: h => h(InertiaApp, {
-        props: {
-            initialPage: JSON.parse(el.dataset.page),
-            resolveComponent: name => {
-                const page = require(`./Pages/${name}`).default
-                page.layout = page.layout || Default
-                return page
-            },
-        }
-    }),
-    vuetify
-}).$mount(el)
+    Vue.mixin({ methods: { route } })
 
+    Vue.component('InertiaHead', Head)
+    Vue.component('InertiaLink', Link)
 
-
-// import Vue from 'vue'
-// import vuetify from '@/plugins/vuetify'
-// import { createInertiaApp, Link, Head } from '@inertiajs/inertia-vue'
-// import { InertiaProgress } from '@inertiajs/progress'
-
-// Vue.config.productionTip = false
-// Vue.component('Head', Head)
-// Vue.component('Link', Link)
-
-// Vue.mixin({
-//   methods: {
-//     route: window.route
-//   }
-// })
-
-// InertiaProgress.init()
-
-// createInertiaApp({
-//   resolve: name => import('./pages/' + name),
-//   setup ({ el, App, props, plugin }) {
-//     Vue.use(plugin)
-
-//     new Vue({
-//       vuetify,
-//       render: h => h(App, props)
-//     }).$mount(el)
-//   }
-// })
-
+    new Vue({
+      render: h => h(App, props),
+      vuetify,
+    }).$mount(el)
+  },
+})
 
