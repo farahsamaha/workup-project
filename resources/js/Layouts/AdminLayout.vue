@@ -46,13 +46,12 @@
 <script>
 import FlashMessages from "@/components/Layout/FlashMessages";
 import SideBar from "@/components/Layout/SideBar";
-import FooterSec from "@/Components/Layout/FooterSec.vue";
+// import FooterSec from "@/Components/Layout/FooterSec.vue";
 
 export default {
   components: {
     FlashMessages,
     SideBar,
-    FooterSec,
   },
 };
 </script>

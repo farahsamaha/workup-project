@@ -43,17 +43,19 @@
       <slot />
     </v-main>
 
-    <footer-sec />
+  <v-footer app small>
+      &copy; {{ new Date().getFullYear() }} {{ $page.props.app.name }}
+    </v-footer>
   </v-app>
 </template>
 
 <script>
-import FooterSec from "@/Components/Layout/FooterSec.vue";
+// import FooterSec from "@/Components/Layout/FooterSec.vue"
 
 export default {
-  components: {
-    FooterSec,
-  },
+//   components: {
+//     FooterSec
+//   },
   data() {
     return {
       showingNavigationDropdown: false,
