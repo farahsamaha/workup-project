@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title inertia>{{ config('app.name', 'WorkUp') }}</title>
+    {{-- <title inertia>{{ config('app.name', 'WorkUp') }}</title> --}}
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet">
@@ -20,10 +20,6 @@
 
 <body>
     @inertia
-
-    @env('local')
-    <script src="http://localhost:8080/js/bundle.js"></script>
-    @endenv
 </body>
 
 </html>

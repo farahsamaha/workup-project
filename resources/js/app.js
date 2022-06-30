@@ -1,33 +1,31 @@
-import Vue from 'vue'
-import { createInertiaApp, Head, Link } from '@inertiajs/inertia-vue'
 import { InertiaProgress } from '@inertiajs/progress'
+import Vue from 'vue'
+import { InertiaApp, plugin,Link , Head } from '@inertiajs/inertia-vue'
 import vuetify from '@/plugins/vuetify'
-import AdminLayout from '@/layouts/AdminLayout'
+import Default from '@/layouts/Default'
+// import { ValidationProvider } from 'vee-validate'
 
 require('./bootstrap')
 
-const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel'
-InertiaProgress.init({ color: '#4B5563' })
+InertiaProgress.init({ color: '#4B5563' });
+Vue.use(plugin)
+Vue.component('InertiaLink', Link)
+Vue.component('InertiaHead', Head)
+const el = document.getElementById('app')
 
-createInertiaApp({
-  title: (title) => `${title} - ${appName}`,
-  resolve: (name) => {
-    const page = require(`./pages/${name}.vue`)
-    page.layout = page.layout || AdminLayout
-    return page
-  },
-  setup ({ el, App, props, plugin }) {
-    Vue.use(plugin)
-
-    Vue.mixin({ methods: { route } })
-
-    Vue.component('InertiaHead', Head)
-    Vue.component('InertiaLink', Link)
-
-    new Vue({
-      render: h => h(App, props),
-      vuetify,
-    }).$mount(el)
-  },
-})
+// Vue.component('ValidationProvider', ValidationProvider)
+Vue.prototype.route = route
+new Vue({
+    render: h => h(InertiaApp, {
+        props: {
+            initialPage: JSON.parse(el.dataset.page),
+            resolveComponent: name => {
+                const page = require(`./Pages/${name}`).default
+                page.layout = page.layout || Default
+                return page
+            },
+        }
+    }),
+    vuetify
+}).$mount(el)
 

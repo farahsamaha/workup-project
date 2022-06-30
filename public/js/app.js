@@ -5324,10 +5324,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-Object(function webpackMissingModule() { var e = new Error("Cannot find module '../components/Home/AppHero.vue'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
-Object(function webpackMissingModule() { var e = new Error("Cannot find module '../components/Home/JobCategories.vue'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
-Object(function webpackMissingModule() { var e = new Error("Cannot find module '../components/Home/BannerSec.vue'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
-Object(function webpackMissingModule() { var e = new Error("Cannot find module '../components/Home/PeopleReviews.vue'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
 //
 //
 //
@@ -5344,20 +5340,17 @@ Object(function webpackMissingModule() { var e = new Error("Cannot find module '
 //
 //
 //
-//
-//
-
-
-
- // import FooterSec from '../components/layout/FooterSec.vue'
-
+// import AppHero from '../components/Home/AppHero.vue'
+// import JobCategories from '../components/Home/JobCategories.vue'
+// import BannerSec from '../components/Home/BannerSec.vue'
+// import PeopleReviews from '../components/Home/PeopleReviews.vue'
+// import FooterSec from '../components/layout/FooterSec.vue'
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  components: {
-    AppHero: Object(function webpackMissingModule() { var e = new Error("Cannot find module '../components/Home/AppHero.vue'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()),
-    JobCategories: Object(function webpackMissingModule() { var e = new Error("Cannot find module '../components/Home/JobCategories.vue'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()),
-    BannerSec: Object(function webpackMissingModule() { var e = new Error("Cannot find module '../components/Home/BannerSec.vue'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()),
-    PeopleReviews: Object(function webpackMissingModule() { var e = new Error("Cannot find module '../components/Home/PeopleReviews.vue'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()) // FooterSec
-
+  components: {// AppHero,
+    // JobCategories,
+    // BannerSec,
+    // PeopleReviews,
+    // FooterSec
   }
 });
 
@@ -5708,7 +5701,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* @import url('https://fonts.googleapis.com/css2?family=Teko:wght@300&display=swap');\n.text-h1{\n font-family: 'macondo';\n} */\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* @import url('https://fonts.googleapis.com/css2?family=Teko:wght@300&display=swap');\n.text-h1{\n font-family: 'macondo';\n} */\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -32677,23 +32670,7 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c("AppHero"),
-      _vm._v(" "),
-      _c("JobCategories"),
-      _vm._v(" "),
-      _c("TopCompanies"),
-      _vm._v(" "),
-      _c("BannerSec"),
-      _vm._v(" "),
-      _c("PeopleReviews"),
-      _vm._v(" "),
-      _c("FooterSec"),
-    ],
-    1
-  )
+  return _c("div")
 }
 var staticRenderFns = []
 render._withStripped = true

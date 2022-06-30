@@ -1,36 +1,33 @@
 <template>
-<div>
- <AppHero>
-  </AppHero>
-    <JobCategories>
-    </JobCategories>
-    <TopCompanies>
-    </TopCompanies>
-      <BannerSec>
-      </BannerSec>
-  <PeopleReviews>
-  </PeopleReviews>
-  <FooterSec>
-  </FooterSec>
-
-</div>
+  <div>
+    <AppHero> </AppHero>
+    <JobCategories> </JobCategories>
+    <BannerSec> </BannerSec>
+    <PeopleReviews> </PeopleReviews>
+    <FooterSec> </FooterSec>
+  </div>
 </template>
 
 <script>
-import AppHero from '../components/Home/AppHero.vue'
-import JobCategories from '../components/Home/JobCategories.vue'
-import BannerSec from '../components/Home/BannerSec.vue'
-import PeopleReviews from '../components/Home/PeopleReviews.vue'
-// import FooterSec from '../components/layout/FooterSec.vue'
+import AppHero from "../components/Home/AppHero.vue";
+import JobCategories from "../components/Home/JobCategories.vue";
+import BannerSec from "../components/Home/BannerSec.vue";
+import PeopleReviews from "../components/Home/PeopleReviews.vue";
+import FooterSec from "../components/layout/FooterSec.vue";
+import AppLayout from "../../layouts/AppLayout";
 export default {
+  name: "HomeView",
+
+  layout: AppLayout,
+
   components: {
     AppHero,
     JobCategories,
     BannerSec,
     PeopleReviews,
-    // FooterSec
-  }
-}
+    FooterSec,
+  },
+};
 </script>
 
 <style scoped>

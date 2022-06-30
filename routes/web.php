@@ -28,6 +28,9 @@ Route::get('/test', function () {
     return Inertia::render('Test');
 });
 
+Route::get('/homepage', function () {
+    return Inertia::render('HomePage');
+});
 // Route::inertia('/test', 'TestComponent');
 
 Route::get('/dashboard', function () {
