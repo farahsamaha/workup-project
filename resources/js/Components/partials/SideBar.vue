@@ -1,18 +1,17 @@
 <template>
   <v-navigation-drawer
     color="teal accent-4"
-    src="https://wallpaperaccess.com/full/714816.png"
     app
     clipped
     floating
     dark
   >
-    <template #img="props">
+    <!-- <template #img="props">
       <v-img
         gradient="to bottom, rgba(0, 59, 156, .7), rgba(0, 30, 79, .7)"
         v-bind="props"
       />
-    </template>
+    </template> -->
     <template v-for="(group, index) in menuItems">
       <v-divider
         v-if="group.divider"

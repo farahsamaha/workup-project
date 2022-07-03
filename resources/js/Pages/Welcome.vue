@@ -5,11 +5,11 @@
 </template>
 
 <script>
-import AppLayout from '../layouts/AppLayout'
+import GuestLayout from '../layouts/GuestLayout'
 
 export default {
   name: 'WelcomeView',
 
-  layout: AppLayout,
+  layout: GuestLayout,
 }
 </script>
