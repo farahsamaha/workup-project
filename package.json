@@ -26,5 +26,11 @@
         "vue-loader": "^15.9.6",
         "vue-template-compiler": "^2.1.8",
         "vuetify": "^2.6.6"
+    },
+    "dependencies": {
+        "animate.css": "^4.1.1",
+        "vee-validate": "^4.5.11",
+        "vue-aos": "^2.3.0",
+        "vue-i18n": "^9.1.10"
     }
 }
