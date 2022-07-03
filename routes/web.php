@@ -16,21 +16,21 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
+    return Inertia::render('Guest/HomePage', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
-});
+})->name('home');
 
 Route::get('/test', function () {
     return Inertia::render('Test');
 });
 
 Route::get('/homepage', function () {
-    return Inertia::render('HomePage');
-});
+    return Inertia::render('User/HomePage');
+})->name('homepage');
 // Route::inertia('/test', 'TestComponent');
 
 Route::get('/dashboard', function () {
