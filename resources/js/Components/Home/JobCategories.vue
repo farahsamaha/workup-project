@@ -40,7 +40,7 @@ export default {
   data: () => ({
     categories: [
       {
-        src: require('../../assets/it.jpg'),
+        src: '/assets/it.jpg',
         title: 'Information Technology',
         subtitle:
           'web developer / data analysist / graphic designer / software engineering',
@@ -48,7 +48,7 @@ export default {
       },
 
       {
-        src: require('../../assets/eco.jpg'),
+        src: '/assets/eco.jpg',
         title: 'Economy',
         subtitle:
           'accountant / HR manager/ Banking / sales manager / supply chain ',
@@ -56,14 +56,14 @@ export default {
       },
 
       {
-        src: require('../../assets/ad.jpg'),
+        src: '/assets/ad.jpg',
         title: 'Adminstiration Mangement',
         subtitle:
           'data entry / publishing / archiving / translation / customer services  / Logistic ',
         count: '19'
       },
       {
-        src: require('../../assets/other.jpg'),
+        src: '/assets/other.jpg',
         title: 'Others',
         subtitle: 'Secertaria/ Reseptionest  / writing editorial / negotietor',
         count: '11'

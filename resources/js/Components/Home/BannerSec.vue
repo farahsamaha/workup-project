@@ -19,7 +19,7 @@
               class="mt-7 white--text"
               elevation="4"
               rounded
-              @click="$router.push({ name: 'Register' })"
+               :href="route('register')"
               >register now</v-btn
             >
           </v-hover>

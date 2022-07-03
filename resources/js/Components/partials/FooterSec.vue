@@ -28,7 +28,7 @@
       <v-divider></v-divider>
 
       <v-card-text class="white--text">
-        {{ new Date().getFullYear() }} — <strong>Job Ride</strong>
+        {{ new Date().getFullYear() }} — <strong>Work Up</strong>
       </v-card-text>
     </v-card>
   </v-footer>
