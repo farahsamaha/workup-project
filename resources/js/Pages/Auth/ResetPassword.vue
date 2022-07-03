@@ -68,7 +68,7 @@
 <script>
 import AuthenticationCard from '@/components/Auth/AuthenticationCard'
 import AuthenticationCardLogo from '@/components/Auth/AuthenticationCardLogo'
-import AppLayout from '../../layouts/AppLayout'
+import GuestLayout from '../../layouts/GuestLayout'
 
 export default {
   components: {
@@ -76,7 +76,7 @@ export default {
     AuthenticationCardLogo,
   },
 
-  layout: AppLayout,
+  layout: GuestLayout,
 
   props: {
     email: {

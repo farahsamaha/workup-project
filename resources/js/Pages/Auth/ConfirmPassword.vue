@@ -44,14 +44,14 @@
 
 <script>
 import AuthenticationCard from '@/components/Auth/AuthenticationCard'
-import AppLayout from '@/layouts/AppLayout'
+import GuestLayout from '@/layouts/GuestLayout'
 
 export default {
   components: {
     AuthenticationCard
   },
 
-  layout: AppLayout,
+  layout: GuestLayout,
 
   data () {
     return {
