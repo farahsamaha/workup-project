@@ -13,22 +13,17 @@
         ></v-btn>
       </v-app-bar-title>
       <v-spacer></v-spacer>
-      <!-- <v-bottom-navigation
-    :value="value"
-    color="teal"
-    horizontal
-  > -->
-      <v-btn text class="mx-4" color="teal">
-        <v-icon>mdi-history</v-icon>
-        <span>Recents</span>
+      <v-btn text class="mx-4" color="teal"  :value="value"  :href="route('homepage')">
+        <v-icon>mdi-home</v-icon>
+        <span>Home</span>
       </v-btn>
 
-      <v-btn text class="mx-4" color="teal">
+      <v-btn text class="mx-4" color="teal"  :value="value"  :href="route('createpost')">
         <v-icon>mdi-plus-box</v-icon>
         <span>Add post</span>
       </v-btn>
 
-      <v-btn text class="mr-9" color="teal">
+      <v-btn text class="mr-9" color="teal"  :value="value">
         <v-icon>mdi-wallet-travel</v-icon>
         <span>Jobs</span>
       </v-btn>
@@ -130,7 +125,7 @@ import FooterSec from "@/components/partials/FooterSec.vue";
 export default {
   data() {
     return {
-      links: ["Messages", "Profile", "Add Post"],
+    value: 1,
       items: [
         { title: "Dashboard", icon: "mdi-view-dashboard" },
         { title: "Account", icon: "mdi-account-box" },
