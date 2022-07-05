@@ -13,48 +13,26 @@
         ></v-btn>
       </v-app-bar-title>
       <v-spacer></v-spacer>
-      <v-btn
-        text
-        class="mx-4"
-        color="teal"
-        :value="value"
-        :href="route('homepage')"
-      >
+      <div>
+      <v-btn text class="mx-4" color="teal"  :value="value"  :href="route('homepage')">
         <v-icon>mdi-home</v-icon>
         <span>Home</span>
       </v-btn>
 
-      <v-btn
-        text
-        class="mx-4"
-        color="teal"
-        :value="value"
-        :href="route('createpost')"
-      >
+      <v-btn text class="mx-4" color="teal"  :value="value"  :href="route('createpost')">
         <v-icon>mdi-plus-box</v-icon>
-        <span>Add post</span>
+        <span>Add Job</span>
       </v-btn>
 
-      <v-btn
-        text
-        class="mr-9"
-        color="teal"
-        :value="value"
-        :href="route('jobindex')"
-      >
+      <v-btn text class="mx-4" color="teal"  :value="value">
         <v-icon>mdi-wallet-travel</v-icon>
-        <span>Jobs</span>
+        <span>Manage jobs</span>
       </v-btn>
-      <v-responsive max-width="260">
-        <v-text-field
-          prepend-inner-icon="mdi-magnify x-large"
-          dense
-          flat
-          hide-details
-          rounded
-          solo-inverted
-        ></v-text-field>
-      </v-responsive>
+
+        <v-btn text class="mr-16" color="teal"  :value="value">
+        <v-icon>mdi-post</v-icon>
+        <span>Applied jobs</span>
+      </v-btn></div>
       <v-btn
         icon
         @click="$vuetify.theme.dark = !$vuetify.theme.dark"
@@ -143,7 +121,7 @@ import FooterSec from "@/components/partials/FooterSec.vue";
 export default {
   data() {
     return {
-      value: 1,
+    value: 1,
       items: [
         { title: "Dashboard", icon: "mdi-view-dashboard" },
         { title: "Account", icon: "mdi-account-box" },
