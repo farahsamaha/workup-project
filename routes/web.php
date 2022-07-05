@@ -45,3 +45,7 @@ Route::get('/jobindex', function () {
 Route::get('/showjob', function () {
     return Inertia::render('job/showjob');
 })->name('showjob');
+
+Route::get('/userprofile', function () {
+    return Inertia::render('User/UserProfile');
+})->name('userprofile');
