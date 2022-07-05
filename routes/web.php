@@ -37,3 +37,11 @@ require __DIR__.'/auth.php';
 Route::get('/createpost', function () {
     return Inertia::render('post/CreatePost');
 })->name('createpost');
+
+Route::get('/jobindex', function () {
+    return Inertia::render('job/JobIndex');
+})->name('jobindex');
+
+Route::get('/showjob', function () {
+    return Inertia::render('job/showjob');
+})->name('showjob');
