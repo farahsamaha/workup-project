@@ -1,6 +1,8 @@
 <template>
   <v-card height="500" elevation="0">
-    <v-row class="fill-height" align-content="center">
+    <v-row class="fill-height" align-content="center"
+      v-vue-aos="{ animationClass: 'animate__fadeIn animate__animated' }"
+    >
       <v-col class="text-left justify-start" cols="7" sm="6">
         <v-container class="ml-9">
           <p

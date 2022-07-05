@@ -5,6 +5,9 @@
         <v-layout align-center justify-center column fill-height>
           <h1
             class="white--text"
+               v-vue-aos="{
+              animationClass: ' animate__slideInDown animate__animated',
+            }"
           >
             Join Our Family
             <v-icon size="30" class="mb-2" color="#f3f3f3">mdi-heart</v-icon>
