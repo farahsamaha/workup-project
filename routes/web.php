@@ -49,3 +49,7 @@ Route::get('/showjob', function () {
 Route::get('/userprofile', function () {
     return Inertia::render('User/UserProfile');
 })->name('userprofile');
+
+Route::get('/createjob', function () {
+    return Inertia::render('job/CreateJob');
+})->name('createjob');
