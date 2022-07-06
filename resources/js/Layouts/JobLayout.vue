@@ -24,12 +24,12 @@
         <span>Add Job</span>
       </v-btn>
 
-      <v-btn text class="mx-4" color="teal"  :value="value">
+      <v-btn text class="mx-4" color="teal">
         <v-icon>mdi-wallet-travel</v-icon>
         <span>Manage jobs</span>
       </v-btn>
 
-        <v-btn text class="mr-16" color="teal"  :value="value">
+        <v-btn text class="mr-16" color="teal" >
         <v-icon>mdi-post</v-icon>
         <span>Applied jobs</span>
       </v-btn></div>
