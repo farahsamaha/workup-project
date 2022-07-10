@@ -13,7 +13,7 @@
             <v-text-field
               v-model="form.email"
               name="email"
-              :label="'auth.email'"
+              :label="'user.email'"
               type="email"
               hide-details="auto"
               :error-messages="errors['email']"
@@ -29,7 +29,7 @@
               v-model="form.password"
               name="password"
               type="password"
-              :label="'auth.password'"
+              :label="'user.password'"
               hide-details="auto"
               autocomplete="current-password"
               :error-messages="errors['password']"
@@ -37,8 +37,7 @@
               required
               color="#000000"
               class="mx-6 my-3"
-              @input="$v.password.$touch()"
-              @blur="$v.password.$touch()"
+
             />
           </v-col>
           <v-col cols="12">
@@ -46,7 +45,7 @@
               v-model="form.remeber"
               label="Remember me"
               value="on"
-              class="mx-5"
+              class="mx-7"
             />
             <!-- </v-col>
               <v-col cols="12" class=" d-flex align-center"> -->
@@ -55,20 +54,23 @@
                 :disabled="form.processing"
                 :loading="form.processing"
                 type="submit"
-                class="teal accent-4 white--text"
+                class="teal accent-4 white--text ml-5"
               >
-                {{ "auth.login" }}
+                {{ "login" }}
               </v-btn>
               <inertia-link
                 v-if="canResetPassword"
                 :href="route('password.request')"
                 class="v-btn v-btn--text v-size--small teal--text"
               >
-                {{ "auth.forgot" }}
+                {{ "forgot password?" }}
               </inertia-link>
             </v-container>
           </v-col></v-row
         >
+             <div class="flex px-10 py-4 bg-gray-100 border-t border-gray-100">
+          <loading-button :loading="form.processing" class="btn-indigo ml-auto" type="submit"></loading-button>
+        </div>
       </form>
     </div>
   </authentication-card>
@@ -78,6 +80,7 @@
 import AuthenticationCard from "@/components/Auth/AuthenticationCard";
 import AuthenticationCardLogo from "@/components/Auth/AuthenticationCardLogo";
 import GuestLayout from "@/layouts/GuestLayout";
+import LoadingButton from "@/components/partials/LoadingButton.vue";
 
 export default {
   name: "LoginView",
@@ -85,6 +88,7 @@ export default {
   components: {
     AuthenticationCard,
     AuthenticationCardLogo,
+    LoadingButton
   },
   layout: GuestLayout,
   props: {

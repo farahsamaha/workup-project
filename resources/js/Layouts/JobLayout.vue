@@ -14,12 +14,12 @@
       </v-app-bar-title>
       <v-spacer></v-spacer>
       <div>
-      <v-btn text class="mx-4" color="teal"  :value="value"  :href="route('homepage')">
+      <v-btn text class="mx-4" color="teal"    :href="route('homepage')">
         <v-icon>mdi-home</v-icon>
         <span>Home</span>
       </v-btn>
 
-      <v-btn text class="mx-4" color="teal"  :value="value"  :href="route('createpost')">
+      <v-btn text class="mx-4" color="teal"    :href="route('createjob')">
         <v-icon>mdi-plus-box</v-icon>
         <span>Add Job</span>
       </v-btn>
@@ -121,7 +121,7 @@ import FooterSec from "@/components/partials/FooterSec.vue";
 export default {
   data() {
     return {
-    value: 1,
+
       items: [
         { title: "Dashboard", icon: "mdi-view-dashboard" },
         { title: "Account", icon: "mdi-account-box" },

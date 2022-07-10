@@ -17,7 +17,7 @@
         text
         class="mx-4"
         color="teal"
-        :value="value"
+
         :href="route('homepage')"
       >
         <v-icon>mdi-home</v-icon>
@@ -28,7 +28,7 @@
         text
         class="mx-4"
         color="teal"
-        :value="value"
+
         :href="route('createpost')"
       >
         <v-icon>mdi-plus-box</v-icon>
@@ -39,8 +39,8 @@
         text
         class="mr-9"
         color="teal"
-        :value="value"
-        :href="route('jobindex')"
+
+        :href="route('jobs')"
       >
         <v-icon>mdi-wallet-travel</v-icon>
         <span>Jobs</span>
@@ -143,7 +143,6 @@ import FooterSec from "@/components/partials/FooterSec.vue";
 export default {
   data() {
     return {
-      value: 1,
       items: [
         { title: "Dashboard", icon: "mdi-view-dashboard" },
         { title: "Account", icon: "mdi-account-box" },
