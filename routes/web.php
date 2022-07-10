@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\JobController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -34,18 +34,50 @@ Route::get('/dashboard', function () {
 
 require __DIR__.'/auth.php';
 
+Route::get('/userprofile', function () {
+    return Inertia::render('User/UserProfile');
+})->name('userprofile');
+
 Route::get('/createpost', function () {
     return Inertia::render('post/CreatePost');
 })->name('createpost');
 
-Route::get('/jobindex', function () {
-    return Inertia::render('job/JobIndex');
-})->name('jobindex');
+// Route::get('/jobindex', 'JobController@index')->name('jobindex');
+
+// Route::get('/jobindex', function () {
+//     return Inertia::render('job/JobIndex');
+// })->name('jobindex');
+
+Route::get('/jobindex', [JobController::class, 'index'])
+    ->name('jobs')
+    ->middleware('auth');
 
 Route::get('/showjob', function () {
-    return Inertia::render('job/showjob');
+    return Inertia::render('job/ShowJob');
 })->name('showjob');
 
-Route::get('/userprofile', function () {
-    return Inertia::render('User/UserProfile');
-})->name('userprofile');
+
+// Route::get('/createjob', function () {
+//     return Inertia::render('job/CreateJob');
+// })->name('createjob');
+
+
+Route::get('/createjob', [JobController::class, 'create'])
+    ->name('createjob')
+    ->middleware('auth');
+
+Route::post('jobs', [JobController::class, 'store'])
+    ->name('job.store')
+    ->middleware('auth');
+
+Route::get('jobs/{job}/edit', [JobController::class, 'edit'])
+    ->name('job.edit')
+    ->middleware('auth');
+
+Route::put('jobs/{job}', [JobController::class, 'update'])
+    ->name('job.update')
+    ->middleware('auth');
+
+Route::delete('jobs/{job}', [JobController::class, 'destroy'])
+    ->name('job.destroy')
+    ->middleware('auth');

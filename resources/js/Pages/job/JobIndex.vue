@@ -1,5 +1,11 @@
 <template>
   <v-container>
+       <!-- <div class="container">
+      <div v-if="Message" class="alert alert-success mt-4">
+        {{ Message }}
+      </div>
+       </div> -->
+
     <v-col>
         <search-filter/>
       <job-card />
@@ -14,6 +20,7 @@ import SearchFilter from "@/components/job/SearchFilter.vue"
 export default {
   layout: JobLayout,
   components: { JobCard , SearchFilter },
+   props: ['jobs', 'Message'],
 };
 </script>
 
