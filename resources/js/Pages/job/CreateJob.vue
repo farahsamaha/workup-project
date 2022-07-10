@@ -1,110 +1,146 @@
 <template>
-    <div class="cover">
-        <v-container>
-            <v-card class="mx-auto" max-width="800" height="900">
-                <v-toolbar flat color="teal accent-4" dark>
-                    <v-btn icon>
-                        <v-icon>mdi-close</v-icon>
-                    </v-btn>
-                    <v-toolbar-title> Create a job </v-toolbar-title>
-                </v-toolbar>
+  <div class="cover">
+    <v-container>
+      <v-card class="mx-auto" max-width="700" height="1000" elevation="0">
+        <v-card-title
+          class="text-h4 my-8 font-weight-bold orange--text justify-center"
+          >Find a great hire fast!
+        </v-card-title>
 
-                <v-card-text>
-                    <h1 class="text-h3 mb-2">Find a great hire, fast</h1>
-                </v-card-text>
+        <form>
+          <h3 class="font-weight-medium mx-16">Job Title</h3>
+          <v-text-field
+            label="title"
+            outlined
+            class="mx-16"
+            v-model="title"
+            :counter="40"
+            :error-messages="errors"
+            require
+          ></v-text-field>
 
-                <form class="ml-5 mr-5">
-                    <h3 class="text-h5 mb-2 ml-5">Job Title</h3>
-                    <v-text-field
-                        v-model="title"
-                        :counter="40"
-                        :error-messages="errors"
-                        require
-                    ></v-text-field>
+          <h3 class="font-weight-medium mx-16">Job Category</h3>
+          <v-select
+            label="Information Technology"
+            class="mx-16"
+            outlined
+            v-model="select"
+            :items="category"
+            :error-messages="errors"
+            required
+          ></v-select>
 
-                    <h3 class="text-h5 mb-2 ml-5">Job Category</h3>
-                    <v-select
-                        v-model="select"
-                        :items="category"
-                        :error-messages="errors"
-                        required
-                    ></v-select>
+          <h3 class="font-weight-medium mx-16">Work place type</h3>
+          <v-select
+            label="Remotly"
+            class="mx-16"
+            outlined
+            v-model="select"
+            :items="work"
+            :error-messages="errors"
+            required
+          ></v-select>
 
-                    <h3 class="text-h5 mb-2 ml-5">Work place type</h3>
-                    <v-select
-                        v-model="select"
-                        :items="work"
-                        :error-messages="errors"
-                        required
-                    ></v-select>
+          <h3 class="font-weight-medium mx-16">Job location</h3>
+          <v-select
+            label="Damascus"
+            class="mx-16"
+            outlined
+            v-model="select"
+            :items="location"
+            :error-messages="errors"
+            required
+          ></v-select>
 
-                    <h3 class="text-h5 mb-2 ml-5">Job location</h3>
-                    <v-select
-                        v-model="select"
-                        :items="location"
-                        :error-messages="errors"
-                        required
-                    ></v-select>
+          <h3 class="font-weight-medium mx-16">Job type</h3>
+          <v-select
+            label="Full-time"
+            class="mx-16"
+            outlined
+            v-model="select"
+            :items="type"
+            :error-messages="errors"
+            required
+          ></v-select>
+          <h3 class="font-weight-medium mx-16">Email</h3>
+          <v-text-field
+            type="email"
+            label="add your email for communication"
+            outlined
+            class="mx-16"
+            v-model="title"
+            :counter="40"
+            :error-messages="errors"
+            require
+          ></v-text-field>
 
-                    <h3 class="text-h5 mb-2 ml-5">Job type</h3>
-                    <v-select
-                        v-model="select"
-                        :items="type"
-                        :error-messages="errors"
-                        required
-                    ></v-select>
-
-                    <h3 class="text-h5 mb-2 ml-5">Description</h3>
-                    <v-textarea
-                        label="Add skills and requirements you're looking for"
-                        auto-grow
-                        outlined
-                        row-height="15"
-                    ></v-textarea>
-                    <v-btn block rounded color="teal accent-4" dark>
-                        Post and add to profile
-                    </v-btn>
-                </form>
-            </v-card>
-        </v-container>
-    </div>
+          <h3 h3 class="font-weight-medium mx-16">Description</h3>
+          <v-textarea
+            class="mx-16"
+            label="Add skills and requirements you're looking for"
+            auto-grow
+            outlined
+            row-height="15"
+          ></v-textarea>
+          <v-btn
+            type="submit"
+            class="mx-16"
+            rounded
+            color="orange darken-3"
+            dark
+          >
+            Post Job
+          </v-btn>
+        </form>
+      </v-card>
+    </v-container>
+  </div>
 </template>
 
 <script>
+import JobLayout from "../../layouts/JobLayout";
 export default {
-    data: () => ({
-        category: [
-            "Information Technology",
-            "Economy",
-            "Adminstiration Mangement",
-            "Others",
-        ],
-        work: ["On-site", "Hybird", "Remote"],
-        location: [
-            "Damascus",
-            "Aleppo",
-            "Hamah",
-            "Homs",
-            "Lattakia",
-            "Tartus",
-            "Al-Raqqah",
-            "Dayr al-Zawr",
-            "Darʿā",
-        ],
-        type: [
-            "full-time",
-            "part-time",
-            "temporary",
-            "volunteer",
-            "internship",
-        ],
+  layout: JobLayout,
+   remember: 'form',
+
+  data: () => ({
+
+    form: this.$inertia.form({
+      title: "",
+      category: "",
+      place: "",
+      location: "",
+      type: "",
+      email: "",
+      description: "",
     }),
 
-    methods: {
-        submit() {
-            this.$refs.observer.validate();
-        },
+    // category: [
+    //   "Information Technology",
+    //   "Economy",
+    //   "Adminstiration Mangement",
+    //   "Others",
+    // ],
+    // work: ["On-site", "Hybird", "Remote"],
+    // location: [
+    //   "Damascus",
+    //   "Aleppo",
+    //   "Hamah",
+    //   "Homs",
+    //   "Lattakia",
+    //   "Tartus",
+    //   "Al-Raqqah",
+    //   "Dayr al-Zawr",
+    //   "Darʿā",
+    // ],
+    // type: ["full-time", "part-time", "temporary", "volunteer", "internship"],
+  }),
+
+  methods: {
+    store() {
+      this.form.post("/jobs");
     },
+  },
 };
 </script>
 
