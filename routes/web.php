@@ -1,4 +1,5 @@
 <?php
+
 use App\Http\Controllers\JobController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -24,6 +25,8 @@ Route::get('/', function () {
     ]);
 })->name('home');
 
+Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+
 Route::get('/homepage', function () {
     return Inertia::render('User/HomePage');
 })->name('homepage');
@@ -32,7 +35,7 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 Route::get('/userprofile', function () {
     return Inertia::render('User/UserProfile');

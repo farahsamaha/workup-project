@@ -38,7 +38,9 @@
 import PersonalInfo from "@/Components/User/PersonalInfo.vue";
 import UserCv from '@/Components/User/UserCv.vue';
 import PostIndex from '../post/PostIndex.vue';
+import AuthenticatedLayout from "../../layouts/AuthenticatedLayout";
 export default {
+      layout: AuthenticatedLayout,
     components: { PersonalInfo, UserCv, PostIndex},
 };
 </script>
