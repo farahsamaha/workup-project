@@ -8,13 +8,46 @@ use Illuminate\Http\Request;
 use App\Models\Job;
 use Inertia\Inertia;
 use App\Http\Requests\StoreJobRequest;
+use App\Models\Category;
+use App\Models\Location;
+use App\Models\Type;
 
 class JobController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $jobs = Job::all();
         // $jobs = job::latest()->filter(request(['category', 'search']))->paginate(5);
+        // $query = Job::latest();
+
+        // if ($request->filled('category')) {
+        //     $query->where('category_id', $request->category);
+        // }
+
+        // if ($request->filled('location')) {
+
+
+        //     $query->whereHas('locations', function ($q) use ($request){
+        //         $q->whereIn('id', $request->location);
+        //     });
+
+        //     if ($request->filled('type')) {
+        //         $query->where('type', $request->type);
+        //     }
+        // }
+
+        // if ($request->filled('q')) {
+        //     $query->where(function ($q) use ($request) {
+        //         $q->Where('category', 'like', "%$request->q%")
+        //             ->orWhere('location', 'like', "%$request->q%")
+        //             ->orWhere('type', 'like', "%$request->q%");
+        //     });
+        // }
+
+        // $jobs = $query->paginate(1);
+        // $categories = Category::has('jobs')->get();
+        // $locations = Location::has('jobs')->get();
+        // $types = Type::has('jobs')->get();
 
         return Inertia::render('job/JobIndex' , compact('jobs'));
     }

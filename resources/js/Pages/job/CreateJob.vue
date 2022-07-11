@@ -7,15 +7,15 @@
           >Find a great hire fast!
         </v-card-title>
 
-        <form>
+        <form @submit.prevent="store">
           <h3 class="font-weight-medium mx-16">Job Title</h3>
           <v-text-field
             label="title"
             outlined
             class="mx-16"
-            v-model="title"
+            v-model="form.title"
             :counter="40"
-            :error-messages="errors"
+            :error-messages="form.errors.title"
             require
           ></v-text-field>
 
@@ -24,9 +24,8 @@
             label="Information Technology"
             class="mx-16"
             outlined
-            v-model="select"
-            :items="category"
-            :error-messages="errors"
+            v-model="form.category"
+            :error-messages="form.errors.category"
             required
           ></v-select>
 
@@ -35,9 +34,8 @@
             label="Remotly"
             class="mx-16"
             outlined
-            v-model="select"
-            :items="work"
-            :error-messages="errors"
+            v-model="form.place"
+            :error-messages="form.errors.place"
             required
           ></v-select>
 
@@ -46,9 +44,8 @@
             label="Damascus"
             class="mx-16"
             outlined
-            v-model="select"
-            :items="location"
-            :error-messages="errors"
+            v-model="form.location"
+            :error-messages="form.errors.location"
             required
           ></v-select>
 
@@ -57,9 +54,8 @@
             label="Full-time"
             class="mx-16"
             outlined
-            v-model="select"
-            :items="type"
-            :error-messages="errors"
+            v-model="form.type"
+            :error-messages="form.errors.type"
             required
           ></v-select>
           <h3 class="font-weight-medium mx-16">Email</h3>
@@ -68,9 +64,9 @@
             label="add your email for communication"
             outlined
             class="mx-16"
-            v-model="title"
             :counter="40"
-            :error-messages="errors"
+            v-model="form.email"
+            :error-messages="form.errors.email"
             require
           ></v-text-field>
 
@@ -81,6 +77,8 @@
             auto-grow
             outlined
             row-height="15"
+            v-model="form.description"
+            :error-messages="form.errors.description"
           ></v-textarea>
           <v-btn
             type="submit"
@@ -101,40 +99,21 @@
 import JobLayout from "../../layouts/JobLayout";
 export default {
   layout: JobLayout,
-   remember: 'form',
+  remember: "form",
 
-  data: () => ({
-
-    form: this.$inertia.form({
-      title: "",
-      category: "",
-      place: "",
-      location: "",
-      type: "",
-      email: "",
-      description: "",
-    }),
-
-    // category: [
-    //   "Information Technology",
-    //   "Economy",
-    //   "Adminstiration Mangement",
-    //   "Others",
-    // ],
-    // work: ["On-site", "Hybird", "Remote"],
-    // location: [
-    //   "Damascus",
-    //   "Aleppo",
-    //   "Hamah",
-    //   "Homs",
-    //   "Lattakia",
-    //   "Tartus",
-    //   "Al-Raqqah",
-    //   "Dayr al-Zawr",
-    //   "Darʿā",
-    // ],
-    // type: ["full-time", "part-time", "temporary", "volunteer", "internship"],
-  }),
+  data() {
+    return {
+      form: this.$inertia.form({
+        title: "",
+        category: "",
+        place: "",
+        location: "",
+        type: "",
+        email: "",
+        description: "",
+      }),
+    };
+  },
 
   methods: {
     store() {
