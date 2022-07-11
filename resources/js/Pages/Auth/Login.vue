@@ -2,7 +2,7 @@
   <authentication-card>
     <div>
       <v-card-title class="text-h4 justify-center teal--text">
-        {{ "login" }}
+        {{ "Login" }}
       </v-card-title>
       <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
         {{ status }}

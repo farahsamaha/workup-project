@@ -2,7 +2,7 @@
   <v-app>
     <v-app-bar app elevation="0" height="60px" fixed>
       <v-app-bar-title>
-        <v-btn elevation="0" text height="40" width="150">
+        <v-btn elevation="0" text height="40" width="150" :href="route('homepage')">
           <v-img
             class="mx-2 ml-5"
             src="/assets/logo2.png"
@@ -13,35 +13,17 @@
         ></v-btn>
       </v-app-bar-title>
       <v-spacer></v-spacer>
-      <v-btn
-        text
-        class="mx-4"
-        color="teal"
-
-        :href="route('homepage')"
-      >
+      <v-btn text class="mx-4" color="teal" :href="route('homepage')">
         <v-icon>mdi-home</v-icon>
         <span>Home</span>
       </v-btn>
 
-      <v-btn
-        text
-        class="mx-4"
-        color="teal"
-
-        :href="route('createpost')"
-      >
+      <v-btn text class="mx-4" color="teal" :href="route('createpost')">
         <v-icon>mdi-plus-box</v-icon>
         <span>Add post</span>
       </v-btn>
 
-      <v-btn
-        text
-        class="mr-9"
-        color="teal"
-
-        :href="route('jobs')"
-      >
+      <v-btn text class="mr-9" color="teal" :href="route('jobs')">
         <v-icon>mdi-wallet-travel</v-icon>
         <span>Jobs</span>
       </v-btn>
@@ -66,7 +48,11 @@
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-navigation-drawer app v-model="drawer" absolute temporary right>
         <v-list nav dense>
-          <v-list-item class="px-0" style="height: 60px">
+          <v-list-item
+            class="px-0"
+            style="height: 60px"
+            :href="route('userprofile')"
+          >
             <v-list-item-avatar size="24">
               <v-img :src="auth.user.avatar" />
             </v-list-item-avatar>
@@ -95,12 +81,7 @@
 
         <template v-slot:append>
           <div class="pa-2">
-            <v-btn
-              block
-              class="teal darken-2 white--text"
-              :href="route('logout')"
-              method="post"
-            >
+            <v-btn block class="teal accent-4 white--text" @click="logout">
               <v-icon>mdi-lock</v-icon>
               Logout
             </v-btn>
@@ -179,6 +160,11 @@ export default {
         },
       ],
     };
+  },
+  methods: {
+    logout() {
+      this.$inertia.post(route("logout"));
+    },
   },
 };
 </script>

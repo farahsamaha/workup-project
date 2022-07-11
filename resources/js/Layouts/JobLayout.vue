@@ -2,7 +2,7 @@
   <v-app>
     <v-app-bar app elevation="0" height="60px" fixed>
       <v-app-bar-title>
-        <v-btn elevation="0" text height="40" width="150">
+        <v-btn elevation="0" text height="40" width="150" :href="route('homepage')">
           <v-img
             class="mx-2 ml-5"
             src="/assets/logo2.png"
@@ -27,11 +27,6 @@
       <v-btn text class="mx-4" color="teal">
         <v-icon>mdi-wallet-travel</v-icon>
         <span>Manage jobs</span>
-      </v-btn>
-
-        <v-btn text class="mr-16" color="teal" >
-        <v-icon>mdi-post</v-icon>
-        <span>Applied jobs</span>
       </v-btn></div>
       <v-btn
         icon
@@ -44,7 +39,7 @@
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-navigation-drawer app v-model="drawer" absolute temporary right>
         <v-list nav dense>
-          <v-list-item class="px-0" style="height: 60px">
+          <v-list-item class="px-0" style="height: 60px"  :href="route('userprofile')">
             <v-list-item-avatar size="24">
               <v-img :src="auth.user.avatar" />
             </v-list-item-avatar>
@@ -75,9 +70,8 @@
           <div class="pa-2">
             <v-btn
               block
-              class="teal darken-2 white--text"
-              :href="route('logout')"
-              method="post"
+              class="teal accent-4 white--text"
+              @click="logout"
             >
               <v-icon>mdi-lock</v-icon>
               Logout
@@ -158,6 +152,11 @@ export default {
         },
       ],
     };
+  },
+    methods: {
+    logout() {
+      this.$inertia.post(route("logout"));
+    },
   },
 };
 </script>
