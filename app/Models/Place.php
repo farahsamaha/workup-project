@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Place extends Model
 {
     use HasFactory;
+    protected $fillable = ['name'];
+    public $timestamps = false;
+
+    public function jobs() {
+        return $this->belongsToMany(Job::class);
+    }
 }

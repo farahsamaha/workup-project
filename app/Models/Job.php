@@ -18,4 +18,10 @@ class Job extends Model
     {
         return $this->hasMany(Location::class);
     }
+    public function types() {
+        return $this->belongsToMany(Type::class);
+    }
+    public function places() {
+        return $this->belongsToMany(Place::class);
+    }
 }
