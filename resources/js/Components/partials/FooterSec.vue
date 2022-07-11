@@ -4,23 +4,17 @@
       flat
       tile
       class="teal accent-4 white--text text-center"
-      height="160"
       width="100%"
+      height="112"
     >
       <v-card-text>
         <v-btn v-for="icon in icons" :key="icon" class="mx-4 white--text" icon>
           <v-icon size="24px">
             {{ icon }}
           </v-icon>
-        </v-btn>
-      </v-card-text>
-
-      <v-card-text class="white--text pt-0">
-      Get connected with us on social networks!
-      </v-card-text>
-
-      <v-card-text class="white--text">
-        {{ new Date().getFullYear() }} — <strong>Work Up</strong>
+        </v-btn><br>
+           Get connected with us on social networks!<br>
+      {{ new Date().getFullYear() }} — <strong>Work Up</strong>
       </v-card-text>
     </v-card>
   </v-footer>
