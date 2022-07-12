@@ -24,40 +24,48 @@
             label="Information Technology"
             class="mx-16"
             outlined
-            v-model="form.category"
-            :error-messages="form.errors.category"
+            v-model="form.category_id"
+            :error-messages="form.errors.category_id"
             required
-          ></v-select>
+          >
+          <option v-for="category in categories" :key="category.id" :value="category.id">{{ category.name }}</option>
+          </v-select>
 
           <h3 class="font-weight-medium mx-16">Work place type</h3>
           <v-select
             label="Remotly"
             class="mx-16"
             outlined
-            v-model="form.place"
-            :error-messages="form.errors.place"
+            v-model="form.place_id"
+            :error-messages="form.errors.place_id"
             required
-          ></v-select>
+          >
+          <option v-for="place in places" :key="place.id" :value="place.id">{{ place.name }}</option>
+          </v-select>
 
           <h3 class="font-weight-medium mx-16">Job location</h3>
           <v-select
             label="Damascus"
             class="mx-16"
             outlined
-            v-model="form.location"
-            :error-messages="form.errors.location"
+            v-model="form.location_id"
+            :error-messages="form.errors.location_id"
             required
-          ></v-select>
+          >
+          <option v-for="location in locations" :key="location.id" :value="location.id">{{ location.name }}</option>
+          </v-select>
 
           <h3 class="font-weight-medium mx-16">Job type</h3>
           <v-select
             label="Full-time"
             class="mx-16"
             outlined
-            v-model="form.type"
-            :error-messages="form.errors.type"
+            v-model="form.type_id"
+            :error-messages="form.errors.type_id"
             required
-          ></v-select>
+          >
+          <option v-for="type in types" :key="type.id" :value="type.id">{{ type.name }}</option>
+          </v-select>
           <h3 class="font-weight-medium mx-16">Email</h3>
           <v-text-field
             type="email"
@@ -101,14 +109,20 @@ export default {
   layout: JobLayout,
   remember: "form",
 
+ props: {
+    categories: Array,
+    places:Array,
+    locations:Array,
+    Types:Array
+  },
   data() {
     return {
       form: this.$inertia.form({
         title: "",
-        category: "",
-        place: "",
-        location: "",
-        type: "",
+        category_id: null,
+        place_id: null,
+        location_id: null,
+        type_id: null,
         email: "",
         description: "",
       }),
