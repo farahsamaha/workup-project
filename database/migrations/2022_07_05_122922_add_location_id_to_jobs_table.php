@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('jobs', function (Blueprint $table) {
-            $table->foreignId('location_id')->after('type');
+            $table->foreignId('location_id');
         });
     }
 

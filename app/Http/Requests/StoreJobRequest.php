@@ -25,12 +25,12 @@ class StoreJobRequest extends FormRequest
     {
         return [
             'title' => 'required',
-            'category_id'=> 'required|exists:categories,id',
-            'place_id'=> 'required|exists:places,id',
-            'type_id'=> 'required|exists:types,id',
+            'email' => 'required|email',
+            'description' => 'required',
+            'category_id' => 'required|exists:categories,id',
             'location_id' => 'required|exists:locations,id',
-            'email' => ['required', 'email'],
-            'description' => 'required'
+            'type'        => 'required|exists:types,id',
+            'place'       => 'required|exists:placess,id'
         ];
     }
 }
