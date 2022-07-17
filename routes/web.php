@@ -45,11 +45,7 @@ Route::get('/createpost', function () {
     return Inertia::render('post/CreatePost');
 })->name('createpost');
 
-// Route::get('/jobindex', 'JobController@index')->name('jobindex');
 
-// Route::get('/jobindex', function () {
-//     return Inertia::render('job/JobIndex');
-// })->name('jobindex');
 
 Route::get('/jobindex', [JobController::class, 'index'])
     ->name('jobs')
@@ -60,17 +56,12 @@ Route::get('/showjob', function () {
 })->name('showjob');
 
 
-// Route::get('/createjob', function () {
-//     return Inertia::render('job/CreateJob');
-// })->name('createjob');
-
-
 Route::get('/createjob', [JobController::class, 'create'])
     ->name('createjob')
     ->middleware('auth');
 
 Route::post('jobs', [JobController::class, 'store'])
-    ->name('job.store')
+    ->name('jobs.store')
     ->middleware('auth');
 
 Route::get('jobs/{job}/edit', [JobController::class, 'edit'])
@@ -84,3 +75,7 @@ Route::put('jobs/{job}', [JobController::class, 'update'])
 Route::delete('jobs/{job}', [JobController::class, 'destroy'])
     ->name('job.destroy')
     ->middleware('auth');
+
+    Route::get('/managejob', function () {
+        return Inertia::render('job/ManageJob');
+    })->name('managejob');
