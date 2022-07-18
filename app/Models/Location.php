@@ -11,8 +11,8 @@ class Location extends Model
     protected $fillable = ['name'];
     public $timestamps = false;
 
-    public function job()
+    public function jobs()
     {
-        return $this->belongsTo(job::class);
+        return $this->hasMany(Job::class);
     }
 }
