@@ -27,10 +27,10 @@ class StoreJobRequest extends FormRequest
             'title' => 'required',
             'email' => 'required|email',
             'description' => 'required',
-            'category_id' => 'required|exists:categories,id',
-            'location_id' => 'required|exists:locations,id',
-            'type'        => 'required|exists:types,id',
-            'place'       => 'required|exists:placess,id'
+            'category_id' => 'required|numeric|exists:categories,id',
+            'location_id' => 'required|numeric|exists:locations,id',
+            'type_id'        => 'required|numeric|exists:types,id',
+            'place_id'       => 'required|numeric|exists:places,id'
         ];
     }
 }
