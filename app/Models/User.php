@@ -12,6 +12,28 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    public function cities()
+    {
+        return $this->belongsTo(City::class);
+    }
+    public function skills()
+    {
+        return $this->belongsToMany(Skill::class);
+    }
+    public function experience()
+    {
+        return $this->belongsToMany(Experience::class);
+    }
+    public function volunteering()
+    {
+        return $this->belongsToMany(Volunteering::class);
+    }
+    public function education()
+    {
+        return $this->belongsToMany(Education::class);
+    }
+
+
     /**
      * The attributes that are mass assignable.
      *
@@ -21,8 +43,15 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        ('name'),
+        ('birth_date'),
+        ('about'),
+        ('skill'),
+        ('experince'),
+        ('volunteering'),
+        ('education')
     ];
-
+    public $timestamps = false;
     /**
      * The attributes that should be hidden for serialization.
      *
