@@ -4,14 +4,20 @@
       <div v-if="Message" class="alert alert-success mt-4">
         {{ Message }}
       </div>
-       </div> -->
+    </div> -->
 
     <v-col>
-      <search-filter />
+      <search-filter
+        :categories="categories"
+        :locations="locations"
+        :types="types"
+      />
 
-      <!-- <div v-for="job in jobs" :key="job.id"> -->
-      <job-card />
-      <!-- </div> -->
+      <v-row align-content="center" justify="center" class="mt-5">
+        <v-col cols="8" v-for="job in jobs.data" :key="job.id">
+          <job-card class="ml-16" :job="job" />
+        </v-col>
+      </v-row>
       <div class="text-center">
         <v-pagination
           color="orange"
@@ -38,7 +44,11 @@ export default {
       page: 1,
     };
   },
-  props: ["jobs", "Message"],
+  props: ["jobs", "Message", "types", "locations", "categories"],
+
+  mounted() {
+    console.log(this.jobs);
+  },
 };
 </script>
 
