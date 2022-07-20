@@ -5,17 +5,6 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 Route::get('/', function () {
     return Inertia::render('Guest/HomePage', [
         'canLogin' => Route::has('login'),
@@ -51,10 +40,11 @@ Route::get('/jobindex', [JobController::class, 'index'])
     ->name('jobs')
     ->middleware('auth');
 
-Route::get('/showjob', function () {
-    return Inertia::render('job/ShowJob');
-})->name('showjob');
 
+
+Route::get('/showjob', [JobController::class, 'show'])
+    ->name('showjob')
+    ->middleware('auth');
 
 Route::get('/createjob', [JobController::class, 'create'])
     ->name('createjob')
@@ -76,6 +66,6 @@ Route::delete('jobs/{job}', [JobController::class, 'destroy'])
     ->name('job.destroy')
     ->middleware('auth');
 
-    Route::get('/managejob', function () {
-        return Inertia::render('job/ManageJob');
-    })->name('managejob');
+Route::get('/managejob', [JobController::class, 'manage'])
+    ->name('managejob')
+    ->middleware('auth');

@@ -4,102 +4,88 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-// use Illuminate\Support\Str;
 use App\Models\Job;
 use Inertia\Inertia;
 use App\Http\Requests\StoreJobRequest;
 use App\Models\Category;
 use App\Models\Location;
+use App\Models\Place;
 use App\Models\Type;
+use Illuminate\Support\Facades\Redirect;
 
 class JobController extends Controller
 {
     public function index(Request $request)
     {
-        $jobs = Job::all();
-        // $jobs = job::latest()->filter(request(['category', 'search']))->paginate(5);
-        // $query = Job::latest();
+        $query = Job::first();
+        $jobs = Job::first()->filter(request(['category', 'location', 'type', 'search']));
 
-        // if ($request->filled('category')) {
-        //     $query->where('category_id', $request->category);
-        // }
+        $categories = Category::get();
+        $locations = Location::get();
+        $types = Type::get();
 
-        // if ($request->filled('location')) {
-
-
-        //     $query->whereHas('locations', function ($q) use ($request){
-        //         $q->whereIn('id', $request->location);
-        //     });
-
-        //     if ($request->filled('type')) {
-        //         $query->where('type', $request->type);
-        //     }
-        // }
-
-        // if ($request->filled('q')) {
-        //     $query->where(function ($q) use ($request) {
-        //         $q->Where('category', 'like', "%$request->q%")
-        //             ->orWhere('location', 'like', "%$request->q%")
-        //             ->orWhere('type', 'like', "%$request->q%");
-        //     });
-        // }
-
-        // $jobs = $query->paginate(1);
-        // $categories = Category::has('jobs')->get();
-        // $locations = Location::has('jobs')->get();
-        // $types = Type::has('jobs')->get();
-
-        return Inertia::render('job/JobIndex' , compact('jobs'));
+        $jobs = $query->paginate(4);
+        return Inertia::render('job/JobIndex', compact('jobs', 'categories', 'locations', 'types'));
     }
 
     // Show job details
     public function show(job $job)
     {
-        return Inertia::render('job/ShowJob' , compact('job'));
+        $job = Job::get();
+        return Inertia::render('job/ShowJob', compact('job'));
     }
 
     public function create()
     {
-        return Inertia::render('job/CreateJob');
+        $categories = Category::all(['id', 'name']);
+        $locations = Location::all(['id', 'name']);
+        $types = Type::all(['id', 'name']);
+        $places = Place::all(['id', 'name']);
+
+        return Inertia::render('job/CreateJob', compact('types', 'places', 'categories', 'locations'));
     }
 
-    public function store(StorejobRequest $request)
+    public function store(StorejobRequest $request, job $job)
     {
-        $data = $request->validated();
-
 
         $data['user_id'] = auth()->id();
 
+        $data = $request->validated();
+        $job->types()->attach($request->types);
+        $job->places()->attach($request->places);
+
         job::create($data);
 
-        return Inertia::route('job/JobIndex')->with('message', 'job created successfully!');
+        return Redirect::route('jobs')->with('message', 'job created successfully!');
     }
 
 
     public function edit(Job $job)
     {
+
+
         $this->authorize('update', $job);
 
-        return Inertia::render('job/EditJob' , compact('job'));
+        $categories = Category::all(['id', 'name']);
+        $locations = Location::all(['id', 'name']);
+        $types = Type::all(['id', 'name']);
+        $places = Place::all(['id', 'name']);
+
+        return Inertia::render('job/EditJob', compact('job', 'types', 'places', 'categories', 'locations'));
     }
 
 
+    // u might need to create another reqeust for updateing jobrequest
     public function update(StorejobRequest $request, Job $job)
     {
-       $this->authorize('update', $job);
+        $this->authorize('update', $job);
 
-        $data = $request->validate([
-            'title' => 'required',
-            'category'=> 'required',
-            'place'=> 'required',
-            'type'=> 'required',
-            'location' => 'required',
-            'email' => ['required', 'email'],
-            'description' => 'required'
-        ]);
+        $data = $request->validated();
 
 
         $job->update($data);
+        $job->types()->sync($request->types);
+        $job->places()->sync($request->places);
 
         return back()->with('message', 'job updated successfully!');
     }
@@ -110,5 +96,13 @@ class JobController extends Controller
 
         $job->delete();
         return Inertia::route('job/JobIndex')->with('message', 'job deleted successfully!');
+    }
+
+
+    public function manage(Job $job)
+    {
+        $jobs = Job::get();
+
+        return Inertia::render('job/ManageJob', compact('jobs'));
     }
 }
