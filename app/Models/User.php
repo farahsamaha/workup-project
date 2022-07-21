@@ -43,13 +43,13 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        ('name'),
-        ('birth_date'),
-        ('about'),
-        ('skill'),
-        ('experince'),
-        ('volunteering'),
-        ('education')
+        'birth_date',
+        'about',
+        'skill',
+        'experince',
+        'volunteering',
+        'education',
+        'mobile'
     ];
     public $timestamps = false;
     /**
