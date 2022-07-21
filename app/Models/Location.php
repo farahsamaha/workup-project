@@ -13,6 +13,6 @@ class Location extends Model
 
     public function job()
     {
-        return $this->belongsTo(job::class);
+        return $this->hasMany(job::class);
     }
 }

@@ -11,12 +11,12 @@ class Job extends Model
 
     public function categories()
     {
-        return $this->hasMany(Category::class);
+        return $this->belongsTo(Category::class);
     }
 
     public function locations()
     {
-        return $this->hasMany(Location::class);
+        return $this->belongsTo(Location::class);
     }
     public function types() {
         return $this->belongsToMany(Type::class);
