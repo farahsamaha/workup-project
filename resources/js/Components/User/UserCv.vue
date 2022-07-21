@@ -32,34 +32,34 @@
 <script>
 export default {
     data: () => ({
-        items: [
-            {
-                action: "mdi-ticket",
-                active: true,
-                items: [
-                    { title: "Communication" },
-                    { title: "Research" },
-                    { title: "English" },
-                    { title: "Arabic" },
-                ],
-                title: "Skills",
-            },
-            {
-                action: "mdi-school",
-                items: [{ title: "Software Engineering" }],
-                title: "Education",
-            },
-            {
-                action: "mdi-briefcase",
-                items: [{ title: "3 Years of teaching" }],
-                title: "Experience",
-            },
-            {
-                action: "mdi-bottle-tonic-plus",
-                items: [{ title: "At Kona Wa Sanbaa" }],
-                title: "Volunteering",
-            },
-        ],
+        // items: [
+        //     {
+        //         action: "mdi-ticket",
+        //         active: true,
+        //         items: [
+        //             { title: "Communication" },
+        //             { title: "Research" },
+        //             { title: "English" },
+        //             { title: "Arabic" },
+        //         ],
+        //         title: "Skills",
+        //     },
+        //     {
+        //         action: "mdi-school",
+        //         items: [{ title: "Software Engineering" }],
+        //         title: "Education",
+        //     },
+        //     {
+        //         action: "mdi-briefcase",
+        //         items: [{ title: "3 Years of teaching" }],
+        //         title: "Experience",
+        //     },
+        //     {
+        //         action: "mdi-bottle-tonic-plus",
+        //         items: [{ title: "At Kona Wa Sanbaa" }],
+        //         title: "Volunteering",
+        //     },
+        // ],
     }),
 };
 </script>
