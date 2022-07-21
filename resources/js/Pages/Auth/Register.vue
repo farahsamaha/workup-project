@@ -36,9 +36,11 @@
         </v-col>
         <v-col cols="12">
           <v-text-field
+            :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+            @click:append="show1 = !show1"
+            :type="show1 ? 'text' : 'password'"
             v-model="form.password"
             name="password"
-            type="password"
             label="Password"
             hide-details="auto"
             autocomplete="new-password"
@@ -50,9 +52,11 @@
         </v-col>
         <v-col cols="12">
           <v-text-field
+            :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
+            @click:append="show2 = !show2"
             v-model="form.password_confirmation"
+            :type="show1 ? 'text' : 'password'"
             name="password"
-            type="password"
             label="Confirm Password"
             hide-details="auto"
             autocomplete="new-password"
@@ -111,6 +115,8 @@ export default {
 
   data() {
     return {
+      show1: false,
+      show2: false,
       form: this.$inertia.form({
         name: "",
         email: "",

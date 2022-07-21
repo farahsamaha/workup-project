@@ -2,7 +2,14 @@
   <v-app>
     <v-app-bar app elevation="0" height="60px" fixed>
       <v-app-bar-title>
-        <v-btn elevation="0" text height="40" width="150" :href="route('homepage')">
+        <v-btn
+          elevation="0"
+          text
+          height="40"
+          width="150"
+          :href="route('homepage')"
+          @click.prevent="$inertia.visit(route('homepage'))"
+        >
           <v-img
             class="mx-2 ml-5"
             src="/assets/logo2.png"
@@ -14,23 +21,42 @@
       </v-app-bar-title>
       <v-spacer></v-spacer>
       <div>
-      <v-btn text class="mx-4" color="teal"    :href="route('homepage')">
-        <v-icon>mdi-home</v-icon>
-        <span>Home</span>
-      </v-btn>
+        <v-btn
+          text
+          class="mx-4"
+          color="teal"
+          :href="route('jobs')"
+          @click.prevent="$inertia.visit(route('jobs'))"
+        >
+          <v-icon>mdi-home</v-icon>
+          <span>Home</span>
+        </v-btn>
 
-      <v-btn text class="mx-4" color="teal"    :href="route('createjob')">
-        <v-icon>mdi-plus-box</v-icon>
-        <span>Add Job</span>
-      </v-btn>
+        <v-btn
+          text
+          class="mx-4"
+          color="teal"
+          :href="route('createjob')"
+          @click.prevent="$inertia.visit(route('createjob'))"
+        >
+          <v-icon>mdi-plus-box</v-icon>
+          <span>Add Job</span>
+        </v-btn>
 
-      <v-btn text class="mx-4" color="teal">
-        <v-icon>mdi-wallet-travel</v-icon>
-        <span>Manage jobs</span>
-      </v-btn></div>
+        <v-btn
+          text
+          class="mx-4"
+          color="teal"
+          :href="route('managejob')"
+          @click.prevent="$inertia.visit(route('managejob'))"
+        >
+          <v-icon>mdi-wallet-travel</v-icon>
+          <span>Manage jobs</span>
+        </v-btn>
+      </div>
       <v-btn
         icon
-        @click="$vuetify.theme.dark = !$vuetify.theme.dark"
+        @click.prevent="$vuetify.theme.dark = !$vuetify.theme.dark"
         class="teal--text"
       >
         <v-icon v-if="!$vuetify.theme.dark"> mdi-weather-night </v-icon>
@@ -39,7 +65,11 @@
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-navigation-drawer app v-model="drawer" absolute temporary right>
         <v-list nav dense>
-          <v-list-item class="px-0" style="height: 60px"  :href="route('userprofile')">
+          <v-list-item
+            class="px-0"
+            style="height: 60px"
+            :href="route('userprofile')"
+          >
             <v-list-item-avatar size="24">
               <v-img :src="auth.user.avatar" />
             </v-list-item-avatar>
@@ -68,11 +98,7 @@
 
         <template v-slot:append>
           <div class="pa-2">
-            <v-btn
-              block
-              class="teal accent-4 white--text"
-              @click="logout"
-            >
+            <v-btn block class="teal accent-4 white--text" @click="logout">
               <v-icon>mdi-lock</v-icon>
               Logout
             </v-btn>
@@ -113,16 +139,16 @@ import SideBar from "@/components/partials/SideBar";
 import FooterSec from "@/components/partials/FooterSec.vue";
 
 export default {
-//   data() {
-//     return {
+  //   data() {
+  //     return {
 
-//       items: [
-//         { title: "Dashboard", icon: "mdi-view-dashboard" },
-//         { title: "Account", icon: "mdi-account-box" },
-//         { title: "Admin", icon: "mdi-gavel" },
-//       ],
-//     };
-//   },
+  //       items: [
+  //         { title: "Dashboard", icon: "mdi-view-dashboard" },
+  //         { title: "Account", icon: "mdi-account-box" },
+  //         { title: "Admin", icon: "mdi-gavel" },
+  //       ],
+  //     };
+  //   },
   components: {
     FlashMessages,
     SideBar,
@@ -153,7 +179,7 @@ export default {
       ],
     };
   },
-    methods: {
+  methods: {
     logout() {
       this.$inertia.post(route("logout"));
     },

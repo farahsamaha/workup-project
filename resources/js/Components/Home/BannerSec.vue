@@ -5,7 +5,7 @@
         <v-layout align-center justify-center column fill-height>
           <h1
             class="white--text"
-               v-vue-aos="{
+            v-vue-aos="{
               animationClass: ' animate__slideInDown animate__animated',
             }"
           >
@@ -22,7 +22,8 @@
               class="mt-7 white--text"
               elevation="4"
               rounded
-               :href="route('register')"
+              :href="route('register')"
+              @click.prevent="$inertia.visit(route('register'))"
               >register now</v-btn
             >
           </v-hover>
@@ -33,7 +34,7 @@
 </template>
 
 <script>
-export default {}
+export default {};
 </script>
 
 <style>

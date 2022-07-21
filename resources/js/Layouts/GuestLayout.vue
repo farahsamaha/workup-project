@@ -7,7 +7,14 @@
       fixed
       scroll-target="#scrolling-techniques"
     >
-      <v-btn elevation="0" text height="40" width="150" :href="route('home')">
+      <v-btn
+        elevation="0"
+        text
+        height="40"
+        width="150"
+        :href="route('home')"
+        @click.prevent="$inertia.visit(route('home'))"
+      >
         <v-img
           class="mx-2 ml-5"
           src="/assets/logo2.png"
@@ -36,6 +43,7 @@
             text
             height="35"
             :href="route('login')"
+            @click.prevent="$inertia.visit(route('login'))"
           >
             Log in
           </v-btn>
@@ -46,6 +54,7 @@
             height="35"
             v-if="canRegister"
             :href="route('register')"
+            @click.prevent="$inertia.visit(route('register'))"
           >
             Register</v-btn
           >
@@ -53,7 +62,7 @@
       </div>
       <v-btn
         icon
-        @click="$vuetify.theme.dark = !$vuetify.theme.dark"
+        @click.prevent="$vuetify.theme.dark = !$vuetify.theme.dark"
         class="teal--text"
       >
         <v-icon v-if="!$vuetify.theme.dark"> mdi-weather-night </v-icon>
