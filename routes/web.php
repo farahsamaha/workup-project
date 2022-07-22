@@ -17,7 +17,7 @@ Route::get('/', function () {
 Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
 Route::get('/homepage', function () {
-    return Inertia::render('User/HomePage');
+    return Inertia::render('post/HomePage');
 })->name('homepage');
 
 Route::get('/dashboard', function () {
