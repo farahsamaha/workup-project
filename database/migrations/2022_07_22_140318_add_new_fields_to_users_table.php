@@ -13,9 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('user_volunteering', function (Blueprint $table) {
-            $table->foreignId('user_id');
-            $table->foreignId('volunteering_id');
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('featured_image')->after('about')->nullable();
+            $table->string('mobile')->after('featured_image')->nullable();
         });
     }
 
@@ -26,6 +26,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_volunteering');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('featured_image');
+            $table->dropColumn('mobile');
+        });
     }
 };

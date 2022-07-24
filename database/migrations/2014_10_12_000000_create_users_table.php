@@ -22,10 +22,6 @@ return new class extends Migration
             $table->rememberToken();
             $table->date('birth_date')->nullable();
             $table->string('about')->nullable();
-            $table->string('skill');
-            $table->string('experince');
-            $table->string('volunteering');
-            $table->string('education');
             $table->timestamps();
 
         });

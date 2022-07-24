@@ -13,9 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('education_user', function (Blueprint $table) {
-            $table->foreignId('user_id');
-            $table->foreignId('education_id');
+        Schema::create('certificates', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->timestamps();
         });
     }
 
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('education_user');
+        Schema::dropIfExists('certificates');
     }
 };

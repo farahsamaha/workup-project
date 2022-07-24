@@ -12,25 +12,26 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    public function cities()
+
+    public function locations()
     {
-        return $this->belongsTo(City::class);
+        return $this->belongsTo(Location::class );
     }
     public function skills()
     {
-        return $this->belongsToMany(Skill::class);
+        return $this->belongsToMany(Skill::class , 'skills');
     }
-    public function experience()
+    public function experiences()
     {
-        return $this->belongsToMany(Experience::class);
+        return $this->belongsToMany(Experience::class , 'experiences');
     }
-    public function volunteering()
+    public function organizations()
     {
-        return $this->belongsToMany(Volunteering::class);
+        return $this->belongsToMany(Organization::class , 'organizations');
     }
-    public function education()
+    public function certificates()
     {
-        return $this->belongsToMany(Education::class);
+        return $this->belongsToMany(Certificate::class , 'certificates');
     }
 
 
@@ -45,11 +46,9 @@ class User extends Authenticatable
         'password',
         'birth_date',
         'about',
-        'skill',
-        'experince',
-        'volunteering',
-        'education',
-        'mobile'
+        'featured_image',
+        'mobile',
+        'location_id'
     ];
     public $timestamps = false;
     /**

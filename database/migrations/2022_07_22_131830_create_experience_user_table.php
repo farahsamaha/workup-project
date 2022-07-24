@@ -13,9 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('featured_image')->after('education');
-            $table->string('mobile')->after('featured_image');
+        Schema::create('experience_user', function (Blueprint $table) {
+            $table->foreignId('experince_id');
+            $table->foreignId('user_id');
         });
     }
 
@@ -26,9 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('featured_image');
-            $table->dropColumn('mobile');
-        });
+        Schema::dropIfExists('experience_user');
     }
 };
