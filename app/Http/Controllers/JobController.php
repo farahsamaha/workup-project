@@ -87,7 +87,7 @@ class JobController extends Controller
         $job->types()->sync($request->types);
         $job->places()->sync($request->places);
 
-        return back()->with('message', 'job updated successfully!');
+        return Inertia::route('job/JobIndex')->with('message', 'job updated successfully!');
     }
 
     public function destroy(Job $job)
@@ -104,5 +104,14 @@ class JobController extends Controller
         $jobs = Job::get();
 
         return Inertia::render('job/ManageJob', compact('jobs'));
+    }
+
+
+    public function apply(Job $job, $id)
+    {
+        $job = Job::find($id);
+        $job->like();
+        $job->save();
+        return Inertia::route('job/ShowJob')->with('message', 'job applied successfully!');
     }
 }

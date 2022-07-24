@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
@@ -18,7 +19,7 @@ Route::get('/', function () {
 Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
 Route::get('/homepage', function () {
-    return Inertia::render('User/HomePage');
+    return Inertia::render('post/HomePage');
 })->name('homepage');
 
 Route::get('/dashboard', function () {
@@ -31,9 +32,15 @@ Route::get('/userprofile', [UserController::class, 'index'])
     ->name('userprofile')
     ->middleware('auth');
 
-// // Route::get('/createuser', function () {
-// //     return Inertia::render('User/createuser');
-// })->name('createuser');
+
+Route::get('/createpost', function () {
+    return Inertia::render('post/CreatePost');
+})->name('createpost');
+
+
+Route::get('/createuser', function () {
+    return Inertia::render('post/CreateUser');
+})->name('createuser');
 
 Route::get('/createuser', [UserController::class, 'create'])
     ->name('createuser')
@@ -58,6 +65,15 @@ Route::get('/createpost', function () {
 })->name('createpost');
 
 
+// Route::get('/createpost', function () {
+//     return Inertia::render('post/CreatePost');
+// })->name('createpost');
+
+
+Route::get('/createpost', [PostController::class, 'create'])
+    ->name('createpost')
+    ->middleware('auth');
+
 Route::get('/jobindex', [JobController::class, 'index'])
     ->name('jobs')
     ->middleware('auth');
@@ -74,13 +90,13 @@ Route::post('jobs', [JobController::class, 'store'])
     ->name('jobs.store')
     ->middleware('auth');
 
-Route::get('jobs/{job}/edit', [JobController::class, 'edit'])
-    ->name('job.edit')
-    ->middleware('auth');
+// Route::get('jobs/{job}/edit', [JobController::class, 'edit'])
+//     ->name('job.edit')
+//     ->middleware('auth');
 
-Route::put('jobs/{job}', [JobController::class, 'update'])
-    ->name('job.update')
-    ->middleware('auth');
+// Route::put('jobs/{job}', [JobController::class, 'update'])
+//     ->name('job.update')
+//     ->middleware('auth');
 
 Route::delete('jobs/{job}', [JobController::class, 'destroy'])
     ->name('job.destroy')
