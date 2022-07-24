@@ -28,20 +28,42 @@ Route::get('/dashboard', function () {
 
 require __DIR__ . '/auth.php';
 
-Route::get('/userprofile', function () {
-    return Inertia::render('User/UserIndex');
-})->name('userprofile');
+Route::get('/userprofile', [UserController::class, 'index'])
+    ->name('userprofile')
+    ->middleware('auth');
 
-// Route::get('/createpost', function () {
-//     return Inertia::render('post/CreatePost');
-// })->name('createpost');
-// Route::get('/createuser', function () {
-//     return Inertia::render('post/CreateUser');
-// })->name('createuser');
+
+Route::get('/createpost', function () {
+    return Inertia::render('post/CreatePost');
+})->name('createpost');
+
+
+Route::get('/createuser', function () {
+    return Inertia::render('post/CreateUser');
+})->name('createuser');
 
 Route::get('/createuser', [UserController::class, 'create'])
     ->name('createuser')
     ->middleware('auth');
+
+Route::get('users/{job}/edit', [UserController::class, 'edit'])
+    ->name('user.edit')
+    ->middleware('auth');
+
+Route::put('users/{user}', [UserController::class, 'update'])
+    ->name('user.update')
+    ->middleware('auth');
+
+Route::delete('users/{user}', [UserController::class, 'destroy'])
+    ->name('user.destroy')
+    ->middleware('auth');
+
+
+
+Route::get('/createpost', function () {
+    return Inertia::render('post/CreatePost');
+})->name('createpost');
+
 
 // Route::get('/createpost', function () {
 //     return Inertia::render('post/CreatePost');
@@ -55,8 +77,6 @@ Route::get('/createpost', [PostController::class, 'create'])
 Route::get('/jobindex', [JobController::class, 'index'])
     ->name('jobs')
     ->middleware('auth');
-
-
 
 Route::get('/showjob', [JobController::class, 'show'])
     ->name('showjob')

@@ -13,7 +13,7 @@ class StoreUserRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,15 +24,17 @@ class StoreUserRequest extends FormRequest
     public function rules()
     {
         return [
+            'name' => 'required',
+            'email' => 'required',
             'birth_date' => 'required',
             'about' => 'required',
-            'city_id'=> 'required|exists:cities,id',
-            'skill_id'=> 'required|exists:skills,id',
-            'education_id'=> 'required|exists:education,id',
-            'experince_id' => 'required|exists:experince,id',
-            'volunteering_id' => 'required|exists:volunteering,id',
             'featured_image' =>'file|image',
-            'mobile' => 'required|numeric'
+            'mobile' => 'required|numeric',
+            'location_id'=> 'required|numeric|exists:locations,id',
+            'skill_id'=> 'required|numeric|exists:skills,id',
+            'certificate_id'=> 'required|numeric|exists:certificates,id',
+            'experience_id' => 'required|numeric|exists:experiences,id',
+            'organization_id' => 'required|numeric|exists:organizations,id'
         ];
     }
 }
