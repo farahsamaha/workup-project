@@ -15,8 +15,10 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->increments('id');
-            $table->text('body');
+            $table->text('content');
+            $table->string('image')->nullable();
             $table->timestamp('published_at')->nullable();
+            $table->softDeletes();
         });
     }
 

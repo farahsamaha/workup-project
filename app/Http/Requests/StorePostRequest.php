@@ -24,7 +24,8 @@ class StorePostRequest extends FormRequest
     public function rules()
     {
         return [
-            'body' => 'required'
+            'content' => 'required',
+            'image' => 'nullable|image|max:2048'
         ];
     }
 }
