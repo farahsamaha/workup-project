@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\JobController;
+use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -27,8 +28,16 @@ Route::get('/dashboard', function () {
 require __DIR__ . '/auth.php';
 
 Route::get('/userprofile', function () {
-    return Inertia::render('User/UserProfile');
+    return Inertia::render('User/UserIndex');
 })->name('userprofile');
+
+// Route::get('/createuser', function () {
+//     return Inertia::render('post/CreateUser');
+// })->name('createuser');
+
+Route::get('/createuser', [UserController::class, 'create'])
+    ->name('createuser')
+    ->middleware('auth');
 
 Route::get('/createpost', function () {
     return Inertia::render('post/CreatePost');
