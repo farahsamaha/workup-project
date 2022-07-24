@@ -1,7 +1,7 @@
 <?php
 
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\JobController;
-use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -28,22 +28,17 @@ Route::get('/dashboard', function () {
 require __DIR__ . '/auth.php';
 
 Route::get('/userprofile', function () {
-    return Inertia::render('User/UserIndex');
+    return Inertia::render('User/UserProfile');
 })->name('userprofile');
 
-// Route::get('/createuser', function () {
-//     return Inertia::render('post/CreateUser');
-// })->name('createuser');
+// Route::get('/createpost', function () {
+//     return Inertia::render('post/CreatePost');
+// })->name('createpost');
 
-Route::get('/createuser', [UserController::class, 'create'])
-    ->name('createuser')
+
+Route::get('/createpost', [PostController::class, 'create'])
+    ->name('createpost')
     ->middleware('auth');
-
-Route::get('/createpost', function () {
-    return Inertia::render('post/CreatePost');
-})->name('createpost');
-
-
 
 Route::get('/jobindex', [JobController::class, 'index'])
     ->name('jobs')
@@ -63,13 +58,13 @@ Route::post('jobs', [JobController::class, 'store'])
     ->name('jobs.store')
     ->middleware('auth');
 
-Route::get('jobs/{job}/edit', [JobController::class, 'edit'])
-    ->name('job.edit')
-    ->middleware('auth');
+// Route::get('jobs/{job}/edit', [JobController::class, 'edit'])
+//     ->name('job.edit')
+//     ->middleware('auth');
 
-Route::put('jobs/{job}', [JobController::class, 'update'])
-    ->name('job.update')
-    ->middleware('auth');
+// Route::put('jobs/{job}', [JobController::class, 'update'])
+//     ->name('job.update')
+//     ->middleware('auth');
 
 Route::delete('jobs/{job}', [JobController::class, 'destroy'])
     ->name('job.destroy')
