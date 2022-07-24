@@ -43,9 +43,9 @@ Route::get('/createuser', [UserController::class, 'create'])
     ->name('createuser')
     ->middleware('auth');
 
-Route::get('/createpost', function () {
-    return Inertia::render('post/CreatePost');
-})->name('createpost');
+// Route::get('/createpost', function () {
+//     return Inertia::render('post/CreatePost');
+// })->name('createpost');
 
 
 Route::get('/createpost', [PostController::class, 'create'])
