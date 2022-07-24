@@ -30,8 +30,6 @@
             outlined
             required
             class="mx-6 my-1"
-            @input="$v.email.$touch()"
-            @blur="$v.email.$touch()"
           />
         </v-col>
         <v-col cols="12">
