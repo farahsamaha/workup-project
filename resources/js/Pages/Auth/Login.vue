@@ -20,8 +20,6 @@
               outlined
               required
               class="mx-6 my-3"
-              @input="$v.email.$touch()"
-              @blur="$v.email.$touch()"
             />
           </v-col>
           <v-col cols="12">
@@ -37,7 +35,6 @@
               required
               color="#000000"
               class="mx-6 my-3"
-
             />
           </v-col>
           <v-col cols="12">
@@ -68,8 +65,12 @@
             </v-container>
           </v-col></v-row
         >
-             <div class="flex px-10 py-4 bg-gray-100 border-t border-gray-100">
-          <loading-button :loading="form.processing" class="btn-indigo ml-auto" type="submit"></loading-button>
+        <div class="flex px-10 py-4 bg-gray-100 border-t border-gray-100">
+          <loading-button
+            :loading="form.processing"
+            class="btn-indigo ml-auto"
+            type="submit"
+          ></loading-button>
         </div>
       </form>
     </div>
@@ -88,7 +89,7 @@ export default {
   components: {
     AuthenticationCard,
     AuthenticationCardLogo,
-    LoadingButton
+    LoadingButton,
   },
   layout: GuestLayout,
   props: {
