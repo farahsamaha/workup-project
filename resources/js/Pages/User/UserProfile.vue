@@ -8,10 +8,11 @@
               <v-img
                 height="250"
                 src="https://media.istockphoto.com/photos/top-view-of-dark-green-velour-fabric-picture-id928376866?k=20&m=928376866&s=612x612&w=0&h=c2pcp-FuEH7cgME0vcMfr4XC3QtcQ3WD4DXkfPcPDoU="
-              >{{user.name}}
+                >{{ user.name }}
               </v-img>
-              <v-card-title class="text-h4 my-1 font-weight-bold justify-center"
-                >
+              <v-card-title
+                class="text-h4 my-1 font-weight-bold justify-center"
+              >
               </v-card-title>
             </v-card>
             <v-avatar class="profile ml-15 my-5" color="grey" size="170">
@@ -40,7 +41,7 @@
 import PersonalInfo from "@/Components/User/PersonalInfo";
 import UserCv from "@/Components/User/UserCv";
 import PostCard from "@/Components/Home/PostCard";
-import AuthenticatedLayout from "../../layouts/AuthenticatedLayout";
+import AuthenticatedLayout from "../../Layouts/AuthenticatedLayout";
 export default {
   layout: AuthenticatedLayout,
   components: { PersonalInfo, UserCv, PostCard },

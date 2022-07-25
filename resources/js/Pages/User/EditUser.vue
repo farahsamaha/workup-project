@@ -175,69 +175,69 @@ export default {
     organization: "",
     certificates: "",
   }),
-//   // watch: {
-//   //   dialog(val) {
-//   //     val || this.close();
-//   //   },
-//   //   dialogDelete(val) {
-//   //     val || this.closeDelete();
-//   //   },
-//   // },
-//   methods: {
-//     updateAbout() {
-//       this.loading = true;
-//       this.$inertia.patch(`/users/${this.user.about}`, this.form).then(() => {
-//         this.loading = false;
-//       });
-//     },
-//     updateMobile() {
-//       this.loading = true;
-//       this.$inertia.patch(`/users/${this.user.mobile}`, this.form).then(() => {
-//         this.loading = false;
-//       });
-//     },
-//     updateLocation() {
-//       this.loading = true;
-//       this.$inertia
-//         .patch(`/users/${this.user.location}`, this.form)
-//         .then(() => {
-//           this.loading = false;
-//         });
-//     },
-//     deleteSkill() {
-//       if (confirm("Are you sure you want to delete this?")) {
-//         this.$inertia.delete(`/users/${this.user.skill}`);
-//       }
-//     },
-//     deleteCertificate() {
-//       if (confirm("Are you sure you want to delete this?")) {
-//         this.$inertia.delete(`/users/${this.user.certificates}`);
-//       }
-//     },
-//     deleteExperience() {
-//       if (confirm("Are you sure you want to delete this?")) {
-//         this.$inertia.delete(`/users/${this.user.experince}`);
-//       }
-//     },
-//     deleteVolunteering() {
-//       if (confirm("Are you sure you want to delete this?")) {
-//         this.$inertia.delete(`/users/${this.user.volunteering}`);
-//       }
-//     },
-//   },
+  //   // watch: {
+  //   //   dialog(val) {
+  //   //     val || this.close();
+  //   //   },
+  //   //   dialogDelete(val) {
+  //   //     val || this.closeDelete();
+  //   //   },
+  //   // },
+  //   methods: {
+  //     updateAbout() {
+  //       this.loading = true;
+  //       this.$inertia.patch(`/users/${this.user.about}`, this.form).then(() => {
+  //         this.loading = false;
+  //       });
+  //     },
+  //     updateMobile() {
+  //       this.loading = true;
+  //       this.$inertia.patch(`/users/${this.user.mobile}`, this.form).then(() => {
+  //         this.loading = false;
+  //       });
+  //     },
+  //     updateLocation() {
+  //       this.loading = true;
+  //       this.$inertia
+  //         .patch(`/users/${this.user.location}`, this.form)
+  //         .then(() => {
+  //           this.loading = false;
+  //         });
+  //     },
+  //     deleteSkill() {
+  //       if (confirm("Are you sure you want to delete this?")) {
+  //         this.$inertia.delete(`/users/${this.user.skill}`);
+  //       }
+  //     },
+  //     deleteCertificate() {
+  //       if (confirm("Are you sure you want to delete this?")) {
+  //         this.$inertia.delete(`/users/${this.user.certificates}`);
+  //       }
+  //     },
+  //     deleteExperience() {
+  //       if (confirm("Are you sure you want to delete this?")) {
+  //         this.$inertia.delete(`/users/${this.user.experince}`);
+  //       }
+  //     },
+  //     deleteVolunteering() {
+  //       if (confirm("Are you sure you want to delete this?")) {
+  //         this.$inertia.delete(`/users/${this.user.volunteering}`);
+  //       }
+  //     },
+  //   },
 
-//   deleteItemConfirm() {
-//     this.jobs.splice(this.editedIndex, 1);
-//     this.closeDelete();
-//   },
+  //   deleteItemConfirm() {
+  //     this.jobs.splice(this.editedIndex, 1);
+  //     this.closeDelete();
+  //   },
 
-//   close() {
-//     this.dialog = false;
-//     this.$nextTick(() => {
-//       this.editedItem = Object.assign({}, this.defaultItem);
-//       this.editedIndex = -1;
-//     });
-//   },
-// };
-}
+  //   close() {
+  //     this.dialog = false;
+  //     this.$nextTick(() => {
+  //       this.editedItem = Object.assign({}, this.defaultItem);
+  //       this.editedIndex = -1;
+  //     });
+  //   },
+  // };
+};
 </script>

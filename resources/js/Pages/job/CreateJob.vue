@@ -115,7 +115,7 @@
 </template>
 
 <script>
-import JobLayout from "../../layouts/JobLayout";
+import JobLayout from "../../Layouts/JobLayout";
 export default {
   layout: JobLayout,
   remember: "form",

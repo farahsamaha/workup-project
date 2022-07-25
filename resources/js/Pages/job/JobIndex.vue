@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import JobLayout from "../../layouts/JobLayout";
+import JobLayout from "../../Layouts/JobLayout";
 import JobCard from "@/components/job/JobCard.vue";
 import SearchFilter from "@/components/job/SearchFilter.vue";
 export default {

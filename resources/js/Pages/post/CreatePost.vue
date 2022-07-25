@@ -87,7 +87,7 @@
 </template>
 
 <script>
-import AuthenticatedLayout from "../../layouts/AuthenticatedLayout";
+import AuthenticatedLayout from "../../Layouts/AuthenticatedLayout";
 export default {
   layout: AuthenticatedLayout,
   remember: "form",

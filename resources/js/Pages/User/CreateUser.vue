@@ -8,7 +8,7 @@
         </v-card-title>
 
         <form @submit.prevent="store" enctype="multipart/form-data">
-        <h3 class="font-weight-medium mx-16">Add your photo</h3>
+          <h3 class="font-weight-medium mx-16">Add your photo</h3>
           <v-file-input
             name="featured_image"
             accept="image/png, image/jpeg, image/bmp"
@@ -205,7 +205,7 @@
 </template>
 
 <script>
-import AuthenticatedLayout from "../../layouts/AuthenticatedLayout";
+import AuthenticatedLayout from "../../Layouts/AuthenticatedLayout";
 export default {
   layout: AuthenticatedLayout,
   remember: "form",
@@ -244,9 +244,9 @@ export default {
     store() {
       this.form.post("/user");
     },
-  //    mounted() {
-  //   console.log(this.skills);
-  // },
+    //    mounted() {
+    //   console.log(this.skills);
+    // },
   },
 };
 </script>
