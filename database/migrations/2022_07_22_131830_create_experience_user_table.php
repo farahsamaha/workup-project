@@ -14,8 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('experience_user', function (Blueprint $table) {
-            $table->foreignId('experince_id');
+            $table->foreignId('experience_id');
             $table->foreignId('user_id');
+
         });
     }
 
