@@ -19,19 +19,19 @@ class User extends Authenticatable
     }
     public function skills()
     {
-        return $this->belongsToMany(Skill::class , 'skills');
+        return $this->belongsToMany(Skill::class);
     }
     public function experiences()
     {
-        return $this->belongsToMany(Experience::class , 'experiences');
+        return $this->belongsToMany(Experience::class);
     }
     public function organizations()
     {
-        return $this->belongsToMany(Organization::class , 'organizations');
+        return $this->belongsToMany(Organization::class);
     }
     public function certificates()
     {
-        return $this->belongsToMany(Certificate::class , 'certificates');
+        return $this->belongsToMany(Certificate::class);
     }
     public function posts()
     {
