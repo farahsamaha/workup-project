@@ -30,7 +30,7 @@
         </v-list-item-icon>
 
         <v-list-item-content>
-          <v-list-item-title>{{ user.About }}</v-list-item-title>
+          <v-list-item-title>{{ user.about }}</v-list-item-title>
           <v-list-item-subtitle>Headline*</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
@@ -40,7 +40,7 @@
           <v-icon> </v-icon>
         </v-list-item-icon>
         <v-list-item-content>
-          <v-list-item-title>{{ user.Birth_date }}</v-list-item-title>
+          <v-list-item-title>{{ user.birth_date }}</v-list-item-title>
           <v-list-item-subtitle>Birthday</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
@@ -52,7 +52,7 @@
         </v-list-item-icon>
 
         <v-list-item-content>
-          <v-list-item-title>{{ user.Mobile }}</v-list-item-title>
+          <v-list-item-title>{{ user.mobile }}</v-list-item-title>
           <v-list-item-subtitle>Mobile</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
@@ -65,7 +65,7 @@
         </v-list-item-icon>
 
         <v-list-item-content>
-          <v-list-item-title>{{ user.Email }}</v-list-item-title>
+          <v-list-item-title>{{ user.email }}</v-list-item-title>
           <v-list-item-subtitle>Email</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
@@ -89,8 +89,6 @@
 
 <script>
 export default {
-  props: {
-    users: Object,
-  },
+  props: { user: Object },
 };
 </script>
