@@ -9,7 +9,7 @@
           </v-list-item-content>
         </template>
         <v-list-item v-for="skill in skills.data" :key="skill.id">
-          {{user.skill_id}}
+          {{ user.skill_id }}
           <v-list-item-content>
             <v-list-item-title v-text="child.title"></v-list-item-title>
           </v-list-item-content>
@@ -23,7 +23,7 @@
           </v-list-item-content>
         </template>
         <v-list-item v-for="certificate in certificate.data" :key="certificate.id">
-          {{user.certificate_id}}
+          {{ user.certificate_id }}
           <v-list-item-content>
             <v-list-item-title v-text="child.title"></v-list-item-title>
           </v-list-item-content>
@@ -37,7 +37,7 @@
           </v-list-item-content>
         </template>
         <v-list-item v-for="experience in experience.data" :key="experience.id">
-          {{user.experience_id}}
+          {{ user.experience_id }}
           <v-list-item-content>
             <v-list-item-title v-text="child.title"></v-list-item-title>
           </v-list-item-content>
@@ -51,7 +51,7 @@
           </v-list-item-content>
         </template>
         <v-list-item v-for="organization in organization.data" :key="organization.id">
-          {{user.organization_id}}
+          {{ user.organization_id }}
           <v-list-item-content>
             <v-list-item-title v-text="child.title"></v-list-item-title>
           </v-list-item-content>
@@ -64,11 +64,10 @@
 <script>
 export default {
   props:{
-     users :Object,
-     skills: Array,
-     certificates: Array,
-     experiences: Array,
-     organizations: Array,
+     skill: Array,
+     certificate: Array,
+     experience: Array,
+     organization: Array,
   }
 
 };

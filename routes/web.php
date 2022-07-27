@@ -35,7 +35,16 @@ Route::get('/createuser', [UserController::class, 'create'])
     ->name('createuser')
     ->middleware('auth');
 
-Route::get('users/{job}/edit', [UserController::class, 'edit'])
+
+Route::get('/edituser', [UserController::class, 'edit'])
+    ->name('edituser')
+    ->middleware('auth');
+
+// Route::get('/edituser', function () {
+//     return Inertia::render('user/EditUser');
+// })->name('edituser');
+
+Route::get('users/{user}/edit', [UserController::class, 'edit'])
     ->name('user.edit')
     ->middleware('auth');
 
