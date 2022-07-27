@@ -16,7 +16,7 @@ class PostController extends Controller
         $data = $request->validated();
         $posts = Post::latest();
 
-        return Inertia::render('post/userhome', compact('posts'));
+        return Inertia::render('post/homepage', compact('posts'));
     }
     /**
      * Show the form for creating a new resource.
@@ -43,7 +43,7 @@ class PostController extends Controller
         $validation['image'] = $request->image->store('public/assets');
         post::create($data);
 
-        return Redirect::route('post/userhome')->with('message', 'post created successfully!');
+        return Redirect::route('posts')->with('message', 'post created successfully!');
     }
     /**
      * Display the specified resource.
@@ -98,15 +98,15 @@ class PostController extends Controller
         $this->authorize('delete', $post);
         $post->delete();
 
-        return Inertia::route('post/userhome')->with('message', 'post deleted successfully!');
+        return Inertia::route('post/homepage')->with('message', 'post deleted successfully!');
     }
-
+    //likes
     public function likePost(Post $post, $id)
     {
         $post = Post::find($id);
         $post->like();
         $post->save();
-        return Inertia::render('post/userhome', compact('post'));
+        return Inertia::route('post/homepage');
     }
 
     public function unlikepost(Post $post, $id)
@@ -114,6 +114,12 @@ class PostController extends Controller
         $post = Post::find($id);
         $post->unlike();
         $post->save();
-        return Inertia::render('post/userhome', compact('post'));
+        return Inertia::route('post/homepage');
+    }
+    public function getlikescount(Post $post)
+    {
+        $post->likeCount;
+        $post = Post::get();
+        return Inertia::route('post/homepage');
     }
 }

@@ -3,18 +3,46 @@
     <v-col>
       <v-card class="mx-auto" max-width="600">
         <v-card-title>
-          <v-list-item-avatar color="grey darken-3">
+          <v-list-item-avatar
+            color="grey darken-3"
+            :href="route('UserProfile', post.user.name)"
+          >
             <v-img
-              class="elevation-6"
-              src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
+              :src="post.user.featured_image"
+              :alt="post.user.name"
+              class="elevation-1 profile h-8 w-8 rounded"
             ></v-img>
           </v-list-item-avatar>
           <v-list-item-content>
-            <v-list-item-title>user name</v-list-item-title>
-            <v-list-item-subtitle color="grey darken-2"
-              >frontend developer</v-list-item-subtitle
-            >
+            <v-list-item-title>
+              {{ post.user.name }}
+            </v-list-item-title>
+            <v-list-item-subtitle color="grey darken-2">
+              {{ post.user.about }}
+            </v-list-item-subtitle>
           </v-list-item-content>
+          <v-menu bottom left>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn dark icon v-bind="attrs" v-on="on">
+                <v-icon color="teal">mdi-dots-vertical</v-icon>
+              </v-btn>
+            </template>
+
+            <v-list>
+              <form>
+                <v-list-item @submit.prevent="deletePost">
+                  <v-list-item-title
+                    ><v-icon>mdiDelete</v-icon> Delete post</v-list-item-title
+                  >
+                </v-list-item>
+                <v-list-item :href="route('EditPost', post.user.name)">
+                  <v-list-item-title
+                    ><v-icon>mdiPencil</v-icon>Edit post</v-list-item-title
+                  >
+                </v-list-item>
+              </form>
+            </v-list>
+          </v-menu>
         </v-card-title>
         <v-container>
           <!-- <v-img
@@ -24,52 +52,98 @@
         >
         </v-img> -->
           <v-card-text>
-            "Turns out semicolon-less style is easier and safer in TS because
-            most gotcha edge cases are type invalid as well."
+            {{ post.content }}
           </v-card-text>
+          <div>
+            <span class="text-sm italic">{{ post.published_at }}</span>
+          </div>
           <v-card-actions>
             <v-row align="center" justify="end">
               <v-container>
-                <v-icon class="mr-1" small> mdi-heart </v-icon>
-                <span class="subheading mr-2">likes</span>
+                <v-icon
+                  @click="like"
+                  v-if="liked"
+                  color="red"
+                  class="mr-1"
+                  small
+                >
+                  mdi-cards-heart
+                </v-icon>
+                <v-icon v-else class="mr-1" small
+                  >mdi-cards-heart-outline</v-icon
+                >
+
+                <span
+                  class="subheading mr-2"
+                  :href="route('likeslist', post.likes)"
+                  >Likes</span
+                >
 
                 <span class="mr-1">· </span>
                 <v-icon class="mr-1" small> mdi-comment</v-icon>
-                <span class="subheading">comments</span>
-                <v-text-field
-                  class="mt-5"
-                  filled
-                  prepend-icon="mdi-comment-text"
-                  v-model="newComment.content"
-                  :rules="commentRules"
-                  label="Comment"
-                  :counter="200"
-                ></v-text-field>
+                <span
+                  class="subheading"
+                  :href="route('commentslist', post.comments)"
+                  >Comments</span
+                >
+
+                <!-- create comment -->
+                <form @submit.prevent="store">
+                  <v-text-field
+                    class="mt-5"
+                    filled
+                    prepend-icon="mdi-comment-text"
+                    v-model="form.content"
+                    :error-messages="form.errors.content"
+                    label="Comment"
+                  ></v-text-field>
+                </form>
+                <!-- <comment-item /> -->
               </v-container>
             </v-row>
           </v-card-actions>
         </v-container>
-      </v-card> </v-col
-  ></v-row>
+      </v-card>
+    </v-col></v-row
+  >
 </template>
 
 <script>
+import CommentItem from "@/components/home/CommentItem.vue";
 export default {
+  components: {
+    CommentItem,
+  },
+  props: ["post"],
   data: () => ({
-    newComment: {
-      name: "",
-      email: "",
+    form: this.$inertia.form({
       content: "",
-    },
-    validComment: false,
-    nameRules: [
-      (v) => !!v || "Name is required",
-      (v) => v.length <= 25 || "Name must be less than 25 characters",
-    ],
-    commentRules: [
-      //   (v) => !!v || 'Comment is required',
-      (v) => v.length <= 200 || "Comment must be less than 200 characters",
-    ],
+      user_id: "",
+      published_at: "",
+    }),
+    likeForm: this.$inertia.form({
+      userPost: this.post,
+    }),
   }),
+  methods: {
+    store() {
+      this.form.post("/comments");
+    },
+    Like() {
+      this.likeForm.post(this.route("post.likepost", this.post), {
+        preserveScroll: true,
+        onSuccess: () => {},
+      });
+    },
+    Unlike() {
+      this.unlikeForm.delete(this.route("post.unlikepost", this.post), {
+        preserveScroll: true,
+        onSuccess: () => {},
+      });
+    },
+    deletePost() {
+      this.$inertia.delete(`/posts/${this.post.id}`);
+    },
+  },
 };
 </script>
