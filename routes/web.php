@@ -18,9 +18,6 @@ Route::get('/', function () {
 
 Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
-Route::get('/homepage', function () {
-    return Inertia::render('post/HomePage');
-})->name('homepage');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
@@ -28,19 +25,11 @@ Route::get('/dashboard', function () {
 
 require __DIR__ . '/auth.php';
 
+//user
+
 Route::get('/userprofile', [UserController::class, 'index'])
     ->name('userprofile')
     ->middleware('auth');
-
-
-Route::get('/createpost', function () {
-    return Inertia::render('post/CreatePost');
-})->name('createpost');
-
-
-Route::get('/createuser', function () {
-    return Inertia::render('post/CreateUser');
-})->name('createuser');
 
 Route::get('/createuser', [UserController::class, 'create'])
     ->name('createuser')
@@ -58,22 +47,56 @@ Route::delete('users/{user}', [UserController::class, 'destroy'])
     ->name('user.destroy')
     ->middleware('auth');
 
+//posts
+Route::get('/homepage', function () {
+    return Inertia::render('post/HomePage');
+})->name('homepage');
+// Route::get('/homepage', [PostController::class, 'index'])
+//     ->name('homepage');
 
-
-Route::get('/createpost', function () {
-    return Inertia::render('post/CreatePost');
-})->name('createpost');
-
-
-// Route::get('/createpost', function () {
-//     return Inertia::render('post/CreatePost');
-// })->name('createpost');
-
+Route::post('posts', [PostController::class, 'store'])
+    ->name('posts.store')
+    ->middleware('auth');
 
 Route::get('/createpost', [PostController::class, 'create'])
     ->name('createpost')
     ->middleware('auth');
 
+Route::get('posts/{post}/edit', [PostController::class, 'edit'])
+    ->name('post.edit')
+    ->middleware('auth');
+
+Route::put('posts/{post}/update', [PostController::class, 'update'])
+    ->name('post.update')
+    ->middleware('auth');
+
+Route::delete('posts/{post}', [PostController::class, 'destroy'])
+    ->name('post.destroy')
+    ->middleware('auth');
+
+//comments
+Route::get('/commentslist', [CommentController::class, 'index'])
+    ->name('commentslist')
+    ->middleware(' auth');
+
+Route::post('posts', [CommentController::class, 'store'])
+    ->name('posts.store')
+    ->middleware('auth');
+
+Route::get('comments/{comment}/edit', [CommentController::class, 'edit'])
+    ->name('comment.edit')
+    ->middleware('auth');
+
+Route::put('comments/{comment}/update', [CommentController::class, 'update'])
+    ->name('comment.update')
+    ->middleware('auth');
+
+Route::delete('comments/{comment}', [CommentController::class, 'destroy'])
+    ->name('comment.destroy')
+    ->middleware('auth');
+
+//jobs
+// Route::resource('jobs', JobController::class);
 Route::get('/jobindex', [JobController::class, 'index'])
     ->name('jobs')
     ->middleware('auth');

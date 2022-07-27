@@ -20,7 +20,7 @@ class CommentController extends Controller
         $post->comments()->create($validated);
         $comments = Comment::all();
 
-        return Inertia::render('user/homepage', compact('posts'));
+        return Inertia::render('post/comment/commentslist', compact('comments'));
     }
 
     /**
@@ -28,11 +28,7 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        $this->authorize('create', Comment::class);
-        return Inertia::render('comments', compact('comment'));
-    }
+
 
     public function store(Request $request, Post $post)
     {
@@ -42,7 +38,7 @@ class CommentController extends Controller
 
         $post->comments()->create($validated);
 
-        return Redirect::route('posts')->with('message', 'comment posted!');
+        return Redirect::route('comments')->with('message', 'comment posted!');
     }
 
 
@@ -54,7 +50,7 @@ class CommentController extends Controller
      */
     public function edit(Comment $comment)
     {
-        return Inertia::render('user/userprofile', compact('post'));
+        return Inertia::render('post/comment/editcomment', compact('post'));
     }
 
     /**
@@ -71,13 +67,13 @@ class CommentController extends Controller
         ]);
         $comment->update($validated);
 
-        return Redirect::route('posts')->with('message', 'comment posted!');
+        return Redirect::route('post/homepage')->with('message', 'comment posted!');
     }
 
 
     public function destroy(Comment $comment)
     {
         $comment->delete();
-        return Inertia::route('posts')->with('message', 'comment deleted!');
+        return Inertia::route('post/homepage')->with('message', 'comment deleted!');
     }
 }
