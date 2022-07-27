@@ -6,6 +6,9 @@
       </v-col>
       <v-divider vertical></v-divider>
       <v-col cols="8">
+        <!-- <div v-for="post in posts.data" :key="post.id">
+          <post-card :post="post"></post-card>
+        </div> -->
         <post-card />
       </v-col>
     </v-row>
@@ -14,7 +17,7 @@
 
 <script>
 import PostCard from "@/components/home/PostCard.vue";
-import AuthenticatedLayout from "../../layouts/AuthenticatedLayout";
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import InboxSec from "@/components/home/InboxSec.vue";
 
 export default {
@@ -23,12 +26,6 @@ export default {
     PostCard,
     InboxSec,
   },
+  props: ["posts"],
 };
 </script>
-
-<style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Teko:wght@300&display=swap");
-.text-h1 {
-  font-family: "macondo";
-}
-</style>

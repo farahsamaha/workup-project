@@ -11,14 +11,14 @@
           <v-list-item class="grow mt-4">
             <v-list-item-avatar color="grey darken-3">
               <v-img
-                class="elevation-6"
-                alt=""
-                src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
+                class="elevation-6 profile h-8 w-8 rounded"
+                :alt="user.name"
+                :src="user.featured_image"
               ></v-img>
             </v-list-item-avatar>
 
             <v-list-item-content>
-              <v-list-item-title> user name</v-list-item-title>
+              <v-list-item-title> {{ user.name }}</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
         </v-col>
@@ -87,7 +87,7 @@
 </template>
 
 <script>
-import AuthenticatedLayout from "../../Layouts/AuthenticatedLayout";
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 export default {
   layout: AuthenticatedLayout,
   remember: "form",
@@ -114,7 +114,6 @@ export default {
       image: "",
     }),
   }),
-  props: ["post"],
   watch: {
     top(val) {
       this.bottom = !val;
@@ -129,6 +128,9 @@ export default {
       this.right = !val;
     },
   },
+
+  props: ["user"],
+
   methods: {
     store() {
       this.form.post("/posts");
@@ -138,7 +140,6 @@ export default {
 </script>
 
 <style>
-/* This is for documentation purposes and will not be needed in your application */
 #create .v-speed-dial {
   position: absolute;
 }
