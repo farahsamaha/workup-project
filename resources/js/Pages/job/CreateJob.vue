@@ -1,7 +1,7 @@
 <template>
   <div class="cover">
     <v-container>
-      <v-card class="mx-auto" max-width="700" height="1000" elevation="0">
+      <v-card class="mx-auto" max-width="700" max-height="1300" elevation="0">
         <v-card-title
           class="text-h4 my-8 font-weight-bold orange--text justify-center"
           >Find a great hire fast!
@@ -91,7 +91,7 @@
 
           <h3 h3 class="font-weight-medium mx-16">Description</h3>
           <v-textarea
-            class="mx-16"
+            class="mx-16 my-5"
             label="Add skills and requirements you're looking for"
             auto-grow
             outlined

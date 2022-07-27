@@ -1,6 +1,6 @@
 <template>
   <v-container
-    ><v-card elevation="0" class="ma-3">
+    ><v-card elevation="0" class="ma-3" max-height="1300">
       <v-row justify="center" align-content="center">
         <v-col cols="5"
           ><v-img height="600" class="mt-5" contain src="/assets/jobb.jpg">
@@ -79,7 +79,6 @@
 import JobLayout from "../../Layouts/JobLayout";
 export default {
   layout: JobLayout,
-
   props: ["job"],
 };
 </script>

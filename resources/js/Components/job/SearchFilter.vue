@@ -73,7 +73,7 @@ export default {
       //     category: this.filters.categories,
       //   },
       form: this.$inertia.form({
-        title: "", // here we need to read query parameters this can be done using ziggey
+        title: "",
         category_id: "",
         location_id: "",
         type_id: "",
@@ -81,9 +81,6 @@ export default {
     };
   },
 
-  mounted() {
-    console.log(this.$page.props); // here u can access all data u passed from controller
-  },
   //   watch: {
   //   form: {
   //     deep: true,
