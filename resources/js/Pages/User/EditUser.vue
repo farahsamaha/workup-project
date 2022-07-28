@@ -4,6 +4,7 @@
       <v-card-title class="text-h4 my-5 mx-2 font-weight-bold orange--text">
         Edit Information
       </v-card-title>
+      <form v-if="can.editUser">
       <v-list two-line>
         <v-list-item>
           <v-list-item-icon>
@@ -11,7 +12,9 @@
           </v-list-item-icon>
 
           <v-list-item-content>
-            <v-list-item-title>{{ user.about }}</v-list-item-title>
+            <v-list-item-title
+            v-model="form.about"
+            >{{ user.about }}</v-list-item-title>
             <v-list-item-subtitle>Headline*</v-list-item-subtitle>
           </v-list-item-content>
           <v-icon small class="mr-2" @click.prevent="updateAbout()">
@@ -26,7 +29,9 @@
           </v-list-item-icon>
 
           <v-list-item-content>
-            <v-list-item-title>{{ user.mobile }}</v-list-item-title>
+            <v-list-item-title
+            v-model="form.mobile"
+            >{{ user.mobile }}</v-list-item-title>
             <v-list-item-subtitle>Mobile</v-list-item-subtitle>
           </v-list-item-content>
           <v-icon small class="mr-2" @click.prevent="updateMobile()">
@@ -41,7 +46,9 @@
           </v-list-item-icon>
 
           <v-list-item-content>
-            <v-list-item-title>{{ user.location_id }}</v-list-item-title>
+            <v-list-item-title
+            v-model="form.location_id"
+            >{{ user.location_id }}</v-list-item-title>
             <v-list-item-subtitle>City</v-list-item-subtitle>
           </v-list-item-content>
           <v-icon small class="mr-2" @click.prevent="updateLocation()">
@@ -61,8 +68,8 @@
               </v-icon>
             </v-list-item-content>
           </template>
-          <v-list-item v-for="skill in skills.data" :key="skill.id">
-            {{ user.skill.id }}
+          <v-list-item v-for="skill in skills.data" :key="skill.id" v-model="form.skill_id">
+            {{ user.skill_id }}
             <v-list-item-content>
               <v-list-item-title v-text="child.title"></v-list-item-title>
             </v-list-item-content>
@@ -81,8 +88,9 @@
           <v-list-item
             v-for="certificate in certificate.data"
             :key="certificate.id"
+            v-model="form.certificate_id"
           >
-            {{ user.certificate.id }}
+            {{ user.certificate_id }}
             <v-list-item-content>
               <v-list-item-title v-text="child.title"></v-list-item-title>
             </v-list-item-content>
@@ -105,8 +113,9 @@
           <v-list-item
             v-for="experience in experience.data"
             :key="experience.id"
+            v-model="form.experience_id"
           >
-            {{ user.experience.id }}
+            {{ user.experience_id }}
             <v-list-item-content>
               <v-list-item-title v-text="child.title"></v-list-item-title>
             </v-list-item-content>
@@ -129,14 +138,16 @@
           <v-list-item
             v-for="organization in organization.data"
             :key="organization.id"
+            v-model="form.organization_id"
           >
-            {{ user.organization.id }}
+            {{ user.organization_id }}
             <v-list-item-content>
               <v-list-item-title v-text="child.title"></v-list-item-title>
             </v-list-item-content>
           </v-list-item>
         </v-list-group>
       </v-list>
+      </form>
     </v-card>
   </v-container>
 </template>
@@ -151,17 +162,17 @@ export default {
     certificates: Array,
     experiences: Array,
     organizations: Array,
+    can: Object,
   },
   data: () => ({
-    dialog: false,
-    dialogDelete: false,
-    about: "",
-    mobile: "",
-    location_id: "",
-    skill_id: "",
-    experience_id: "",
-    organization_id: "",
-    certificate_id: "",
+    form: this.$inertia.form({
+      about: this.user.about,
+      mobile: this.user.mobile,
+      skill_id: this.user.skill_id,
+      experience_id: this.user.experience_id,
+      certificate_id: this.user.certificate_id,
+      organization_id: this.user.organization_id,
+    }),
   }),
   watch: {
     dialog(val) {

@@ -7,7 +7,7 @@
           >Complete your information
         </v-card-title>
 
-        <form @submit.prevent="store" enctype="multipart/form-data">
+        <form v-if="can.createUser" @submit.prevent="store" enctype="multipart/form-data">
           <h3 class="font-weight-medium mx-16">Add your photo</h3>
           <v-file-input
             name="featured_image"
@@ -153,11 +153,13 @@ export default {
   remember: "form",
 
   props: {
+    user: Object,
     locations: Array,
     skills: Array,
     certificates: Array,
     experiences: Array,
     organizations: Array,
+    can: Object,
   },
 
   data() {

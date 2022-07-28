@@ -47,6 +47,7 @@ class UserController extends Controller
 
     public function create()
     {
+        $this->authorize('create', User::class);
         $locations = Location::all(['id','name']);
         $skills = Skill::all(['id','name']);
         $experiences = Experience::all(['id','name']);
@@ -71,9 +72,7 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
-        // You need to create a policy UserPolicy
-        // $this->authorize('update', $user);
-
+        $this->authorize('update', User::class);
         $users = User::get(['featured_image','about','birth_date','mobile']);
         $locations = Location::all(['id','name']);
         $skills = Skill::all(['id','name']);
@@ -86,7 +85,7 @@ class UserController extends Controller
 
     public function update(StoreUserRequest $request, User $user)
     {
-        $this->authorize('update', $user);
+        $this->authorize('update', User::class);
 
         $data = $request->validated();
 
@@ -102,7 +101,7 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
-        $this->authorize('delete', $user);
+        $this->authorize('delete', User::class);
 
         $user->delete();
         return Redirect::route('user/UserProfile')->with('message', 'deleted successfully!');
