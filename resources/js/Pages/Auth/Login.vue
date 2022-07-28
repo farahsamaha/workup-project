@@ -80,7 +80,7 @@
 <script>
 import AuthenticationCard from "@/components/Auth/AuthenticationCard";
 import AuthenticationCardLogo from "@/components/Auth/AuthenticationCardLogo";
-import GuestLayout from "@/layouts/GuestLayout";
+import GuestLayout from "@/Layouts/GuestLayout";
 import LoadingButton from "@/components/partials/LoadingButton.vue";
 
 export default {

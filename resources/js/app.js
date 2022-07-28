@@ -2,7 +2,7 @@ import { InertiaProgress } from '@inertiajs/progress'
 import Vue from 'vue'
 import { InertiaApp, plugin,Link , Head } from '@inertiajs/inertia-vue'
 import vuetify from '@/plugins/vuetify'
-import GuestLayout from '@/layouts/GuestLayout'
+import GuestLayout from '@/Layouts/GuestLayout'
 // import VeeValidate from 'vee-validate';
 import 'animate.css';
 import * as VueAos from 'vue-aos'

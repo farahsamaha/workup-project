@@ -38,7 +38,7 @@
               </v-if>
               <v-else>
                 <v-img
-                profile
+                  profile
                   background-color="grey darken-3"
                   class="ml-5 my-3 rounded-circle elevation-6"
                   height="170"
@@ -67,13 +67,13 @@
 </template>
 
 <script>
-import PersonalInfo from "@/Components/User/PersonalInfo";
-import UserCv from "@/Components/User/UserCv";
-import PostCard from "@/Components/Home/PostCard";
+import PersonalInfo from "@/components/User/PersonalInfo";
+import UserCv from "@/components/User/UserCv";
+import PostCard from "@/components/home/PostCard";
 import AuthenticatedLayout from "../../Layouts/AuthenticatedLayout";
 export default {
   layout: AuthenticatedLayout,
   components: { PersonalInfo, UserCv, PostCard },
-  props: {  user: Object },
+  props: { user: Object },
 };
 </script>

@@ -1,15 +1,13 @@
 <template>
-  <v-container>
-    Welcome
-  </v-container>
+  <v-container> Welcome </v-container>
 </template>
 
 <script>
-import GuestLayout from '../layouts/GuestLayout'
+import GuestLayout from "../Layouts/GuestLayout";
 
 export default {
-  name: 'WelcomeView',
+  name: "WelcomeView",
 
   layout: GuestLayout,
-}
+};
 </script>

@@ -47,10 +47,7 @@
             autofocus
           />
         </v-col>
-        <v-col
-          cols="12"
-          class="d-flex align-center"
-        >
+        <v-col cols="12" class="d-flex align-center">
           <v-btn
             color="primary"
             :disabled="form.processing"
@@ -66,9 +63,9 @@
 </template>
 
 <script>
-import AuthenticationCard from '@/components/Auth/AuthenticationCard'
-import AuthenticationCardLogo from '@/components/Auth/AuthenticationCardLogo'
-import GuestLayout from '../../layouts/GuestLayout'
+import AuthenticationCard from "@/components/Auth/AuthenticationCard";
+import AuthenticationCardLogo from "@/components/Auth/AuthenticationCardLogo";
+import GuestLayout from "../../Layouts/GuestLayout";
 
 export default {
   components: {
@@ -81,31 +78,31 @@ export default {
   props: {
     email: {
       type: String,
-      default: '',
+      default: "",
     },
     token: {
       type: String,
-      default: '',
+      default: "",
     },
   },
 
-  data () {
+  data() {
     return {
       form: this.$inertia.form({
         token: this.token,
         email: this.email,
-        password: '',
-        password_confirmation: '',
+        password: "",
+        password_confirmation: "",
       }),
-    }
+    };
   },
 
   methods: {
-    submit () {
-      this.form.post(this.route('password.update'), {
-        onFinish: () => this.form.reset('password', 'password_confirmation'),
-      })
+    submit() {
+      this.form.post(this.route("password.update"), {
+        onFinish: () => this.form.reset("password", "password_confirmation"),
+      });
     },
   },
-}
+};
 </script>

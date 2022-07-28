@@ -113,6 +113,7 @@
 
 <script>
 import CommentItem from "@/components/home/CommentItem.vue";
+
 export default {
   components: {
     CommentItem,

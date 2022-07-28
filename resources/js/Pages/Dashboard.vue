@@ -1,12 +1,11 @@
-<template>
-</template>
+<template></template>
 
 <script>
-import AuthenticatedLayout from '../layouts/AuthenticatedLayout'
+import AuthenticatedLayout from "../Layouts/AuthenticatedLayout";
 
 export default {
-  name: 'DashboardView',
+  name: "DashboardView",
 
   layout: AuthenticatedLayout,
-}
+};
 </script>

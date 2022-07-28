@@ -11,7 +11,7 @@
 import AppHero from "@/components/home/AppHero.vue";
 import JobCategories from "@/components/home/JobCategories.vue";
 import BannerSec from "@/components/home/BannerSec.vue";
-import GuestLayout from "../../layouts/GuestLayout";
+import GuestLayout from "../../Layouts/GuestLayout";
 
 export default {
   layout: GuestLayout,
