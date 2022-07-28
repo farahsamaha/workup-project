@@ -80,7 +80,7 @@
             @click.prevent="$inertia.visit(route('userprofile'))"
           >
             <v-list-item-avatar size="24">
-              <v-img :src="auth.user.avatar" />
+              <v-img :src="auth.user.featured_image" />
             </v-list-item-avatar>
             <v-list-item-content>
               <v-list-item-title>
