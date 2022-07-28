@@ -23,7 +23,7 @@
           </v-list-item-content>
         </v-card-title>
         <v-container>
-          <form>
+          <form v-if="can.updatePost">
             <v-img
               class="white--text align-end"
               height="250px"
@@ -69,6 +69,7 @@ export default {
   },
   props: {
     post: Object,
+    can: Object,
   },
   data: () => ({
     form: this.$inertia.form({

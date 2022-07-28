@@ -30,12 +30,15 @@
 
             <v-list>
               <form>
-                <v-list-item @submit.prevent="deletePost">
+                <v-list-item v-if="can.deletePost" @submit.prevent="deletePost">
                   <v-list-item-title
                     ><v-icon>mdiDelete</v-icon> Delete post</v-list-item-title
                   >
                 </v-list-item>
-                <v-list-item :href="route('EditPost', post.user.name)">
+                <v-list-item
+                  v-if="can.updatePost"
+                  :href="route('EditPost', post.user.name)"
+                >
                   <v-list-item-title
                     ><v-icon>mdiPencil</v-icon>Edit post</v-list-item-title
                   >
@@ -114,7 +117,10 @@ export default {
   components: {
     CommentItem,
   },
-  props: ["post"],
+  props: {
+    post: Object,
+    can: Object,
+  },
   data: () => ({
     form: this.$inertia.form({
       content: "",

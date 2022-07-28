@@ -26,7 +26,7 @@
     </v-card-actions>
     <v-row>
       <v-col cols="10" class="mx-auto">
-        <form @submit.prevent="store">
+        <form v-if="can.createPost" @submit.prevent="store">
           <v-textarea
             v-model="form.content"
             placeholder="type what you think about !"
@@ -129,7 +129,10 @@ export default {
     },
   },
 
-  props: ["user"],
+  props: {
+    user: Object,
+    can: Object,
+  },
 
   methods: {
     store() {
