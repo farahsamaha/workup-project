@@ -50,6 +50,7 @@ class CommentController extends Controller
      */
     public function edit(Comment $comment)
     {
+        $this->authorize('update', $comment);
         return Inertia::render('post/comment/editcomment', compact('post'));
     }
 
@@ -73,6 +74,7 @@ class CommentController extends Controller
 
     public function destroy(Comment $comment)
     {
+        $this->authorize('delete', $comment);
         $comment->delete();
         return Inertia::route('post/homepage')->with('message', 'comment deleted!');
     }

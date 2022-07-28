@@ -14,7 +14,7 @@
           {{ comment.user.name }}
         </h4>
 
-        <form>
+        <form v-if="can.updateComment">
           <p class="bg-gray-100 mt-2 px-3 py-2">
             <v-text-field
               class="mt-5"
@@ -38,6 +38,7 @@
 export default {
   props: {
     comment: Object,
+    can: Object,
   },
   data: () => ({
     form: this.$inertia.form({
