@@ -65,7 +65,7 @@ export default {
   },
   data() {
     return {
-      filters: "",
+      // filters: "",
       //   form: {
       //     search: this.filters.search,
       //     types: this.filters.types,

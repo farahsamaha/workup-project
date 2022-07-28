@@ -92,7 +92,7 @@
             </v-list-item-content>
           </v-list-item>
           <v-divider class="ml-3 mr-3"></v-divider>
-          <v-list-item-group v-model="group" active-class="text--accent-4">
+          <!-- <v-list-item-group v-model="group" active-class="text--accent-4">
             <v-list-item v-for="item in items" :key="item.title" link>
               <v-list-item-icon>
                 <v-icon>{{ item.icon }}</v-icon>
@@ -102,7 +102,7 @@
                 <v-list-item-title>{{ item.title }}</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
-          </v-list-item-group>
+          </v-list-item-group> -->
         </v-list>
 
         <template v-slot:append>
