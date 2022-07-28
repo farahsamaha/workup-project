@@ -27,7 +27,7 @@
             <v-img
               class="white--text align-end"
               height="250px"
-              v-model="form.content"
+              v-model="form.image"
               :src="post.image"
             >
             </v-img>
