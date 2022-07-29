@@ -30,22 +30,21 @@
               size="0"
             > -->
             <div>
-              <v-if>
-                {{ user.featured_image }}
-                <!-- <v-img
+              <!-- <v-img
                 src=" /storage/{{ user.featured_image }} "
                 > </v-img> -->
-              </v-if>
-              <v-else>
-                <v-img
-                  profile
-                  background-color="grey darken-3"
-                  class="ml-5 my-3 rounded-circle elevation-6"
-                  height="170"
-                  width="170"
-                  src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
-                ></v-img>
-              </v-else>
+              <v-img
+                profile
+                background-color="grey darken-3"
+                class="ml-5 my-3 rounded-circle elevation-6"
+                height="170"
+                width="170"
+                :src="
+                  user.featured_image
+                    ? `/storage/${user.featured_image}`
+                    : 'https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light'
+                "
+              ></v-img>
             </div>
           </v-card>
         </v-col>
@@ -59,7 +58,7 @@
           <user-cv />
         </v-col>
         <v-col cols="9" sm="6" md="8">
-          <post-card />
+          <post-card v-for="post in user.posts" :key="post.id" :post="post" />
         </v-col>
       </v-row>
     </v-container>
@@ -67,8 +66,8 @@
 </template>
 
 <script>
-import PersonalInfo from "@/components/User/PersonalInfo";
-import UserCv from "@/components/User/UserCv";
+import PersonalInfo from "@/components/user/PersonalInfo";
+import UserCv from "@/components/user/UserCv";
 import PostCard from "@/components/home/PostCard";
 import AuthenticatedLayout from "../../Layouts/AuthenticatedLayout";
 export default {

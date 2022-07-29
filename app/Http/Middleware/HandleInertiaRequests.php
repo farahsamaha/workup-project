@@ -56,6 +56,9 @@ class HandleInertiaRequests extends Middleware
 
                 ];
             },
+            // 'can' => function () {
+            //     return Auth::user()->permissions;
+            // },
             'flash' => function () use ($request) {
                 return [
                     'success' => $request->session()->get('success'),

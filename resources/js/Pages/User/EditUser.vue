@@ -4,149 +4,165 @@
       <v-card-title class="text-h4 my-5 mx-2 font-weight-bold orange--text">
         Edit Information
       </v-card-title>
-      <form v-if="can.editUser">
-      <v-list two-line>
-        <v-list-item>
-          <v-list-item-icon>
-            <v-icon> mdi-clipboard-text </v-icon>
-          </v-list-item-icon>
+      <form>
+        <v-list two-line>
+          <v-list-item>
+            <v-list-item-icon>
+              <v-icon> mdi-clipboard-text </v-icon>
+            </v-list-item-icon>
 
-          <v-list-item-content>
-            <v-list-item-title
-            v-model="form.about"
-            >{{ user.about }}</v-list-item-title>
-            <v-list-item-subtitle>Headline*</v-list-item-subtitle>
-          </v-list-item-content>
-          <v-icon small class="mr-2" @click.prevent="updateAbout()">
-            mdi-pencil
-          </v-icon>
-        </v-list-item>
+            <v-list-item-content>
+              <v-list-item-title v-model="form.about">{{
+                user.about
+              }}</v-list-item-title>
+              <v-list-item-subtitle>Headline*</v-list-item-subtitle>
+            </v-list-item-content>
+            <v-icon small class="mr-2" @click.prevent="updateAbout()">
+              mdi-pencil
+            </v-icon>
+          </v-list-item>
+          <v-divider inset></v-divider>
+
+          <v-list-item>
+            <v-list-item-icon>
+              <v-icon color="teal-accent-4"> mdi-phone </v-icon>
+            </v-list-item-icon>
+
+            <v-list-item-content>
+              <v-list-item-title v-model="form.mobile">{{
+                user.mobile
+              }}</v-list-item-title>
+              <v-list-item-subtitle>Mobile</v-list-item-subtitle>
+            </v-list-item-content>
+            <v-icon small class="mr-2" @click.prevent="updateMobile()">
+              mdi-pencil
+            </v-icon>
+          </v-list-item>
+          <v-divider inset></v-divider>
+
+          <v-list-item>
+            <v-list-item-icon>
+              <v-icon color="teal-accent-4"> mdi-map-marker </v-icon>
+            </v-list-item-icon>
+
+            <v-list-item-content>
+              <v-list-item-title v-model="form.location_id">{{
+                user.location_id
+              }}</v-list-item-title>
+              <v-list-item-subtitle>City</v-list-item-subtitle>
+            </v-list-item-content>
+            <v-icon small class="mr-2" @click.prevent="updateLocation()">
+              mdi-pencil
+            </v-icon>
+          </v-list-item>
+        </v-list>
         <v-divider inset></v-divider>
 
-        <v-list-item>
-          <v-list-item-icon>
-            <v-icon color="teal-accent-4"> mdi-phone </v-icon>
-          </v-list-item-icon>
-
-          <v-list-item-content>
-            <v-list-item-title
-            v-model="form.mobile"
-            >{{ user.mobile }}</v-list-item-title>
-            <v-list-item-subtitle>Mobile</v-list-item-subtitle>
-          </v-list-item-content>
-          <v-icon small class="mr-2" @click.prevent="updateMobile()">
-            mdi-pencil
-          </v-icon>
-        </v-list-item>
-        <v-divider inset></v-divider>
-
-        <v-list-item>
-          <v-list-item-icon>
-            <v-icon color="teal-accent-4"> mdi-map-marker </v-icon>
-          </v-list-item-icon>
-
-          <v-list-item-content>
-            <v-list-item-title
-            v-model="form.location_id"
-            >{{ user.location_id }}</v-list-item-title>
-            <v-list-item-subtitle>City</v-list-item-subtitle>
-          </v-list-item-content>
-          <v-icon small class="mr-2" @click.prevent="updateLocation()">
-            mdi-pencil
-          </v-icon>
-        </v-list-item>
-      </v-list>
-      <v-divider inset></v-divider>
-
-      <v-list>
-        <v-list-group prepend-icon="mdi-ticket" color="teal-accent-4" no-action>
-          <template v-slot:activator>
-            <v-list-item-content>
-              <v-list-item-title>Skills</v-list-item-title>
-              <v-icon class="mx-2" small @click.prevent="deleteSkill()">
-                mdi-delete
-              </v-icon>
-            </v-list-item-content>
-          </template>
-          <v-list-item v-for="skill in skills.data" :key="skill.id" v-model="form.skill_id">
-            {{ user.skill_id }}
-            <v-list-item-content>
-              <v-list-item-title v-text="child.title"></v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list-group>
-
-        <v-list-group prepend-icon="mdi-school" color="teal-accent-4" no-action>
-          <template v-slot:activator>
-            <v-list-item-content>
-              <v-list-item-title>Education</v-list-item-title>
-              <v-icon class="mx-2" small @click.prevent="deleteCertificate()">
-                mdi-delete
-              </v-icon>
-            </v-list-item-content>
-          </template>
-          <v-list-item
-            v-for="certificate in certificate.data"
-            :key="certificate.id"
-            v-model="form.certificate_id"
+        <v-list>
+          <v-list-group
+            prepend-icon="mdi-ticket"
+            color="teal-accent-4"
+            no-action
           >
-            {{ user.certificate_id }}
-            <v-list-item-content>
-              <v-list-item-title v-text="child.title"></v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list-group>
+            <template v-slot:activator>
+              <v-list-item-content>
+                <v-list-item-title>Skills</v-list-item-title>
+                <v-icon class="mx-2" small @click.prevent="deleteSkill()">
+                  mdi-delete
+                </v-icon>
+              </v-list-item-content>
+            </template>
+            <v-list-item
+              v-for="skill in skills.data"
+              :key="skill.id"
+              v-model="form.skill_id"
+            >
+              {{ user.skill_id }}
+              <v-list-item-content>
+                <v-list-item-title v-text="child.title"></v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list-group>
 
-        <v-list-group
-          prepend-icon="mdi-briefcase"
-          color="teal-accent-4"
-          no-action
-        >
-          <template v-slot:activator>
-            <v-list-item-content>
-              <v-list-item-title>Experience</v-list-item-title>
-              <v-icon class="mx-2" small @click.prevent="deleteExperience()">
-                mdi-delete
-              </v-icon>
-            </v-list-item-content>
-          </template>
-          <v-list-item
-            v-for="experience in experience.data"
-            :key="experience.id"
-            v-model="form.experience_id"
+          <v-list-group
+            prepend-icon="mdi-school"
+            color="teal-accent-4"
+            no-action
           >
-            {{ user.experience_id }}
-            <v-list-item-content>
-              <v-list-item-title v-text="child.title"></v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list-group>
+            <template v-slot:activator>
+              <v-list-item-content>
+                <v-list-item-title>Education</v-list-item-title>
+                <v-icon class="mx-2" small @click.prevent="deleteCertificate()">
+                  mdi-delete
+                </v-icon>
+              </v-list-item-content>
+            </template>
+            <v-list-item
+              v-for="certificate in certificates.data"
+              :key="certificate.id"
+              v-model="form.certificate_id"
+            >
+              {{ user.certificate_id }}
+              <v-list-item-content>
+                <v-list-item-title v-text="child.title"></v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list-group>
 
-        <v-list-group
-          prepend-icon="mdi-bottle-tonic-plus"
-          color="teal-accent-4"
-          no-action
-        >
-          <template v-slot:activator>
-            <v-list-item-content>
-              <v-list-item-title>Volunteering</v-list-item-title>
-              <v-icon class="mx-2" small @click.prevent="deleteOrganization()">
-                mdi-delete
-              </v-icon>
-            </v-list-item-content>
-          </template>
-          <v-list-item
-            v-for="organization in organization.data"
-            :key="organization.id"
-            v-model="form.organization_id"
+          <v-list-group
+            prepend-icon="mdi-briefcase"
+            color="teal-accent-4"
+            no-action
           >
-            {{ user.organization_id }}
-            <v-list-item-content>
-              <v-list-item-title v-text="child.title"></v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list-group>
-      </v-list>
+            <template v-slot:activator>
+              <v-list-item-content>
+                <v-list-item-title>Experience</v-list-item-title>
+                <v-icon class="mx-2" small @click.prevent="deleteExperience()">
+                  mdi-delete
+                </v-icon>
+              </v-list-item-content>
+            </template>
+            <v-list-item
+              v-for="experience in experiences.data"
+              :key="experience.id"
+              v-model="form.experience_id"
+            >
+              {{ user.experience_id }}
+              <v-list-item-content>
+                <v-list-item-title v-text="child.title"></v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list-group>
+
+          <v-list-group
+            prepend-icon="mdi-bottle-tonic-plus"
+            color="teal-accent-4"
+            no-action
+          >
+            <template v-slot:activator>
+              <v-list-item-content>
+                <v-list-item-title>Volunteering</v-list-item-title>
+                <v-icon
+                  class="mx-2"
+                  small
+                  @click.prevent="deleteOrganization()"
+                >
+                  mdi-delete
+                </v-icon>
+              </v-list-item-content>
+            </template>
+            <v-list-item
+              v-for="organization in organizations.data"
+              :key="organization.id"
+              v-model="form.organization_id"
+            >
+              {{ user.organization_id }}
+              <v-list-item-content>
+                <v-list-item-title v-text="child.title"></v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list-group>
+        </v-list>
       </form>
     </v-card>
   </v-container>
@@ -163,17 +179,20 @@ export default {
     experiences: Array,
     organizations: Array,
     can: Object,
+    user: Object,
   },
-  data: () => ({
-    form: this.$inertia.form({
-      about: this.user.about,
-      mobile: this.user.mobile,
-      skill_id: this.user.skill_id,
-      experience_id: this.user.experience_id,
-      certificate_id: this.user.certificate_id,
-      organization_id: this.user.organization_id,
-    }),
-  }),
+  data() {
+    return {
+      form: this.$inertia.form({
+        about: this.user.about,
+        mobile: this.user.mobile,
+        skill_id: this.user.skill_id,
+        experience_id: this.user.experience_id,
+        certificate_id: this.user.certificate_id,
+        organization_id: this.user.organization_id,
+      }),
+    };
+  },
   watch: {
     dialog(val) {
       val || this.close();

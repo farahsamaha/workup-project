@@ -19,41 +19,42 @@ class UserController extends Controller
 {
     public function index(User $user)
     {
-            // $user = User::all()->map(function ($user) {
-            //     return [
-            //         'id' => $user->id,
-            //         'name' => $user->name,
-            //         'email' => $user->email,
-            //         'birth_date' => $user->birth_date,
-            //         'about' =>$user->about,
-            //         'featured_image' =>$user->featured_image,
-            //         'mobile' => $user->mobile,
-            //         'location_id'=> $user->locations,
-            //         'skill_id'=> $user->skills,
-            //         'certificate_id'=> $user->certificates,
-            //         'experience_id' => $user->experiences,
-            //         'organization_id' =>$user->organizations,
-            //     ];
-            // });
+        // $user = User::all()->map(function ($user) {
+        //     return [
+        //         'id' => $user->id,
+        //         'name' => $user->name,
+        //         'email' => $user->email,
+        //         'birth_date' => $user->birth_date,
+        //         'about' =>$user->about,
+        //         'featured_image' =>$user->featured_image,
+        //         'mobile' => $user->mobile,
+        //         'location_id'=> $user->locations,
+        //         'skill_id'=> $user->skills,
+        //         'certificate_id'=> $user->certificates,
+        //         'experience_id' => $user->experiences,
+        //         'organization_id' =>$user->organizations,
+        //     ];
+        // });
 
-        $user = User::find(Auth::user()->id);
+        $user = Auth::user()->with('posts');
         $location = Location::get();
-        $skill = Skill::get();
+        $skills = Skill::get();
         $experience = Experience::get();
         $certificate = Certificate::get();
         $organization = Organization::get();
-        return Inertia::render('user/UserProfile' , compact('user','location','skill','experience','certificate','organization'));
+
+        return Inertia::render('user/UserProfile', compact('user', 'location', 'skills', 'experience', 'certificate', 'organization'));
     }
 
     public function create()
     {
         $this->authorize('create', User::class);
-        $locations = Location::all(['id','name']);
-        $skills = Skill::all(['id','name']);
-        $experiences = Experience::all(['id','name']);
-        $certificates = Certificate::all(['id','name']);
-        $organizations = Organization::all(['id','name']);
-        return Inertia::render('user/CreateUser', compact('locations','skills','experiences', 'certificates', 'organizations'));
+        $locations = Location::all(['id', 'name']);
+        $skills = Skill::all(['id', 'name']);
+        $experiences = Experience::all(['id', 'name']);
+        $certificates = Certificate::all(['id', 'name']);
+        $organizations = Organization::all(['id', 'name']);
+        return Inertia::render('user/CreateUser', compact('locations', 'skills', 'experiences', 'certificates', 'organizations'));
     }
 
     public function store(StoreUserRequest $request, User $user)
@@ -65,29 +66,29 @@ class UserController extends Controller
         $user->experiences()->attach($request->experiences);
         $user->certificates()->attach($request->certificates);
         $user->organizations()->attach($request->organizations);
-        $data['featured_image'] = $request->file('featured_image')->store('/','public');
+        $data['featured_image'] = $request->file('featured_image')->store('/', 'public');
         User::create($data);
         return Redirect::route('user/UserProfile')->with('message', 'information added successfully!');
     }
 
-    public function edit(User $user)
+    public function edit()
     {
-        $this->authorize('update', User::class);
-        $users = User::get(['featured_image','about','birth_date','mobile']);
-        $locations = Location::all(['id','name']);
-        $skills = Skill::all(['id','name']);
-        $experiences = Experience::all(['id','name']);
-        $certificates = Certificate::all(['id','name']);
-        $organizations = Organization::all(['id','name']);
-        return Inertia::render('user/edituser', compact('users','locations','skills','experiences', 'certificates', 'organizations'));
+        $this->authorize('update', Auth::user());
+        $user = Auth::user();
+        $locations = Location::all(['id', 'name']);
+        $skills = Skill::all(['id', 'name']);
+        $experiences = Experience::all(['id', 'name']);
+        $certificates = Certificate::all(['id', 'name']);
+        $organizations = Organization::all(['id', 'name']);
 
+        return Inertia::render('user/EditUser', compact('user', 'locations', 'skills', 'experiences', 'certificates', 'organizations'));
     }
 
-    public function update(StoreUserRequest $request, User $user)
+    public function update(StoreUserRequest $request)
     {
-        $this->authorize('update', User::class);
-
         $data = $request->validated();
+
+        $user = Auth::user();
 
         $user->update($data);
         $user->skill()->sync($request->skills);

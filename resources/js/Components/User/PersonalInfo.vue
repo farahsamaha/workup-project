@@ -7,8 +7,8 @@
         <v-btn
           icon
           color="orange"
-          :href="route('edituser')"
-          @click.prevent="$inertia.visit(route('edituser'))"
+          :href="route('user.edit')"
+          @click.prevent="$inertia.visit(route('user.edit'))"
         >
           <v-icon>mdi-pencil</v-icon>
         </v-btn>
@@ -89,6 +89,10 @@
 
 <script>
 export default {
-  props: { user: Object },
+  computed: {
+    user() {
+      return this.$page.props.user;
+    },
+  },
 };
 </script>
