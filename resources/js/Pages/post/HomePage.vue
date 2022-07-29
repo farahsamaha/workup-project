@@ -6,10 +6,10 @@
       </v-col>
       <v-divider vertical></v-divider>
       <v-col cols="8">
-        <!-- <div v-for="post in posts.data" :key="post.id">
+        <div v-for="post in posts.data" :key="post.id">
           <post-card :post="post"></post-card>
-        </div> -->
-        <post-card />
+        </div>
+        <!-- <post-card /> -->
       </v-col>
     </v-row>
   </v-container>

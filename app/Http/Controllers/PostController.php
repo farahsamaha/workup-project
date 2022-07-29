@@ -7,16 +7,16 @@ use App\Http\Controllers\Controller;
 use App\Models\Post;
 use Inertia\Inertia;
 use App\Http\Requests\StorePostRequest;
+use App\Http\Resources\PostResource;
 use Illuminate\Support\Facades\Redirect;
 
 class PostController extends Controller
 {
-    public function index(StorePostRequest $request, Post $post)
+    public function index(Post $post)
     {
-        $data = $request->validated();
-        $posts = Post::latest();
+        $posts = PostResource::collection(Post::with('user')->paginate(10));
 
-        return Inertia::render('post/homepage', compact('posts'));
+        return Inertia::render('post/HomePage', compact('posts'));
     }
     /**
      * Show the form for creating a new resource.
@@ -26,7 +26,7 @@ class PostController extends Controller
     public function create()
     {
         // $this->authorize('create', Post::class);
-        return Inertia::render('post/createpost');
+        return Inertia::render('post/CreatePost');
     }
 
     /**
@@ -37,13 +37,16 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
-        $data['user_id'] = auth()->id();
-
         $data = $request->validated();
-        $validation['image'] = $request->image->store('public/assets');
-        post::create($data);
 
-        return Redirect::route('posts')->with('message', 'post created successfully!');
+        $data['user_id'] = auth()->id();
+        if ($request->filled('image'))
+            $data['image'] = $request->image->store('public/assets');
+
+
+        Post::create($data);
+
+        return redirect('/homepage')->with('message', 'post created successfully!');
     }
     /**
      * Display the specified resource.
@@ -69,7 +72,7 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         $this->authorize('update', $post);
-        return Inertia::render('post/editpost', compact('post'));
+        return Inertia::render('post/EditPost', compact('post'));
     }
 
     /**
@@ -84,7 +87,7 @@ class PostController extends Controller
         $data = $request->validated();
         $post->update($data);
 
-        return Inertia::route('post/editpost')->with('message', 'post updated successfully!');
+        return Inertia::route('post/EditPost')->with('message', 'post updated successfully!');
     }
 
     /**
@@ -101,17 +104,15 @@ class PostController extends Controller
         return Inertia::route('post/homepage')->with('message', 'post deleted successfully!');
     }
     //likes
-    public function likePost(Post $post, $id)
+    public function likePost(Post $post)
     {
-        $post = Post::find($id);
         $post->like();
         $post->save();
-        return Inertia::route('post/homepage');
+        return back();
     }
 
     public function unlikepost(Post $post, $id)
     {
-        $post = Post::find($id);
         $post->unlike();
         $post->save();
         return Inertia::route('post/homepage');

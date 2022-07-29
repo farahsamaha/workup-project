@@ -3,6 +3,7 @@
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CommentController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -36,16 +37,11 @@ Route::get('/createuser', [UserController::class, 'create'])
     ->middleware('auth');
 
 
-
-// Route::get('/edituser', function () {
-//     return Inertia::render('user/EditUser');
-// })->name('edituser');
-
-Route::get('users/{user}/edit', [UserController::class, 'edit'])
+Route::get('user/edit', [UserController::class, 'edit'])
     ->name('user.edit')
     ->middleware('auth');
 
-Route::put('users/{user}', [UserController::class, 'update'])
+Route::put('users/update', [UserController::class, 'update'])
     ->name('user.update')
     ->middleware('auth');
 
@@ -54,11 +50,11 @@ Route::delete('users/{user}', [UserController::class, 'destroy'])
     ->middleware('auth');
 
 //posts
-Route::get('/homepage', function () {
-    return Inertia::render('post/HomePage');
-})->name('homepage');
-// Route::get('/homepage', [PostController::class, 'index'])
-//     ->name('homepage');
+// Route::get('/homepage', function () {
+//     return Inertia::render('post/HomePage');
+// })->name('homepage');
+Route::get('/homepage', [PostController::class, 'index'])
+    ->name('homepage');
 
 Route::post('posts', [PostController::class, 'store'])
     ->name('posts.store')
@@ -80,13 +76,22 @@ Route::delete('posts/{post}', [PostController::class, 'destroy'])
     ->name('post.destroy')
     ->middleware('auth');
 
+// Route::get('/likeslist', [PostController::class, 'likepost'])
+//     ->name('likeslist')
+//     ->middleware(' auth');
+
+
+Route::post('posts/{post}', [PostController::class, 'likepost'])->name('likepost');
+// Route::post('/like-post/{id}', [PostController::class, 'likePost'])->name('like.post');
+// Route::post('/unlike-post/{id}', [PostController::class, 'unlikePost'])->name('unlike.post');
+
 //comments
 Route::get('/commentslist', [CommentController::class, 'index'])
     ->name('commentslist')
     ->middleware(' auth');
 
-Route::post('posts', [CommentController::class, 'store'])
-    ->name('posts.store')
+Route::post('/comments/{post}', [CommentController::class, 'store'])
+    ->name('comments')
     ->middleware('auth');
 
 Route::get('comments/{comment}/edit', [CommentController::class, 'edit'])

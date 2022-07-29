@@ -15,13 +15,14 @@ class Post extends Model
 
     protected $fillable = ['user_id', 'content', 'image'];
 
-    protected $with = ['user', 'comments'];
+    // protected $with = ['user', 'comments'];
+    public $timestamps = false;
 
 
-    public function getImageAttribute($value)
-    {
-        return $value ? Storage::url($value) : 'https://bulma.io/images/placeholders/1280x960.png';
-    }
+    // public function getImageAttribute($value)
+    // {
+    //     return $value ? Storage::url($value) : 'https://bulma.io/images/placeholders/1280x960.png';
+    // }
 
     public function user()
     {
