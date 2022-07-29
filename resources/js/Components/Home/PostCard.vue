@@ -5,7 +5,7 @@
         <v-card-title>
           <v-list-item-avatar
             color="grey darken-3"
-            :href="route('UserProfile', post.user.name)"
+            :href="route('userprofile', post.user.name)"
           >
             <v-img
               :src="post.user.featured_image"
@@ -30,17 +30,14 @@
 
             <v-list>
               <form>
-                <v-list-item v-if="can.deletePost" @submit.prevent="deletePost">
+                <v-list-item @submit.prevent="deletePost">
                   <v-list-item-title
-                    ><v-icon>mdiDelete</v-icon> Delete post</v-list-item-title
+                    ><v-icon></v-icon> Delete post</v-list-item-title
                   >
                 </v-list-item>
-                <v-list-item
-                  v-if="can.updatePost"
-                  :href="route('EditPost', post.user.name)"
-                >
+                <v-list-item :href="route('post.edit', post.user.name)">
                   <v-list-item-title
-                    ><v-icon>mdiPencil</v-icon>Edit post</v-list-item-title
+                    ><v-icon></v-icon>Edit post</v-list-item-title
                   >
                 </v-list-item>
               </form>
@@ -48,12 +45,12 @@
           </v-menu>
         </v-card-title>
         <v-container>
-          <!-- <v-img
-          class="white--text align-end"
-          height="250px"
-          src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-        >
-        </v-img> -->
+          <v-img
+            height="250px"
+            :src="`/storage/${post.image}`"
+            v-if="post.image"
+          >
+          </v-img>
           <v-card-text>
             {{ post.content }}
           </v-card-text>
@@ -64,23 +61,19 @@
             <v-row align="center" justify="end">
               <v-container>
                 <v-icon
-                  @click="like"
-                  v-if="liked"
+                  @click="unlike"
+                  v-if="post.liked"
                   color="red"
                   class="mr-1"
                   small
                 >
                   mdi-cards-heart
                 </v-icon>
-                <v-icon v-else class="mr-1" small
+                <v-icon v-else class="mr-1" small @click="like"
                   >mdi-cards-heart-outline</v-icon
                 >
 
-                <span
-                  class="subheading mr-2"
-                  :href="route('likeslist', post.likes)"
-                  >Likes</span
-                >
+                <span class="subheading mr-2">Likes</span>
 
                 <span class="mr-1">· </span>
                 <v-icon class="mr-1" small> mdi-comment</v-icon>
@@ -92,14 +85,18 @@
 
                 <!-- create comment -->
                 <form @submit.prevent="store">
-                  <v-text-field
-                    class="mt-5"
-                    filled
-                    prepend-icon="mdi-comment-text"
-                    v-model="form.content"
-                    :error-messages="form.errors.content"
-                    label="Comment"
-                  ></v-text-field>
+                  <v-row>
+                    <v-btn fab text class="mt-6" type="submit"
+                      ><v-icon>mdi-comment-text</v-icon></v-btn
+                    >
+                    <v-text-field
+                      class="mt-5"
+                      filled
+                      v-model="form.content"
+                      :error-messages="form.errors.content"
+                      label="Comment"
+                    ></v-text-field>
+                  </v-row>
                 </form>
                 <!-- <comment-item /> -->
               </v-container>
@@ -120,29 +117,35 @@ export default {
   },
   props: {
     post: Object,
-    can: Object,
   },
-  data: () => ({
-    form: this.$inertia.form({
-      content: "",
-      user_id: "",
-      published_at: "",
-    }),
-    likeForm: this.$inertia.form({
-      userPost: this.post,
-    }),
-  }),
+  data() {
+    return {
+      form: this.$inertia.form({
+        content: "",
+        user_id: "",
+        published_at: "",
+      }),
+      likeForm: this.$inertia.form({
+        userPost: this.post,
+      }),
+    };
+  },
+  computed: {
+    can() {
+      return this.$page.props.can;
+    },
+  },
   methods: {
     store() {
-      this.form.post("/comments");
+      this.form.post(`/comments/${this.post.id}`);
     },
-    Like() {
-      this.likeForm.post(this.route("post.likepost", this.post), {
+    like() {
+      this.likeForm.post(this.route("likepost", this.post), {
         preserveScroll: true,
         onSuccess: () => {},
       });
     },
-    Unlike() {
+    unlike() {
       this.unlikeForm.delete(this.route("post.unlikepost", this.post), {
         preserveScroll: true,
         onSuccess: () => {},

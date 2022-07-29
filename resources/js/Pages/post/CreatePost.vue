@@ -12,13 +12,15 @@
             <v-list-item-avatar color="grey darken-3">
               <v-img
                 class="elevation-6 profile h-8 w-8 rounded"
-                :alt="user.name"
-                :src="user.featured_image"
+                :alt="$page.props.auth.user.name"
+                :src="$page.props.auth.user.featured_image"
               ></v-img>
             </v-list-item-avatar>
 
             <v-list-item-content>
-              <v-list-item-title> {{ user.name }}</v-list-item-title>
+              <v-list-item-title>
+                {{ $page.props.auth.user.name }}</v-list-item-title
+              >
             </v-list-item-content>
           </v-list-item>
         </v-col>
@@ -26,7 +28,7 @@
     </v-card-actions>
     <v-row>
       <v-col cols="10" class="mx-auto">
-        <form v-if="can.createPost" @submit.prevent="store">
+        <form @submit.prevent="store">
           <v-textarea
             v-model="form.content"
             placeholder="type what you think about !"
@@ -91,29 +93,31 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 export default {
   layout: AuthenticatedLayout,
   remember: "form",
-  data: () => ({
-    direction: "left",
-    fab: false,
-    fling: false,
-    hover: false,
-    tabs: null,
-    top: false,
-    right: false,
-    bottom: true,
-    left: false,
-    transition: "slide-x-reverse-transition",
-    rules: [
-      (value) =>
-        !value ||
-        value.size < 2000000 ||
-        "Avatar size should be less than 2 MB!",
-    ],
+  data() {
+    return {
+      direction: "left",
+      fab: false,
+      fling: false,
+      hover: false,
+      tabs: null,
+      top: false,
+      right: false,
+      bottom: true,
+      left: false,
+      transition: "slide-x-reverse-transition",
+      rules: [
+        (value) =>
+          !value ||
+          value.size < 2000000 ||
+          "Avatar size should be less than 2 MB!",
+      ],
 
-    form: this.$inertia.form({
-      content: "",
-      image: "",
-    }),
-  }),
+      form: this.$inertia.form({
+        content: "",
+        image: "",
+      }),
+    };
+  },
   watch: {
     top(val) {
       this.bottom = !val;
