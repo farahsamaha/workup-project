@@ -17,8 +17,9 @@ class JobController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Job::first();
-        $jobs = Job::first()->filter(request(['category', 'location', 'type', 'search']));
+        // $query = Job::query();
+        // dd($request->query());
+        $query = Job::filter($request->query());
 
         $categories = Category::get();
         $locations = Location::get();

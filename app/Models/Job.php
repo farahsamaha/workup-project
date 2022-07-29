@@ -28,21 +28,24 @@ class Job extends Model
         return $this->belongsToMany(Place::class, 'places');
     }
 
-    public function scopeFilter($query, array $filters)
+    public function scopeFilter($query)
     {
-        if ($filters['category'] ?? false) {
-            $query->where('categories', 'like', '%' . request('category') . '%');
+        $filters = request()->query();
+        // dd($filters);
+        if (request()->query('category')) {
+            $query->where('categories', 'like', '%' . request()->query('category') . '%');
+            // dd('ok');
         }
 
-        if ($filters['location'] ?? false) {
+        if (request()->query('location')) {
             $query->where('locations', 'like', '%' . request('location') . '%');
         }
 
-        if ($filters['types'] ?? false) {
+        if (request()->query('type')) {
             $query->where('types', 'like', '%' . request('types') . '%');
         }
 
-        if ($filters['search'] ?? false) {
+        if (request()->query('search')) {
             $query->where('title', 'like', '%' . request('search') . '%');
         }
     }

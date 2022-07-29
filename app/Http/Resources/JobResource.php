@@ -17,10 +17,10 @@ class JobResource extends JsonResource
         return [
             'id'    => $this->id,
             'title' => $this->title,
-            'location_id' => $this->location_id,
-            'category_id' => $this->category_id,
-            'type_id' => $this->type_id,
-            'place_id' => $this->place_id,
+            'location' => $this->location,
+            'category' => $this->category,
+            'type' => $this->type,
+            'place' => $this->place,
             'email' => $this->email,
             'description' => $this->description,
 
