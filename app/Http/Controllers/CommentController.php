@@ -13,14 +13,9 @@ class CommentController extends Controller
 {
     public function index(Request $request, Comment $comment, Post $post)
     {
-        $validated = $request->validate([
-            'content'   => 'required|min:1',
-        ]);
-
-        $post->comments()->create($validated);
         $comments = Comment::all();
 
-        return Inertia::render('post/comment/commentslist', compact('comments'));
+        return Inertia::render('post/comment/CommentsList', compact('comments'));
     }
 
     /**
@@ -35,6 +30,7 @@ class CommentController extends Controller
         $validated = $request->validate([
             'content'   => 'required|min:1',
         ]);
+        $validated['user_id'] = auth()->id();
 
         $post->comments()->create($validated);
 
