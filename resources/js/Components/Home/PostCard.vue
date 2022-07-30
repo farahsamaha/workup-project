@@ -30,14 +30,14 @@
 
             <v-list>
               <form>
-                <v-list-item @submit.prevent="deletePost">
+                <v-list-item @click.prevent="deletePost()">
                   <v-list-item-title
-                    ><v-icon></v-icon> Delete post</v-list-item-title
+                    ><v-icon>mdi-delete</v-icon> Delete post</v-list-item-title
                   >
                 </v-list-item>
-                <v-list-item :href="route('post.edit', post.user.name)">
+                <v-list-item :href="`/posts/${this.post.id}/edit`">
                   <v-list-item-title
-                    ><v-icon></v-icon>Edit post</v-list-item-title
+                    ><v-icon>mdi-pencil</v-icon>Edit post</v-list-item-title
                   >
                 </v-list-item>
               </form>
@@ -72,7 +72,7 @@
                 <v-icon v-else class="mr-1" small @click="like"
                   >mdi-cards-heart-outline</v-icon
                 >
-
+                <!-- how to display likescount?? -->
                 <span class="subheading mr-2">Likes</span>
 
                 <span class="mr-1">· </span>
@@ -80,17 +80,18 @@
                 <span
                   class="subheading"
                   :href="route('commentslist', post.comments)"
+                  @click.prevent="$inertia.visit(route('commentslist'))"
                   >Comments</span
                 >
 
                 <!-- create comment -->
                 <form @submit.prevent="store">
                   <v-row>
-                    <v-btn fab text class="mt-6" type="submit"
+                    <v-btn fab text class="mt-7" type="submit"
                       ><v-icon>mdi-comment-text</v-icon></v-btn
                     >
                     <v-text-field
-                      class="mt-5"
+                      class="mt-7 mr-3"
                       filled
                       v-model="form.content"
                       :error-messages="form.errors.content"
@@ -122,10 +123,17 @@ export default {
     return {
       form: this.$inertia.form({
         content: "",
+        image: "",
         user_id: "",
         published_at: "",
       }),
       likeForm: this.$inertia.form({
+        userPost: this.post,
+      }),
+      unlikeForm: this.$inertia.form({
+        userPost: this.post,
+      }),
+      likescount: this.$inertia.form({
         userPost: this.post,
       }),
     };
@@ -146,13 +154,22 @@ export default {
       });
     },
     unlike() {
-      this.unlikeForm.delete(this.route("post.unlikepost", this.post), {
+      this.unlikeForm.post(this.route("unlikepost", this.post), {
         preserveScroll: true,
         onSuccess: () => {},
       });
     },
+    likescount() {
+      this.likescount.post(this.route("getlikescount", this.post), {
+        preserveScroll: true,
+        onSuccess: () => {},
+      });
+    },
+
     deletePost() {
-      this.$inertia.delete(`/posts/${this.post.id}`);
+      if (confirm("Are you sure you want to delete this post?")) {
+        this.$inertia.delete(`/posts/${this.post.id}`);
+      }
     },
   },
 };
