@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Post;
+use App\Models\User;
 use Inertia\Inertia;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Resources\PostResource;
@@ -14,7 +15,7 @@ class PostController extends Controller
 {
     public function index(Post $post)
     {
-        $posts = PostResource::collection(Post::with('user')->paginate(10));
+        $posts = PostResource::collection(Post::with('user')->paginate(30));
 
         return Inertia::render('post/HomePage', compact('posts'));
     }
@@ -46,7 +47,7 @@ class PostController extends Controller
 
         Post::create($data);
 
-        return redirect('/homepage')->with('message', 'post created successfully!');
+        return redirect('/homepage')->with('success', 'post created successfully!!.');
     }
     /**
      * Display the specified resource.
@@ -87,7 +88,7 @@ class PostController extends Controller
         $data = $request->validated();
         $post->update($data);
 
-        return Inertia::route('post/EditPost')->with('message', 'post updated successfully!');
+        return redirect('/homepage')->with('success', 'post updated.');
     }
 
     /**
@@ -101,26 +102,26 @@ class PostController extends Controller
         $this->authorize('delete', $post);
         $post->delete();
 
-        return Inertia::route('post/homepage')->with('message', 'post deleted successfully!');
+        return Redirect::back()->with('success', 'post deleted.');
     }
     //likes
-    public function likePost(Post $post)
+    public function likepost(Post $post)
     {
         $post->like();
         $post->save();
         return back();
     }
 
-    public function unlikepost(Post $post, $id)
+    public function unlikepost(Post $post)
     {
         $post->unlike();
         $post->save();
-        return Inertia::route('post/homepage');
+        return back();
     }
     public function getlikescount(Post $post)
     {
         $post->likeCount;
-        $post = Post::get();
-        return Inertia::route('post/homepage');
+        $post->save();
+        return back();
     }
 }

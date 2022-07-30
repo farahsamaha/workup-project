@@ -3,32 +3,28 @@
     <v-col>
       <v-card class="mx-auto my-9" max-width="500">
         <v-card-title>
-          <v-list-item-avatar
-            color="grey darken-3"
-            :href="route('UserProfile', post.user.name)"
-          >
+          <v-list-item-avatar color="grey darken-3">
             <v-img
-              :src="post.user.featured_image"
-              :alt="post.user.name"
-              class="elevation-1 profile h-8 w-8 rounded"
+              class="elevation-6 profile h-8 w-8 rounded"
+              :alt="$page.props.auth.user.name"
+              :src="$page.props.auth.user.featured_image"
             ></v-img>
           </v-list-item-avatar>
+
           <v-list-item-content>
             <v-list-item-title>
-              {{ post.user.name }}
-            </v-list-item-title>
-            <v-list-item-subtitle color="grey darken-2">
-              {{ post.user.about }}
-            </v-list-item-subtitle>
+              {{ $page.props.auth.user.name }}</v-list-item-title
+            >
           </v-list-item-content>
         </v-card-title>
         <v-container>
-          <form v-if="can.updatePost">
+          <form>
             <v-img
               class="white--text align-end"
               height="250px"
+              :src="`/storage/${post.image}`"
+              v-if="post.image"
               v-model="form.image"
-              :src="post.image"
             >
             </v-img>
             <v-card-text>
@@ -47,9 +43,9 @@
                     color="teal accent-4"
                     class="mx-4 my-7"
                     type="submit"
-                    @submit.prevent="updatePost"
+                    @click.prevent="updatePost()"
                   >
-                    <v-icon>mdi-pencil</v-icon>update
+                    <v-icon>mdi-pencil</v-icon>update post
                   </v-btn>
                 </v-container>
               </v-row>
@@ -62,21 +58,32 @@
 </template>
 
 <script>
-import CommentItem from "@/components/home/CommentItem.vue";
+// import CommentItem from "@/components/home/CommentItem.vue";
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 export default {
-  components: {
-    CommentItem,
-  },
+  layout: AuthenticatedLayout,
+  remember: "form",
+  // components: {
+  //   CommentItem,
+  // },
   props: {
     post: Object,
-    can: Object,
+    user: Object,
   },
-  data: () => ({
-    form: this.$inertia.form({
-      content: this.post.content,
-      image: this.post.image,
-    }),
-  }),
+  computed: {
+    can() {
+      return this.$page.props.can;
+    },
+  },
+  data() {
+    return {
+      form: this.$inertia.form({
+        content: this.post.content,
+        image: this.post.image,
+        user_id: "",
+      }),
+    };
+  },
   methods: {
     updatePost() {
       this.$inertia.put(`/posts/${this.post.id}`, this.form);

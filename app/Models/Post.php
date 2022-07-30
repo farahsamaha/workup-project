@@ -19,10 +19,10 @@ class Post extends Model
     public $timestamps = false;
 
 
-    // public function getImageAttribute($value)
-    // {
-    //     return $value ? Storage::url($value) : 'https://bulma.io/images/placeholders/1280x960.png';
-    // }
+    public function getImageAttribute($value)
+    {
+        return $value ? Storage::url($value) : null;
+    }
 
     public function user()
     {
