@@ -32,7 +32,10 @@
 
 <script>
 export default {
-  props: ["job"],
+  // props: ["job"],
+  props: {
+    job: Object,
+  },
   methods: {
     showJob() {
       this.$inertia.get(`/jobs/${this.job.id}`);
