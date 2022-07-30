@@ -60,14 +60,23 @@
             </v-list-item>
             <v-row>
               <v-btn
+                @click="unlike"
+                v-if="job.liked"
                 class="d-flex pa-2 ml-auto mb-5"
-                type="submit"
+                color="green"
+                dark
+                ><v-icon>mdi-account-check</v-icon>Applied</v-btn
+              >
+              <v-btn
+                v-else
+                class="d-flex pa-2 ml-auto mb-5"
                 color="orange darken-3"
                 dark
+                @click="like"
               >
                 Apply Now
-              </v-btn></v-row
-            >
+              </v-btn>
+            </v-row>
           </v-container>
         </v-col>
       </v-row>
@@ -80,6 +89,21 @@ import JobLayout from "../../Layouts/JobLayout";
 export default {
   layout: JobLayout,
   props: ["job"],
+  data() {
+    return {
+      apply: this.$inertia.form({
+        userJob: this.job,
+      }),
+    };
+  },
+  methods: {
+    like() {
+      this.apply.post(this.route("apply", this.job), {
+        preserveScroll: true,
+        onSuccess: () => {},
+      });
+    },
+  },
 };
 </script>
 
