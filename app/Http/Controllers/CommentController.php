@@ -16,7 +16,7 @@ class CommentController extends Controller
 {
     public function index(Request $request, Comment $comment, Post $post)
     {
-        $comments = CommentResource::collection(Comment::with(['user', 'post'])->paginate(15));
+        $comments = CommentResource::collection(Comment::with(['user', 'post'])->all()->paginate(15));
         $commentsCount = Comment::count();
 
         return Inertia::render('post/comment/CommentsList', compact('comments'));

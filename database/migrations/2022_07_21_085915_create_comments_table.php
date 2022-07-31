@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('comments', function (Blueprint $table) {
             $table->increments('id');
             $table->text('content');
-            $table->timestamp('published_at')->nullable();
+            $table->timestamps();
             $table->softDeletes();
         });
     }

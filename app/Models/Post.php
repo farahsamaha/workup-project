@@ -16,7 +16,7 @@ class Post extends Model
     protected $fillable = ['user_id', 'content', 'image'];
 
     // protected $with = ['user', 'comments'];
-    public $timestamps = false;
+    // public $timestamps = false;
 
 
     public function getImageAttribute($value)
