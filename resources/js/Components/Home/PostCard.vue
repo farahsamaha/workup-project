@@ -118,14 +118,12 @@ export default {
   },
   props: {
     post: Object,
+    user: Object,
   },
   data() {
     return {
       form: this.$inertia.form({
         content: "",
-        image: "",
-        user_id: "",
-        created_at: "",
       }),
       likeForm: this.$inertia.form({
         userPost: this.post,

@@ -90,8 +90,8 @@ Route::post('posts/{post}', [PostController::class, 'likepost'])->name('likepost
 Route::get('/commentslist', [CommentController::class, 'index'])
     ->name('commentslist');
 
-Route::post('comments/{post}/comment', [CommentController::class, 'store'])
-    ->name('comments')
+Route::post('comments/{post}', [CommentController::class, 'store'])
+    ->name('comment.store')
     ->middleware('auth');
 
 Route::get('comments/{comment}/edit', [CommentController::class, 'edit'])

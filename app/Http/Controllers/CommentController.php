@@ -16,8 +16,8 @@ class CommentController extends Controller
 {
     public function index(Request $request, Comment $comment, Post $post)
     {
-        $comments = CommentResource::collection(Comment::with(['user', 'post'])->all()->paginate(15));
-        $commentsCount = Comment::count();
+        $comments = CommentResource::collection(Comment::with(['user', 'post'])->paginate(15));
+        // $commentsCount = Comment::count();
 
         return Inertia::render('post/comment/CommentsList', compact('comments'));
     }
@@ -38,7 +38,8 @@ class CommentController extends Controller
 
         $post->comments()->create($validated);
 
-        return Redirect::route('comments')->with('message', 'comment posted!');
+
+        return Redirect::back()->with('success', 'comment posted!');
     }
 
 
@@ -51,12 +52,13 @@ class CommentController extends Controller
     public function show()
     {
         Post::withCount(['comments'])->find();
-        return Redirect::route('post/homepage');
+        return Redirect::route('post/HomePage');
     }
+
     public function edit(Comment $comment)
     {
         $this->authorize('update', $comment);
-        return Inertia::render('post/comment/editcomment', compact('post'));
+        return Inertia::render('post/comment/EditComment', compact('comment'));
     }
 
     /**
@@ -73,7 +75,7 @@ class CommentController extends Controller
         ]);
         $comment->update($validated);
 
-        return Redirect::route('post/homepage')->with('message', 'comment posted!');
+        return Redirect::route('post/HomePage')->with('success', 'comment updated!');
     }
 
 
@@ -81,6 +83,6 @@ class CommentController extends Controller
     {
         $this->authorize('delete', $comment);
         $comment->delete();
-        return Inertia::route('post/homepage')->with('message', 'comment deleted!');
+        return Inertia::route('post/HomePage')->with('error', 'comment deleted!');
     }
 }
