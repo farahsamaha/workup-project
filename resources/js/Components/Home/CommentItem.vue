@@ -1,5 +1,5 @@
 <template>
-  <div class="flex border-t border-gray-400 mt-5 py-5 space-x-5">
+  <div class="flex border-t border-gray-400 mt-5 py-5 mx-5">
     <div class="flex-shrink-0" :href="route('UserProfile', comment.user.name)">
       <img
         class="h-8 w-8 rounded-full object-cover"
@@ -17,7 +17,7 @@
         <v-btn dark icon :href="route('EditComment', comment.user.name)">
           <v-icon color="teal">mdi-pencil</v-icon>
         </v-btn>
-        <v-btn dark icon @submit.prevent="deleteComment">
+        <v-btn dark icon @submit.prevent="deleteComment()">
           <v-icon color="teal">mdiDelete</v-icon>
         </v-btn>
 
@@ -37,7 +37,9 @@ export default {
   props: ["comment"],
   methods: {
     deleteComment() {
-      this.$inertia.delete(`/comments/${this.comment.id}`);
+      if (confirm("Are you sure you want to delete this post?")) {
+        this.$inertia.delete(`/comments/${this.comment.id}`);
+      }
     },
   },
 };

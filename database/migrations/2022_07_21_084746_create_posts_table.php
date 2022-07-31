@@ -17,8 +17,8 @@ return new class extends Migration
             $table->increments('id');
             $table->text('content');
             $table->string('image')->nullable();
-            $table->timestamp('published_at')->nullable();
-            // $table->timestamps();
+            // $table->timestamp('published_at')->nullable();
+            $table->timestamps();
             $table->softDeletes();
         });
     }

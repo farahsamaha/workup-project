@@ -3,7 +3,6 @@
     <v-snackbar
       v-model="snackbar"
       :color="$page.props.flash.success ? 'success' : 'error'"
-      bottom
       shaped
     >
       {{ text }}

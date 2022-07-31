@@ -79,21 +79,18 @@ Route::delete('posts/{post}', [PostController::class, 'destroy'])
     ->name('post.destroy')
     ->middleware('auth');
 
-// Route::get('/likeslist', [PostController::class, 'likepost'])
-//     ->name('likeslist')
-//     ->middleware(' auth');
-
 
 Route::post('posts/{post}', [PostController::class, 'likepost'])->name('likepost');
-// Route::post('/like-post/{id}', [PostController::class, 'likePost'])->name('like.post');
-// Route::post('/unlike-post/{id}', [PostController::class, 'unlikePost'])->name('unlike.post');
+// Route::post('posts/{post}', [PostController::class, 'unlikepost'])->name('unlikepost');
+
+
 
 //comments
-Route::get('/commentslist', [CommentController::class, 'index'])
-    ->name('commentslist')
-    ->middleware(' auth');
 
-Route::post('/comments/{post}', [CommentController::class, 'store'])
+Route::get('/commentslist', [CommentController::class, 'index'])
+    ->name('commentslist');
+
+Route::post('comments/{post}/comment', [CommentController::class, 'store'])
     ->name('comments')
     ->middleware('auth');
 
@@ -142,3 +139,5 @@ Route::delete('jobs/{job}', [JobController::class, 'destroy'])
 Route::get('/managejob', [JobController::class, 'manage'])
     ->name('managejob')
     ->middleware('auth');
+
+Route::post('jobs/{job}', [JobController::class, 'apply'])->name('apply');

@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use Inertia\Inertia;
 use App\Models\Comment;
+use App\Models\User;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use App\Http\Resources\CommentResource;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
 
 
@@ -13,7 +16,8 @@ class CommentController extends Controller
 {
     public function index(Request $request, Comment $comment, Post $post)
     {
-        $comments = Comment::all();
+        $comments = CommentResource::collection(Comment::with(['user', 'post'])->paginate(15));
+        $commentsCount = Comment::count();
 
         return Inertia::render('post/comment/CommentsList', compact('comments'));
     }
@@ -44,6 +48,11 @@ class CommentController extends Controller
      * @param  \App\Models\Comment  $comment
      * @return \Illuminate\Http\Response
      */
+    public function show()
+    {
+        Post::withCount(['comments'])->find();
+        return Redirect::route('post/homepage');
+    }
     public function edit(Comment $comment)
     {
         $this->authorize('update', $comment);

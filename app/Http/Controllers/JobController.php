@@ -11,14 +11,36 @@ use App\Models\Category;
 use App\Models\Location;
 use App\Models\Place;
 use App\Models\Type;
+use App\Http\Resources\JobResource;
 use Illuminate\Support\Facades\Redirect;
 
 class JobController extends Controller
 {
     public function index(Request $request)
     {
-        // $query = Job::query();
-        // dd($request->query());
+        // $query = Job::all();
+        // // dd($request->query());
+        // // $jobs = Job::query();
+        // if ($request->filled('category')) {
+        //     $query->where('category_id', $request->category);
+        // }
+        // if ($request->filled('location')) {
+        //     $query->where('location_id', $request->location);
+        // }
+        // if ($request->filled('type')) {
+        //     $query->where('type_id', $request->type);
+        // }
+        // if ($request->filled('q')) {
+        //     $query->where(function ($q) use ($request) {
+        //         $q->Where('title', 'like', "%$request->q%")
+        //             ->orWhere('location', 'like', "%$request->q%")
+        //             ->orWhere('type', 'like', "%$request->q%");
+        //     });
+        // }
+        // $categories = Category::has('jobs')->get();
+        // $locations = Location::has('jobs')->get();
+        // $types = Type::has('jobs')->get();
+        // $jobs = $query->paginate(4);
         $query = Job::filter($request->query());
 
         $categories = Category::get();
@@ -26,6 +48,7 @@ class JobController extends Controller
         $types = Type::get();
 
         $jobs = $query->paginate(4);
+
         return Inertia::render('job/JobIndex', compact('jobs', 'categories', 'locations', 'types'));
     }
 
@@ -57,7 +80,7 @@ class JobController extends Controller
 
         job::create($data);
 
-        return Redirect::route('jobs')->with('message', 'job created successfully!');
+        return Redirect::route('jobs')->with('success', 'job posted successfully!');
     }
 
 
@@ -102,17 +125,17 @@ class JobController extends Controller
 
     public function manage(Job $job)
     {
-        $jobs = Job::get();
+        $jobs = Job::all();
 
         return Inertia::render('job/ManageJob', compact('jobs'));
     }
 
 
-    public function apply(Job $job, $id)
+    public function apply(Job $job)
     {
-        $job = Job::find($id);
         $job->like();
         $job->save();
-        return Inertia::route('job/ShowJob')->with('message', 'job applied successfully!');
+
+        return Redirect::back()->with('success', 'job applied successfully!');
     }
 }

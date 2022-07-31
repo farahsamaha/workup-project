@@ -42,7 +42,7 @@
               </v-btn></v-col
             >
             <v-col cols="2">
-              <v-speed-dial
+              <!-- <v-speed-dial
                 class="mt-9"
                 v-model="fab"
                 :top="top"
@@ -58,30 +58,34 @@
                     <v-icon v-if="fab"> mdi-close </v-icon>
                     <v-icon v-else> mdi-plus </v-icon>
                   </v-btn>
-                </template>
-                <v-btn fab dark small color="orange">
-                  <v-file-input
-                    class="ml-2 mb-3"
-                    dark
-                    prepend-icon="mdi-camera"
-                    hide-input
-                    :rules="rules"
-                    v-model="form.image"
-                    accept="image/png, image/jpeg, image/bmp"
-                  ></v-file-input>
-                </v-btn>
+                </template> -->
+              <v-btn fab dark large color="orange" class="mr-5 mt-2">
+                <v-file-input
+                  large
+                  class="ml-5 mb-3"
+                  dark
+                  prepend-icon="mdi-camera"
+                  hide-input
+                  :rules="rules"
+                  v-model="form.image"
+                  accept="image/png, image/jpg, image/bmp"
+                ></v-file-input>
+              </v-btn>
 
-                <v-btn fab dark small color="red">
-                  <v-file-input
-                    class="ml-2 mb-3"
-                    dark
-                    prepend-icon="mdi-file"
-                    hide-input
-                    :rules="rules"
-                    accept="image/png, image/jpeg, image/bmp"
-                  ></v-file-input>
-                </v-btn> </v-speed-dial></v-col
-          ></v-row>
+              <!-- <v-btn fab dark small color="red">
+                <v-file-input
+                  class="ml-2 mb-3"
+                  dark
+                  prepend-icon="mdi-file"
+                  hide-input
+                  :rules="rules"
+                  accept="image/png, image/jpeg, image/bmp"
+                ></v-file-input>
+              </v-btn> -->
+
+              <!-- </v-speed-dial> -->
+            </v-col></v-row
+          >
         </form>
       </v-col>
     </v-row>
