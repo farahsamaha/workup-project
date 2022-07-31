@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('email', 50)->nullable();
-            $table->string('description');
+            $table->text('description');
         });
     }
 
