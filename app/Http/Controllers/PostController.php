@@ -61,7 +61,7 @@ class PostController extends Controller
     {
         $post = Post::get();
         // $post = Post::find($id);
-        return Inertia::render('user/userprofile', compact('post'));
+        return Inertia::render('user/UserProfile', compact('post'));
     }
 
     /**
@@ -102,7 +102,7 @@ class PostController extends Controller
         $this->authorize('delete', $post);
         $post->delete();
 
-        return Redirect::back()->with('success', 'post deleted.');
+        return Redirect::back()->with('error', 'post deleted.');
     }
     //likes
     public function likepost(Post $post)

@@ -18,7 +18,7 @@
           </v-list-item-content>
         </v-card-title>
         <v-container>
-          <form>
+          <form @submit.prevent="updatePost">
             <v-img
               class="white--text align-end"
               height="250px"
@@ -43,7 +43,6 @@
                     color="teal accent-4"
                     class="mx-4 my-7"
                     type="submit"
-                    @click.prevent="updatePost()"
                   >
                     <v-icon>mdi-pencil</v-icon>update post
                   </v-btn>
@@ -62,7 +61,7 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 export default {
   layout: AuthenticatedLayout,
-  remember: "form",
+
   // components: {
   //   CommentItem,
   // },

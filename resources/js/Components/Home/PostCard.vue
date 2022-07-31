@@ -55,7 +55,7 @@
             {{ post.content }}
           </v-card-text>
           <div>
-            <span class="text-sm italic">{{ post.published_at }}</span>
+            <span class="text-sm teal--text italic">{{ post.created_at }}</span>
           </div>
           <v-card-actions>
             <v-row align="center" justify="end">
@@ -125,7 +125,7 @@ export default {
         content: "",
         image: "",
         user_id: "",
-        published_at: "",
+        created_at: "",
       }),
       likeForm: this.$inertia.form({
         userPost: this.post,

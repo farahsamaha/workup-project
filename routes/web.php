@@ -71,7 +71,7 @@ Route::get('posts/{post}/edit', [PostController::class, 'edit'])
     ->name('post.edit')
     ->middleware('auth');
 
-Route::put('posts/{post}/update', [PostController::class, 'update'])
+Route::put('posts/{post}', [PostController::class, 'update'])
     ->name('post.update')
     ->middleware('auth');
 
