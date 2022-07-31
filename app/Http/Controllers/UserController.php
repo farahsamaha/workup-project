@@ -42,33 +42,45 @@ class UserController extends Controller
         $experience = Experience::get();
         $certificate = Certificate::get();
         $organization = Organization::get();
-
         return Inertia::render('user/UserProfile', compact('user', 'location', 'skills', 'experience', 'certificate', 'organization'));
     }
 
     public function create()
     {
         $this->authorize('create', User::class);
+        $user = User::get();
         $locations = Location::all(['id', 'name']);
         $skills = Skill::all(['id', 'name']);
         $experiences = Experience::all(['id', 'name']);
         $certificates = Certificate::all(['id', 'name']);
         $organizations = Organization::all(['id', 'name']);
-        return Inertia::render('user/CreateUser', compact('locations', 'skills', 'experiences', 'certificates', 'organizations'));
+        return Inertia::render('user/CreateUser', compact('user', 'locations', 'skills', 'experiences', 'certificates', 'organizations'));
     }
 
     public function store(StoreUserRequest $request, User $user)
     {
+        $data = $request->validated();
         $data['user_id'] = auth()->id();
 
-        $data = $request->validated();
         $user->skills()->attach($request->skills);
         $user->experiences()->attach($request->experiences);
         $user->certificates()->attach($request->certificates);
         $user->organizations()->attach($request->organizations);
         $data['featured_image'] = $request->file('featured_image')->store('/', 'public');
+
+
+        // $user->skills()->attach($request->skills);
+        // if ($request->filled(('new_skills'))) {
+        //     $skills = explode(',', $request->new_skills);
+        //     foreach ($skills as $skill) {
+        //         $skill = trim($skill);
+        //         $model = Skill::firstOrCreate(['name' => $skill]);
+        //         $user->skills()->attach($model);
+        //     }
+        // }
+
         User::create($data);
-        return Redirect::route('user/UserProfile')->with('message', 'information added successfully!');
+        return redirect('user/UserProfile')->with('message', 'information added successfully!');
     }
 
     public function edit()
@@ -80,12 +92,12 @@ class UserController extends Controller
         $experiences = Experience::all(['id', 'name']);
         $certificates = Certificate::all(['id', 'name']);
         $organizations = Organization::all(['id', 'name']);
-
         return Inertia::render('user/EditUser', compact('user', 'locations', 'skills', 'experiences', 'certificates', 'organizations'));
     }
 
     public function update(StoreUserRequest $request)
     {
+
         $data = $request->validated();
 
         $user = Auth::user();

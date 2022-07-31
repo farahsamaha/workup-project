@@ -28,6 +28,10 @@ require __DIR__ . '/auth.php';
 
 //user
 
+Route::post('users', [PostController::class, 'store'])
+    ->name('users.store')
+    ->middleware('auth');
+
 Route::get('/userprofile', [UserController::class, 'index'])
     ->name('userprofile')
     ->middleware('auth');
@@ -35,7 +39,6 @@ Route::get('/userprofile', [UserController::class, 'index'])
 Route::get('/createuser', [UserController::class, 'create'])
     ->name('createuser')
     ->middleware('auth');
-
 
 Route::get('user/edit', [UserController::class, 'edit'])
     ->name('user.edit')

@@ -18,7 +18,7 @@
           :href="route('createuser')"
           @click.prevent="$inertia.visit(route('createuser'))"
         >
-          <v-icon>mdi-dots-vertical</v-icon>
+          <v-icon>mdi-plus</v-icon>
         </v-btn>
       </v-card-title>
     </v-row>

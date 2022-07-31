@@ -32,6 +32,7 @@ class StoreUserRequest extends FormRequest
             'mobile' => 'required|numeric',
             'location_id'=> 'required|numeric|exists:locations,id',
             'skill_id'=> 'required|numeric|exists:skills,id',
+            'new_skills'=> 'required_without:skills|nullable|string',
             'certificate_id'=> 'required|numeric|exists:certificates,id',
             'experience_id' => 'required|numeric|exists:experiences,id',
             'organization_id' => 'required|numeric|exists:organizations,id'

@@ -12,28 +12,14 @@
               </v-img>
               <v-card-title
                 class="text-h4 my-1 Light weight text justify-center"
-                >{{ user.name }}
+              >
+                {{ user.name }}
               </v-card-title>
             </v-card>
-            <!-- <v-avatar class="profile ml-15 my-5" color="grey" size="170">
-              <v-icon dark> mdi-account-circle </v-icon>
-            </v-avatar> -->
-            <!-- <div>
-              <v-img class="ml-15 my-5"
-              rounded
-              src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
-              ></v-img>
-            </div> -->
 
-            <!-- <v-list-item
-              class="ml-5 my-3"
-              size="0"
-            > -->
             <div>
-              <!-- <v-img
-                src=" /storage/{{ user.featured_image }} "
-                > </v-img> -->
               <v-img
+                enctype="multipart/form-data"
                 profile
                 background-color="grey darken-3"
                 class="ml-5 my-3 rounded-circle elevation-6"
@@ -44,7 +30,17 @@
                     ? `/storage/${user.featured_image}`
                     : 'https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light'
                 "
-              ></v-img>
+              >
+                <v-btn class="ml-2 my-8" fab small color="teal">
+                  <v-file-input
+                    class="ml-3 my-9"
+                    dark
+                    prepend-icon="mdi-camera"
+                    v-model="user.featured_image"
+                    accept="image/png, image/jpeg, image/bmp"
+                  ></v-file-input>
+                </v-btn>
+              </v-img>
             </div>
           </v-card>
         </v-col>
@@ -73,6 +69,8 @@ import AuthenticatedLayout from "../../Layouts/AuthenticatedLayout";
 export default {
   layout: AuthenticatedLayout,
   components: { PersonalInfo, UserCv, PostCard },
-  props: { user: Object },
+  props: {
+    user: Object,
+  },
 };
 </script>
