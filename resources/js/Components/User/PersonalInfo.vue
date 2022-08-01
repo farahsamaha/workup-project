@@ -1,26 +1,32 @@
 <template>
   <!-- <v-container> -->
   <v-card class="pa-2" outlined tile>
-    <v-row class="fill-height">
-      <v-card-title class="text-h4 my-5 mx-2 font-weight-bold orange--text">
-        About
+    <v-row align-content="center">
+      <v-col cols="8">
+        <v-card-title class="text-h4 my-5 mx-2 font-weight-medium teal--text">
+          About</v-card-title
+        ></v-col
+      >
+      <v-col>
         <v-btn
+          class="mt-9 ml-2"
           icon
-          color="orange"
+          color="grey"
           :href="route('user.edit')"
           @click.prevent="$inertia.visit(route('user.edit'))"
         >
           <v-icon>mdi-pencil</v-icon>
         </v-btn>
         <v-btn
+          class="mt-9 ml-3"
           icon
-          color="orange"
+          color="grey"
           :href="route('createuser')"
           @click.prevent="$inertia.visit(route('createuser'))"
         >
           <v-icon>mdi-plus</v-icon>
-        </v-btn>
-      </v-card-title>
+        </v-btn></v-col
+      >
     </v-row>
 
     <v-list two-line>

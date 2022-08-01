@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\PostResource;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\User;
+use App\Models\Post;
 use App\Http\Requests\StoreUserRequest;
 use App\Models\Location;
 use App\Models\Certificate;
@@ -17,7 +19,7 @@ use Illuminate\Support\Facades\Redirect;
 
 class UserController extends Controller
 {
-    public function index(User $user)
+    public function index(User $user, Post $post)
     {
         // $user = User::all()->map(function ($user) {
         //     return [
@@ -36,13 +38,14 @@ class UserController extends Controller
         //     ];
         // });
 
-        $user = Auth::user()->with('posts');
+        $user = Auth::user();
         $location = Location::get();
         $skills = Skill::get();
         $experience = Experience::get();
         $certificate = Certificate::get();
         $organization = Organization::get();
-        return Inertia::render('user/UserProfile', compact('user', 'location', 'skills', 'experience', 'certificate', 'organization'));
+        $posts = PostResource::collection(Post::with('user')->latest()->paginate(30));
+        return Inertia::render('user/UserProfile', compact('user', 'location', 'skills', 'experience', 'certificate', 'organization', 'posts'));
     }
 
     public function create()
@@ -80,7 +83,7 @@ class UserController extends Controller
         // }
 
         User::create($data);
-        return redirect('user/UserProfile')->with('message', 'information added successfully!');
+        return Redirect::route('/userprofile')->with('success', 'information added successfully!');
     }
 
     public function edit()

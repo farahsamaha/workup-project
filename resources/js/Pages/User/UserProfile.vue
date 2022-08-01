@@ -18,29 +18,35 @@
             </v-card>
 
             <div>
-              <v-img
-                enctype="multipart/form-data"
-                profile
-                background-color="grey darken-3"
-                class="ml-5 my-3 rounded-circle elevation-6"
-                height="170"
-                width="170"
-                :src="
-                  user.featured_image
-                    ? `/storage/${user.featured_image}`
-                    : 'https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light'
-                "
-              >
-                <v-btn class="ml-2 my-8" fab small color="teal">
-                  <v-file-input
-                    class="ml-3 my-9"
+              <form @submit.prevent="store">
+                <v-img
+                  profile
+                  background-color="grey darken-3"
+                  class="ml-5 my-3 rounded-circle elevation-6"
+                  height="170"
+                  width="170"
+                  :src="
+                    user.featured_image
+                      ? `/storage/${user.featured_image}`
+                      : 'https://png.pngtree.com/png-vector/20191027/ourlarge/pngtree-avatar-vector-icon-white-background-png-image_1884971.jpg'
+                  "
+                ></v-img>
+                <v-file-input
+                  class="ml-3 my-9"
+                  dark
+                  prepend-icon="mdi-camera"
+                  v-model="user.featured_image"
+                  accept="image/png, image/jpeg, image/bmp"
+                ></v-file-input>
+                <!-- <v-btn fab dark color="teal">
+                  <file-input
                     dark
                     prepend-icon="mdi-camera"
-                    v-model="user.featured_image"
+                    type="file"
                     accept="image/png, image/jpeg, image/bmp"
-                  ></v-file-input>
-                </v-btn>
-              </v-img>
+                    label="Photo"
+                /></v-btn> -->
+              </form>
             </div>
           </v-card>
         </v-col>
@@ -53,8 +59,8 @@
           <personal-info />
           <user-cv />
         </v-col>
-        <v-col cols="9" sm="6" md="8">
-          <post-card v-for="post in user.posts" :key="post.id" :post="post" />
+        <v-col cols="9" sm="6" md="8" v-for="post in user.posts" :key="post.id">
+          <post-card :post="post" />
         </v-col>
       </v-row>
     </v-container>
@@ -71,6 +77,18 @@ export default {
   components: { PersonalInfo, UserCv, PostCard },
   props: {
     user: Object,
+  },
+  data() {
+    return {
+      form: this.$inertia.form({
+        featured_image: null,
+      }),
+    };
+  },
+  methods: {
+    store() {
+      this.form.post("/users");
+    },
   },
 };
 </script>
