@@ -1,40 +1,61 @@
 <template>
-  <div class="flex border-t border-gray-400 mt-5 py-5 mx-5">
-    <div class="flex-shrink-0" :href="route('UserProfile', comment.user.name)">
-      <img
-        class="h-8 w-8 rounded-full object-cover"
-        :src="comment.user.featured_image"
-        :alt="comment.user.name"
-      />
-    </div>
+  <v-card class="elevation-0">
+    <v-row align-content="center">
+      <v-col>
+        <v-card-title class="mr-3">
+          <v-avatar size="40" dark>
+            <img src="https://i.pravatar.cc/64" />
+            <!-- <img
+              class="elevation-1 profile rounded"
+              :src="comment.user.featured_image"
+              :alt="comment.user.name"
+            /> -->
+          </v-avatar>
 
-    <div class="flex-1">
-      <div>
-        <h4 class="underline" :href="route('UserProfile', comment.user.name)">
-          {{ comment.user.name }}
-        </h4>
+          <h5
+            class="ml-5"
+            :href="route('userprofile', comment.user.name)"
+            @click.prevent="$inertia.visit(route('userprofile'))"
+          >
+            {{ comment.user.name }}
+          </h5>
+        </v-card-title>
 
-        <v-btn dark icon :href="route('EditComment', comment.user.name)">
-          <v-icon color="teal">mdi-pencil</v-icon>
-        </v-btn>
-        <v-btn dark icon @submit.prevent="deleteComment()">
-          <v-icon color="teal">mdiDelete</v-icon>
-        </v-btn>
-
-        <p class="bg-gray-100 mt-2 px-3 py-2">
+        <p class="mx-15">
           {{ comment.content }}
         </p>
-        <div>
-          <span class="text-sm italic">{{ comment.published_at }}</span>
-        </div>
-      </div>
-    </div>
-  </div>
+        <v-divider class="ml-3" />
+      </v-col>
+      <v-col cols="3">
+        <v-btn
+          class="mt-6 ml-4"
+          dark
+          x-small
+          icon
+          :href="`/comments/${this.comment.id}/edit`"
+        >
+          <v-icon color="grey">mdi-pencil</v-icon>
+        </v-btn>
+        <v-btn
+          class="mt-6 ml-6"
+          dark
+          x-small
+          icon
+          @click.prevent="deleteComment()"
+        >
+          <v-icon color="grey">mdi-delete</v-icon>
+        </v-btn>
+      </v-col>
+    </v-row>
+  </v-card>
 </template>
 
 <script>
 export default {
-  props: ["comment"],
+  props: {
+    comment: Object,
+  },
+
   methods: {
     deleteComment() {
       if (confirm("Are you sure you want to delete this post?")) {

@@ -83,6 +83,6 @@ class CommentController extends Controller
     {
         $this->authorize('delete', $comment);
         $comment->delete();
-        return Inertia::route('post/HomePage')->with('error', 'comment deleted!');
+        return Redirect::back()->with('error', 'comment deleted!');
     }
 }

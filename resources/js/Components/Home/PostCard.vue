@@ -79,7 +79,7 @@
                 <v-icon class="mr-1" small> mdi-comment</v-icon>
                 <span
                   class="subheading"
-                  :href="route('commentslist', post.comments)"
+                  :href="`/comments/${this.post.id}/index`"
                   @click.prevent="$inertia.visit(route('commentslist'))"
                   >Comments</span
                 >
