@@ -28,14 +28,14 @@ class StoreUserRequest extends FormRequest
             'email' => 'required',
             'birth_date' => 'required',
             'about' => 'required',
-            'featured_image' =>'file|image',
+            'featured_image' => 'file|image',
             'mobile' => 'required|numeric',
-            'location_id'=> 'required|numeric|exists:locations,id',
-            'skill_id'=> 'required|numeric|exists:skills,id',
-            'new_skills'=> 'required_without:skills|nullable|string',
-            'certificate_id'=> 'required|numeric|exists:certificates,id',
-            'experience_id' => 'required|numeric|exists:experiences,id',
-            'organization_id' => 'required|numeric|exists:organizations,id'
+            'location_id' => 'required|numeric|exists:locations,id',
+            'skill_id' => 'numeric|exists:skills,id',
+            'new_skills' => 'required_without:skills|nullable|string',
+            'certificate_id' => 'numeric|exists:certificates,id',
+            'experience_id' => 'numeric|exists:experiences,id',
+            'organization_id' => 'numeric|exists:organizations,id'
         ];
     }
 }

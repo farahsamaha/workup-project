@@ -1,7 +1,7 @@
 <template>
   <v-container>
-    <v-timeline>
-      <v-timeline-item>
+    <v-timeline class="mx-9">
+      <v-timeline-item color="teal accent-4">
         <v-img
           profile
           background-color="grey darken-3"
@@ -9,136 +9,127 @@
           height="170"
           width="170"
           :src="
-            user.featured_image
-              ? `/storage/${user.featured_image}`
+            $page.props.auth.user.featured_image
+              ? `/storage/${page.props.auth.user.featured_image}`
               : 'https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light'
           "
         >
         </v-img>
+        <template v-slot:opposite>
+          <v-container>
+            <h2 class="mr-16 teal--text font-weight-medium">
+              Complete Your Information
+            </h2></v-container
+          >
+        </template>
       </v-timeline-item>
-      <v-timeline-item class="text-left">
-        <form @submit.prevent="store">
-        <v-card
-          class="pa-2"
-          outlined
-          tile
-          elevation="0"
-        >
-          <v-card-title
-            class="text-h5 my-8 font-weight-bold orange--text justify-center"
-            >Complete Your Information
-          </v-card-title>
-          <h3 class="font-weight-medium mx-10">About you</h3>
-        <v-text-field
-          label="add what you're working or doing now"
-          outlined
-          class="mx-16"
-          :counter="40"
-          v-model="form.about"
-          required
-        ></v-text-field>
-         <h3 class="font-weight-medium mx-10">Birth Date</h3>
-        <v-text-field
-          label="1/1/1990"
-          outlined
-          class="mx-16"
-          :counter="10"
-          v-model="form.birth_date"
-          required
-        ></v-text-field>
-         <h3 class="font-weight-medium mx-10">Mobile Number</h3>
-        <v-text-field
-          outlined
-          class="mx-16"
-          v-model="form.mobile"
-          :counter="10"
-          :error-messages="form.errors.mobile"
-          require
-        ></v-text-field>
-        <h3 class="font-weight-medium mx-10">City</h3>
-        <v-autocomplete
-          class="mx-16"
-          dense
-          filled
-          solo-inverted
-          :items="locations"
-          item-text="name"
-          item-value="id"
-          v-model="form.location_id"
-          :error-messages="form.errors.location_id"
+      <form @submit.prevent="store">
+        <v-timeline-item class="text-left" left color="orange darken-2">
+          <v-card class="pa-2" tile elevation="1">
+            <h3 class="font-weight-regular mx-10 mt-5">About you</h3>
+            <v-text-field
+              label="add what you're working or doing now"
+              outlined
+              class="mx-16"
+              :counter="40"
+              v-model="form.about"
+              required
+            ></v-text-field>
+            <h3 class="font-weight-regular mx-10">Birth Date</h3>
+            <v-text-field
+              label="1/1/1990"
+              outlined
+              class="mx-16"
+              :counter="10"
+              v-model="form.birth_date"
+              required
+            ></v-text-field>
+            <h3 class="font-weight-regular mx-10">Mobile Number</h3>
+            <v-text-field
+              outlined
+              class="mx-16"
+              v-model="form.mobile"
+              :counter="10"
+              :error-messages="form.errors.mobile"
+              require
+            ></v-text-field>
+            <h3 class="font-weight-regular mx-10">City</h3>
+            <v-autocomplete
+              class="mx-16"
+              outlined
+              :items="locations"
+              item-text="name"
+              item-value="id"
+              v-model="form.location_id"
+              :error-messages="form.errors.location_id"
+            >
+            </v-autocomplete>
+          </v-card>
+        </v-timeline-item>
+        <v-timeline-item right color="teal accent-4">
+          <v-card class="pa-2" tile elevation="1">
+            <h3 class="font-weight-regular mx-10 mt-5">Skills</h3>
+            <v-autocomplete
+              class="mx-16"
+              multiple
+              outlined
+              :items="skills"
+              item-text="name"
+              item-value="id"
+              v-model="form.skill_id"
+              :error-messages="form.errors.skill_id"
+            >
+            </v-autocomplete>
 
-        >
-        </v-autocomplete>
+            <h3 class="font-weight-regular mx-10">Education</h3>
+            <v-autocomplete
+              class="mx-16"
+              multiple
+              outlined
+              :items="certificates"
+              item-text="name"
+              item-value="id"
+              v-model="form.certificate_id"
+              :error-messages="form.errors.certificate_id"
+            >
+            </v-autocomplete>
 
-        <h3 class="font-weight-medium mx-10">Skills</h3>
-        <v-autocomplete
-          class="mx-16"
-          multiple
-          dense
-          filled
-          solo-inverted
-          :items="skills"
-          item-text="name"
-          item-value="id"
-          v-model="form.skill_id"
-          :error-messages="form.errors.skill_id"
+            <h3 class="font-weight-regular mx-10">Experiences</h3>
+            <v-autocomplete
+              class="mx-16"
+              multiple
+              outlined
+              :items="experiences"
+              item-text="name"
+              item-value="id"
+              v-model="form.experience_id"
+              :error-messages="form.errors.experience_id"
+            >
+            </v-autocomplete>
 
-        >
-        </v-autocomplete>
-
-        <h3 class="font-weight-medium mx-10">Education</h3>
-         <v-autocomplete
-          class="mx-16"
-          multiple
-          dense
-          filled
-          solo-inverted
-          :items="certificates"
-          item-text="name"
-          item-value="id"
-          v-model="form.certificate_id"
-          :error-messages="form.errors.certificate_id"
-
-        >
-        </v-autocomplete>
-
-        <h3 class="font-weight-medium mx-10">Experiences</h3>
-         <v-autocomplete
-          class="mx-16"
-          multiple
-          dense
-          filled
-          solo-inverted
-          :items="experiences"
-          item-text="name"
-          item-value="id"
-          v-model="form.experience_id"
-          :error-messages="form.errors.experience_id"
-
-        >
-        </v-autocomplete>
-
-        <h3 class="font-weight-medium mx-10">Volunteering</h3>
-        <v-autocomplete
-          class="mx-16"
-          multiple
-          dense
-          filled
-          solo-inverted
-          :items="organizations"
-          item-text="name"
-          item-value="id"
-          v-model="form.organization_id"
-          :error-messages="form.errors.organization_id"
-
-        >
-        </v-autocomplete>
-         <v-btn type="submit" class="mx-16" rounded color="orange darken-3" dark>
-          Add
-        </v-btn>
-        </v-card>
-        </form>
-      </v-timeline-item>
+            <h3 class="font-weight-regular mx-10">Volunteering</h3>
+            <v-autocomplete
+              class="mx-16"
+              multiple
+              outlined
+              :items="organizations"
+              item-text="name"
+              item-value="id"
+              v-model="form.organization_id"
+              :error-messages="form.errors.organization_id"
+            >
+            </v-autocomplete>
+            <v-btn
+              type="submit"
+              class="mx-16 mb-6"
+              color="orange darken-3"
+              dark
+            >
+              Add
+            </v-btn>
+          </v-card>
+        </v-timeline-item>
+      </form>
     </v-timeline>
   </v-container>
 </template>
@@ -150,7 +141,6 @@ export default {
   remember: "form",
 
   props: {
-    user: Object,
     locations: Array,
     skills: Array,
     certificates: Array,
