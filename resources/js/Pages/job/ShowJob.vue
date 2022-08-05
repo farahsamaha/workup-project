@@ -22,7 +22,7 @@
                   >Job Location</v-list-item-title
                 >
                 <v-list-item-subtitle>{{
-                  job.location_id
+                  job.location.name
                 }}</v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
@@ -32,21 +32,25 @@
                 <v-list-item-title class="text-h6"
                   >work place type</v-list-item-title
                 >
-                <v-list-item-subtitle>{{ job.place_id }}</v-list-item-subtitle>
+                <v-list-item-subtitle>{{
+                  job.places.map((place) => place.name).join(", ")
+                }}</v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
             <v-divider class="mx-6"></v-divider>
             <v-list-item class="my-2">
               <v-list-item-content>
                 <v-list-item-title class="text-h6">job type</v-list-item-title>
-                <v-list-item-subtitle>{{ job.type_id }}</v-list-item-subtitle>
+                <v-list-item-subtitle>{{
+                  job.types.map((type) => type.name).join(", ")
+                }}</v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
             <v-divider class="mx-6"></v-divider>
             <v-list-item class="my-2">
               <v-list-item-content>
                 <v-list-item-title class="text-h6">Email</v-list-item-title>
-                <v-list-item-subtitle>{{ job.Email }}</v-list-item-subtitle>
+                <v-list-item-subtitle>{{ job.email }}</v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
             <v-divider class="mx-6"></v-divider>
@@ -55,7 +59,7 @@
                 <v-list-item-title class="text-h6"
                   >Description</v-list-item-title
                 >
-                <v-card-text>{{ job.Description }} </v-card-text>
+                <v-card-text>{{ job.description }} </v-card-text>
               </v-list-item-content>
             </v-list-item>
             <v-row>

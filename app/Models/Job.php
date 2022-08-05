@@ -10,44 +10,46 @@ class Job extends Model
 {
     use HasFactory, Likeable;
     protected $fillable = ['title', 'category_id', 'location_id', 'email', 'description'];
-    public $timestamps = false;
+
 
     public function categories()
     {
-        return $this->belongsToMany(Category::class, 'categories');
+        return $this->belongsTo(Category::class);
     }
-    public function locations()
+    public function location()
     {
-        return $this->belongsToMany(Location::class, 'locations');
+
+        return $this->belongsTo(Location::class);
     }
     public function types()
     {
-        return $this->belongsToMany(Type::class, 'types');
+        return $this->belongsToMany(Type::class);
     }
     public function places()
     {
-        return $this->belongsToMany(Place::class, 'places');
+        return $this->belongsToMany(Place::class);
     }
 
     public function scopeFilter($query)
     {
         $filters = request()->query();
         // dd($filters);
-        if (request()->query('category')) {
-            $query->where('categories', 'like', '%' . request()->query('category') . '%');
-            // dd('ok');
+        if (request()->query('category_id')) {
+            $query->where('category_id', 'like', '%' . request('category_id') . '%');
+            // dd(request()->query('category_id'));
         }
 
-        if (request()->query('location')) {
-            $query->where('locations', 'like', '%' . request('location') . '%');
+        if (request()->query('location_id')) {
+
+            $query->where('location_id', 'like', '%' . request('location_id') . '%');
         }
 
-        if (request()->query('type')) {
-            $query->where('types', 'like', '%' . request('types') . '%');
+        if (request()->query('type_id')) {
+            $query->whereHas('types', fn ($q) => $q->where('id', '<>', [request('type_id')]));
         }
 
-        if (request()->query('search')) {
-            $query->where('title', 'like', '%' . request('search') . '%');
+        if (request()->query('title')) {
+            $query->where('title', 'like', '%' . request('title') . '%');
         }
     }
 }

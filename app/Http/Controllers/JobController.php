@@ -18,36 +18,14 @@ class JobController extends Controller
 {
     public function index(Request $request)
     {
-        // $query = Job::all();
-        // // dd($request->query());
-        // // $jobs = Job::query();
-        // if ($request->filled('category')) {
-        //     $query->where('category_id', $request->category);
-        // }
-        // if ($request->filled('location')) {
-        //     $query->where('location_id', $request->location);
-        // }
-        // if ($request->filled('type')) {
-        //     $query->where('type_id', $request->type);
-        // }
-        // if ($request->filled('q')) {
-        //     $query->where(function ($q) use ($request) {
-        //         $q->Where('title', 'like', "%$request->q%")
-        //             ->orWhere('location', 'like', "%$request->q%")
-        //             ->orWhere('type', 'like', "%$request->q%");
-        //     });
-        // }
-        // $categories = Category::has('jobs')->get();
-        // $locations = Location::has('jobs')->get();
-        // $types = Type::has('jobs')->get();
-        // $jobs = $query->paginate(4);
         $query = Job::filter($request->query());
 
         $categories = Category::get();
         $locations = Location::get();
         $types = Type::get();
-
-        $jobs = $query->paginate(4);
+        // dd($query->toSql());
+        $jobs = $query->with(['location', 'types', 'places'])->paginate(6);
+        // dd($jobs);
 
         return Inertia::render('job/JobIndex', compact('jobs', 'categories', 'locations', 'types'));
     }
@@ -55,7 +33,7 @@ class JobController extends Controller
     // Show job details
     public function show(job $job)
     {
-        $job = Job::get();
+        $job->load(['location', 'types', 'places']);
         return Inertia::render('job/ShowJob', compact('job'));
     }
 
@@ -69,16 +47,18 @@ class JobController extends Controller
         return Inertia::render('job/CreateJob', compact('types', 'places', 'categories', 'locations'));
     }
 
-    public function store(StorejobRequest $request, job $job)
+    public function store(StorejobRequest $request)
     {
 
         $data['user_id'] = auth()->id();
 
         $data = $request->validated();
-        $job->types()->attach($request->types);
-        $job->places()->attach($request->places);
+        $job = job::create($request->except(['type_id', 'place_id']));
+        // dd($data);
+        $job->types()->attach($request->type_id);
+        $job->places()->attach($request->place_id);
 
-        job::create($data);
+
 
         return Redirect::route('jobs')->with('success', 'job posted successfully!');
     }
@@ -119,7 +99,8 @@ class JobController extends Controller
         $this->authorize('delete', $job);
 
         $job->delete();
-        return Inertia::route('job/JobIndex')->with('message', 'job deleted successfully!');
+
+        return Redirect::back()->with('error', 'job deleted successfully!');
     }
 
 

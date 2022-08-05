@@ -6,13 +6,15 @@
           <v-card-title>{{ job.title }}</v-card-title>
           <v-row>
             <p class="ml-7 blue--text">
-              <v-icon>mdi-add-location</v-icon>{{ job.location_id }} .
+              <v-icon>mdi-add-location</v-icon>{{ job.location.name }} .
             </p>
-            <p class="orange--text">{{ job.place_id }}</p></v-row
+            <p class="orange--text">
+              {{ job.places.map((place) => place.name).join(",") }}
+            </p></v-row
           >
-          <v-card-subtitle class="green--text">
-            {{ job.type_id }}
-          </v-card-subtitle>
+          <p class="green--text ml-4">
+            {{ job.types.map((type) => type.name).join(",") }}
+          </p>
         </v-col>
 
         <v-col cols="3" class="mr-3" align-self="center">
@@ -20,8 +22,8 @@
             rounded
             color="orange darken-3"
             dark
-            :href="route('showjob')"
-            @click.prevent="$inertia.visit(route('showjob'))"
+            :href="route('showjob', { job })"
+            @click.prevent="$inertia.visit(route('showjob', { job }))"
             >Show details</v-btn
           >
         </v-col></v-row
@@ -32,7 +34,6 @@
 
 <script>
 export default {
-  // props: ["job"],
   props: {
     job: Object,
   },

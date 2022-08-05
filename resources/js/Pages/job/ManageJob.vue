@@ -14,23 +14,31 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="job in jobs.data" :key="job.id">
-              <td :job="job">
+            <!-- .data is only used when paginating -->
+            <tr v-for="job in jobs" :key="job.id">
+              <td>
                 {{ job.title }}
               </td>
               <td>
-                <v-icon small class="mr-2" @click.prevent="updateJob()">
-                  mdi-pencil
-                </v-icon>
-                <v-icon class="mx-2" small @click.prevent="deleteItem()">
-                  mdi-delete
-                </v-icon>
-                <v-icon class="mx-2" small @click.prevent="showJob()">
-                  mdi-eye
-                </v-icon>
-                <!-- <v-icon class="mx-2" small @click.prevent="applyItem()">
+                <form>
+                  <!-- <v-icon small class="mr-2" @click.prevent="updateJob()">
+                    mdi-pencil
+                  </v-icon> -->
+                  <!-- <v-icon class="mx-2" small @click.prevent="deleteJob()">
+                    mdi-delete
+                  </v-icon> -->
+                  <v-icon
+                    class="mx-2"
+                    small
+                    :href="route('showjob', { job })"
+                    @click.prevent="$inertia.visit(route('showjob', { job }))"
+                  >
+                    mdi-eye
+                  </v-icon>
+                  <!-- <v-icon class="mx-2" small @click.prevent="applyItem()">
                   mdi-account
                 </v-icon> -->
+                </form>
               </td>
             </tr>
           </tbody>
@@ -44,7 +52,9 @@
 import JobLayout from "../../Layouts/JobLayout";
 export default {
   layout: JobLayout,
-  props: ["jobs"],
+  props: {
+    jobs: Array,
+  },
   data() {
     return {
       job: "",
@@ -57,16 +67,12 @@ export default {
   methods: {
     updateJob() {
       this.loading = true;
-      this.$inertia.patch(`/jobs/${this.job.id}`, this.form);
+      this.$inertia.put(`/jobs/${this.job.id}`, this.form);
     },
     deleteJob() {
       if (confirm("Are you sure you want to delete this job?")) {
         this.$inertia.delete(`/jobs/${this.job.id}`);
       }
-    },
-    showJob() {
-      // this.$inertia.get(route("showjob"));
-      this.$inertia.get(`/jobs/${this.job.id}`);
     },
   },
 };
