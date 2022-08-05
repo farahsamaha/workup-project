@@ -41,7 +41,7 @@ class PostController extends Controller
         $data = $request->validated();
 
         $data['user_id'] = auth()->id();
-        if ($request->filled('image'))
+        if ($request->file('image'))
             $data['image'] = $request->image->store('public/assets');
 
 
@@ -86,6 +86,8 @@ class PostController extends Controller
     public function update(StorePostRequest $request, Post $post)
     {
         $data = $request->validated();
+        if ($request->file('image'))
+            $data['image'] = $request->image->store('public/assets');
         $post->update($data);
 
         return redirect('/homepage')->with('success', 'post updated.');
@@ -118,7 +120,7 @@ class PostController extends Controller
         $post->save();
         return back();
     }
-    public function getlikescount(Post $post)
+    public function likescount(Post $post)
     {
         $post->likeCount;
         $post->save();

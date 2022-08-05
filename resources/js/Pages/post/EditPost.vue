@@ -22,9 +22,8 @@
             <v-img
               class="white--text align-end"
               height="250px"
-              :src="`/storage/${post.image}`"
+              :src="`${post.image}`"
               v-if="post.image"
-              v-model="form.image"
             >
             </v-img>
             <v-card-text>
@@ -40,20 +39,32 @@
                 <v-container>
                   <v-btn
                     dark
-                    color="teal accent-4"
+                    color="teal"
                     class="mx-4 my-7"
                     type="submit"
+                    outlined
                   >
                     <v-icon>mdi-pencil</v-icon>update post
+                  </v-btn>
+
+                  <v-btn dark small color="teal" height="35" width="28">
+                    <v-file-input
+                      small
+                      class="ml-3 mb-4"
+                      dark
+                      prepend-icon="mdi-camera"
+                      hide-input
+                      :rules="rules"
+                      v-model="form.image"
+                    ></v-file-input>
                   </v-btn>
                 </v-container>
               </v-row>
             </v-card-actions>
           </form>
         </v-container>
-      </v-card>
-    </v-col></v-row
-  >
+      </v-card> </v-col
+  ></v-row>
 </template>
 
 <script>
@@ -78,7 +89,6 @@ export default {
     return {
       form: this.$inertia.form({
         content: this.post.content,
-        image: this.post.image,
         user_id: "",
       }),
     };

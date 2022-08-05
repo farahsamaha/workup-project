@@ -14,7 +14,10 @@
             ></v-img>
           </v-list-item-avatar>
           <v-list-item-content>
-            <v-list-item-title>
+            <v-list-item-title
+              :href="route('showprofile', { user })"
+              @click.prevent="$inertia.visit(route('showprofile', { user }))"
+            >
               {{ post.user.name }}
             </v-list-item-title>
             <v-list-item-subtitle color="grey darken-2">
@@ -45,11 +48,7 @@
           </v-menu>
         </v-card-title>
         <v-container>
-          <v-img
-            height="250px"
-            :src="`/storage/${post.image}`"
-            v-if="post.image"
-          >
+          <v-img height="250px" :src="`${post.image}`" v-if="post.image">
           </v-img>
           <v-card-text>
             {{ post.content }}
@@ -73,14 +72,17 @@
                   >mdi-cards-heart-outline</v-icon
                 >
                 <!-- how to display likescount?? -->
-                <span class="subheading mr-2">Likes</span>
+                <span class="subheading mr-2">
+                  {{ randomNumber() }}
+                  Likes</span
+                >
 
                 <span class="mr-1">· </span>
                 <v-icon class="mr-1" small> mdi-comment</v-icon>
                 <span
                   class="subheading"
                   :href="`/comments/${this.post.id}/index`"
-                  @click.prevent="$inertia.visit(route('commentslist'))"
+                  @click.prevent="$inertia.visit(route('commentslist', post))"
                   >Comments</span
                 >
 
@@ -99,23 +101,16 @@
                     ></v-text-field>
                   </v-row>
                 </form>
-                <!-- <comment-item /> -->
               </v-container>
             </v-row>
           </v-card-actions>
         </v-container>
-      </v-card>
-    </v-col></v-row
-  >
+      </v-card> </v-col
+  ></v-row>
 </template>
 
 <script>
-import CommentItem from "@/components/home/CommentItem.vue";
-
 export default {
-  components: {
-    CommentItem,
-  },
   props: {
     post: Object,
     user: Object,
@@ -146,28 +141,30 @@ export default {
       this.form.post(`/comments/${this.post.id}`);
     },
     like() {
-      this.likeForm.post(this.route("likepost", this.post), {
+      this.likeForm.post(`/posts/${this.post.id}/like`, {
         preserveScroll: true,
         onSuccess: () => {},
       });
     },
     unlike() {
-      this.unlikeForm.post(this.route("unlikepost", this.post), {
+      this.unlikeForm.post(`/posts/${this.post.id}/unlike`, {
         preserveScroll: true,
         onSuccess: () => {},
       });
     },
     likescount() {
-      this.likescount.post(this.route("getlikescount", this.post), {
+      this.likescount.get(`/posts/${this.post.id}/likescount`, {
         preserveScroll: true,
         onSuccess: () => {},
       });
     },
-
     deletePost() {
       if (confirm("Are you sure you want to delete this post?")) {
         this.$inertia.delete(`/posts/${this.post.id}`);
       }
+    },
+    randomNumber() {
+      return Math.floor(Math.random() * (0 - 1 + 1)) + 1;
     },
   },
 };
