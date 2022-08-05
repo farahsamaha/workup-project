@@ -1,50 +1,54 @@
 <template>
-  <div class="flex border-t border-gray-400 mt-5 py-5 space-x-5">
-    <div class="flex-shrink-0" :href="route('UserProfile', comment.user.name)">
-      <img
-        class="h-8 w-8 rounded-full object-cover"
-        :src="comment.user.featured_image"
-        :alt="comment.user.name"
-      />
-    </div>
-
-    <div class="flex-1">
-      <div>
-        <h4 class="underline" :href="route('UserProfile', comment.user.name)">
-          {{ comment.user.name }}
-        </h4>
-
-        <form v-if="can.updateComment">
+  <v-card class="mx-auto mt-9" max-width="600" elevation="0">
+    <!-- <v-img
+        class="elevation-6 profile h-8 w-8 rounded"
+        :alt="$page.props.auth.user.name"
+        :src="$page.props.auth.user.featured_image"
+      ></v-img> -->
+    <v-row>
+      <v-avatar class="ml-5">
+        <img
+          src="https://png.pngtree.com/png-vector/20191027/ourlarge/pngtree-avatar-vector-icon-white-background-png-image_1884971.jpg"
+        />
+      </v-avatar>
+      <h3 class="ml-3 mt-4">
+        {{ $page.props.auth.user.name }}
+      </h3>
+    </v-row>
+    <form @submit.prevent="updateComment">
+      <v-row>
+        <v-col cols="12">
           <p class="bg-gray-100 mt-2 px-3 py-2">
             <v-text-field
               class="mt-5"
               filled
-              prepend-icon="mdi-comment-text"
               v-model="form.content"
-              :error-messages="form.errors.content"
-              label="Comment"
+              label="edit comment"
             ></v-text-field>
-            <v-btn dark icon @submit.prevent="updateComment">
-              <v-icon color="teal">mdi-pencil</v-icon>
+            <v-btn outlined color="teal accent-4" type="submit">
+              <v-icon color="teal">mdi-pencil</v-icon>update comment
             </v-btn>
-          </p>
-        </form>
-      </div>
-    </div>
-  </div>
+          </p></v-col
+        ></v-row
+      >
+    </form>
+  </v-card>
 </template>
 
 <script>
 export default {
   props: {
     comment: Object,
-    can: Object,
+    user: Object,
   },
-  data: () => ({
-    form: this.$inertia.form({
-      content: this.commment.content,
-    }),
-  }),
+  computed: {},
+  data() {
+    return {
+      form: this.$inertia.form({
+        content: this.comment.content,
+      }),
+    };
+  },
   methods: {
     updateComment() {
       this.$inertia.put(`/comments/${this.comment.id}`, this.form);

@@ -14,12 +14,12 @@ use Illuminate\Support\Facades\Redirect;
 
 class CommentController extends Controller
 {
-    public function index(Request $request, Comment $comment, Post $post)
+    public function index(Request $request, Post $post)
     {
-        $comments = CommentResource::collection(Comment::with(['user', 'post'])->paginate(15));
-        // $commentsCount = Comment::count();
+        $comments = CommentResource::collection($post->comments()->paginate(15));
 
-        return Inertia::render('post/comment/CommentsList', compact('comments'));
+
+        return Inertia::render('post/comment/CommentsList', compact('comments',  'post'));
     }
 
     /**
@@ -51,8 +51,9 @@ class CommentController extends Controller
      */
     public function show()
     {
+        // $commentsCount = Comment::count();
         Post::withCount(['comments'])->find();
-        return Redirect::route('post/HomePage');
+        return back();
     }
 
     public function edit(Comment $comment)
@@ -73,9 +74,9 @@ class CommentController extends Controller
         $validated = $request->validate([
             'content'   => 'required|min:1',
         ]);
+        // $post->comments()->update($validated);
         $comment->update($validated);
-
-        return Redirect::route('post/HomePage')->with('success', 'comment updated!');
+        return Redirect::back()->with('success', 'comment updated!');
     }
 
 

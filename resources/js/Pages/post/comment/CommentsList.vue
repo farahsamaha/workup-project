@@ -1,5 +1,6 @@
 <template>
   <v-card class="mx-auto mt-9" max-width="600" elevation="0">
+    <post-card />
     <div v-for="comment in comments.data" :key="comment.id">
       <comment-item :comment="comment" />
     </div>
@@ -7,13 +8,15 @@
       <v-row>
         <v-col cols="2">
           <v-avatar class="ml-5">
-            <img src="https://i.pravatar.cc/64" />
+            <img
+              src="https://png.pngtree.com/png-vector/20191027/ourlarge/pngtree-avatar-vector-icon-white-background-png-image_1884971.jpg"
+            />
             <!-- <img
-            class="elevation-1 profile rounded"
-            :src="comment.user.featured_image"
-            :alt="comment.user.name"
-          /> -->
-          </v-avatar></v-col
+              class="elevation-1 profile rounded"
+              :src="user.featured_image"
+              :alt="comment.user.name"
+            />  -->
+          </v-avatar> </v-col
         ><v-col cols="10">
           <form @submit.prevent="store">
             <v-text-field
@@ -46,16 +49,23 @@
 
 <script>
 import CommentItem from "@/components/home/CommentItem.vue";
+import PostCard from "@/components/home/PostCard.vue";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 export default {
   layout: AuthenticatedLayout,
   props: ["comments", "post"],
   components: {
     CommentItem,
+    PostCard,
   },
+
   computed: {
     can() {
       return this.$page.props.can;
+    },
+
+    user() {
+      return this.$page.props.user;
     },
   },
   data() {
@@ -69,18 +79,6 @@ export default {
     store() {
       this.form.post(`/comments/${this.post.id}`);
     },
-    // store() {
-    //   this.form.post(this.route("comment.store", this.post), {
-    //     preserveScroll: true,
-    //     onSuccess: () => {
-    //       Toast.fire({
-    //         icon: "success",
-    //         title: "Your comment has successfully been published!",
-    //       });
-    //       this.form.content = null;
-    //     },
-    //   });
-    // },
   },
 };
 </script>

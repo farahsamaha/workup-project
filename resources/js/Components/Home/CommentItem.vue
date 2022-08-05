@@ -4,18 +4,18 @@
       <v-col>
         <v-card-title class="mr-3">
           <v-avatar size="40" dark>
-            <img src="https://i.pravatar.cc/64" />
-            <!-- <img
+            <!-- <img src="https://i.pravatar.cc/64" /> -->
+            <img
               class="elevation-1 profile rounded"
               :src="comment.user.featured_image"
               :alt="comment.user.name"
-            /> -->
+            />
           </v-avatar>
 
           <h5
             class="ml-5"
-            :href="route('userprofile', comment.user.name)"
-            @click.prevent="$inertia.visit(route('userprofile'))"
+            :href="route('showprofile', { user })"
+            @click.prevent="$inertia.visit(route('showprofile', { user }))"
           >
             {{ comment.user.name }}
           </h5>
@@ -61,6 +61,9 @@ export default {
       if (confirm("Are you sure you want to delete this post?")) {
         this.$inertia.delete(`/comments/${this.comment.id}`);
       }
+    },
+    showprofile() {
+      this.$inertia.get(`/users/${this.user.id}`);
     },
   },
 };
