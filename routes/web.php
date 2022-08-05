@@ -28,7 +28,7 @@ require __DIR__ . '/auth.php';
 
 //user
 
-Route::post('users', [PostController::class, 'store'])
+Route::post('users', [UserController::class, 'store'])
     ->name('users.store')
     ->middleware('auth');
 
@@ -52,10 +52,12 @@ Route::delete('users/{user}', [UserController::class, 'destroy'])
     ->name('user.destroy')
     ->middleware('auth');
 
+Route::get('/showprofile', [UserController::class, 'show'])
+    ->name('showprofile')
+    ->middleware('auth');
+
 //posts
-// Route::get('/homepage', function () {
-//     return Inertia::render('post/HomePage');
-// })->name('homepage');
+
 Route::get('/homepage', [PostController::class, 'index'])
     ->name('homepage');
 
@@ -80,14 +82,14 @@ Route::delete('posts/{post}', [PostController::class, 'destroy'])
     ->middleware('auth');
 
 
-Route::post('posts/{post}', [PostController::class, 'likepost'])->name('likepost');
-// Route::post('posts/{post}', [PostController::class, 'unlikepost'])->name('unlikepost');
-
+Route::post('posts/{post}/like', [PostController::class, 'likepost'])->name('likepost');
+Route::post('posts/{post}/unlike', [PostController::class, 'unlikepost'])->name('unlikepost');
+Route::get('posts/{post}/likescount', [PostController::class, 'likescount'])->name('likescount');
 
 
 //comments
 
-Route::get('/commentslist', [CommentController::class, 'index'])
+Route::get('/posts/{post}/commentslist', [CommentController::class, 'index'])
     ->name('commentslist');
 
 Route::post('comments/{post}', [CommentController::class, 'store'])
@@ -98,7 +100,7 @@ Route::get('comments/{comment}/edit', [CommentController::class, 'edit'])
     ->name('comment.edit')
     ->middleware('auth');
 
-Route::put('comments/{comment}/update', [CommentController::class, 'update'])
+Route::put('comments/{comment}', [CommentController::class, 'update'])
     ->name('comment.update')
     ->middleware('auth');
 
@@ -112,7 +114,7 @@ Route::get('/jobindex', [JobController::class, 'index'])
     ->name('jobs')
     ->middleware('auth');
 
-Route::get('/showjob', [JobController::class, 'show'])
+Route::get('/showjob/{job}', [JobController::class, 'show'])
     ->name('showjob')
     ->middleware('auth');
 
@@ -124,13 +126,13 @@ Route::post('jobs', [JobController::class, 'store'])
     ->name('jobs.store')
     ->middleware('auth');
 
-// Route::get('jobs/{job}/edit', [JobController::class, 'edit'])
-//     ->name('job.edit')
-//     ->middleware('auth');
+Route::get('jobs/{job}/edit', [JobController::class, 'edit'])
+    ->name('job.edit')
+    ->middleware('auth');
 
-// Route::put('jobs/{job}', [JobController::class, 'update'])
-//     ->name('job.update')
-//     ->middleware('auth');
+Route::put('jobs/{job}', [JobController::class, 'update'])
+    ->name('job.update')
+    ->middleware('auth');
 
 Route::delete('jobs/{job}', [JobController::class, 'destroy'])
     ->name('job.destroy')
