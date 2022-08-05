@@ -1,66 +1,71 @@
 <template>
   <div class="cover">
     <v-container>
-      <v-row no-gutters>
-        <v-col>
-          <v-card height="330" tile>
-            <v-card height="170">
-              <v-img
-                height="250"
-                src="https://media.istockphoto.com/photos/top-view-of-dark-green-velour-fabric-picture-id928376866?k=20&m=928376866&s=612x612&w=0&h=c2pcp-FuEH7cgME0vcMfr4XC3QtcQ3WD4DXkfPcPDoU="
-              >
-              </v-img>
-              <v-card-title
-                class="text-h4 my-1 Light weight text justify-center"
-              >
-                {{ user.name }}
-              </v-card-title>
-            </v-card>
-
-            <div>
-              <form @submit.prevent="store">
+      <v-card height="310">
+        <v-img
+          height="220"
+          src="https://media.istockphoto.com/photos/top-view-of-dark-green-velour-fabric-picture-id928376866?k=20&m=928376866&s=612x612&w=0&h=c2pcp-FuEH7cgME0vcMfr4XC3QtcQ3WD4DXkfPcPDoU="
+        >
+        </v-img>
+        <v-row>
+          <v-col cols="8">
+            <v-row>
+              <v-avatar size="160" class="mb-16 ml-9">
                 <v-img
                   profile
-                  background-color="grey darken-3"
-                  class="ml-5 my-3 rounded-circle elevation-6"
-                  height="170"
-                  width="170"
+                  class="elevation-3"
                   :src="
                     user.featured_image
-                      ? `/storage/${user.featured_image}`
+                      ? `${user.featured_image}`
                       : 'https://png.pngtree.com/png-vector/20191027/ourlarge/pngtree-avatar-vector-icon-white-background-png-image_1884971.jpg'
                   "
                 ></v-img>
+              </v-avatar>
+
+              <h1 class="mt-9 ml-5 font-weight-regular">
+                {{ user.name }}
+              </h1></v-row
+            >
+          </v-col>
+
+          <form @submit.prevent="store">
+            <div class="ml-16">
+              <v-btn outlined color="teal accent-4" type="submit" class="mt-10"
+                ><v-icon>mdi-account-check</v-icon>change profile</v-btn
+              >
+              <v-btn
+                elevation="0"
+                class="mt-10"
+                color="teal accent-4"
+                dark
+                small
+                height="35"
+                width="30"
+              >
                 <v-file-input
-                  class="ml-3 my-9"
-                  dark
+                  hide-input
+                  class="ml-2 mb-4"
                   prepend-icon="mdi-camera"
-                  v-model="user.featured_image"
+                  v-model="form.featured_image"
                   accept="image/png, image/jpeg, image/bmp"
-                ></v-file-input>
-                <!-- <v-btn fab dark color="teal">
-                  <file-input
-                    dark
-                    prepend-icon="mdi-camera"
-                    type="file"
-                    accept="image/png, image/jpeg, image/bmp"
-                    label="Photo"
-                /></v-btn> -->
-              </form>
+                ></v-file-input
+              ></v-btn>
             </div>
-          </v-card>
-        </v-col>
-      </v-row>
+          </form>
+        </v-row>
+      </v-card>
     </v-container>
 
     <v-container>
-      <v-row no-gutters>
+      <v-row>
         <v-col cols="3" md="4">
-          <personal-info />
-          <user-cv />
+          <personal-info class="mt-9" />
+          <user-cv class="mt-1" />
         </v-col>
-        <v-col cols="9" sm="6" md="8" v-for="post in user.posts" :key="post.id">
-          <post-card :post="post" />
+        <v-col cols="9" md="8">
+          <div v-for="post in posts.data" :key="post.id">
+            <post-card class="mt-6" :post="post" />
+          </div>
         </v-col>
       </v-row>
     </v-container>
@@ -77,6 +82,7 @@ export default {
   components: { PersonalInfo, UserCv, PostCard },
   props: {
     user: Object,
+    posts: Array,
   },
   data() {
     return {

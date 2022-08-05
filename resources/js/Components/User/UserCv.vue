@@ -1,5 +1,5 @@
 <template>
-  <v-card class="pa-2" outlined tile>
+  <v-card class="pa-2" elevation="2">
     <v-list>
       <v-list-group prepend-icon="mdi-ticket" color="teal-accent-4" no-action>
         <template v-slot:activator>
@@ -8,7 +8,7 @@
           </v-list-item-content>
         </template>
         <v-list-item v-for="skill in skills.data" :key="skill.id">
-          {{ user.skill_id }}
+          {{ user.skills.map((skill) => skill.name).join(",") }}
           <v-list-item-content>
             <v-list-item-title v-text="child.title"></v-list-item-title>
           </v-list-item-content>
@@ -21,11 +21,11 @@
             <v-list-item-title>Education</v-list-item-title>
           </v-list-item-content>
         </template>
-        <v-list-item
-          v-for="certificate in certificate.data"
-          :key="certificate.id"
-        >
-          {{ user.certificate_id }}
+        <v-list-item v-for="certificate in certificates" :key="certificate.id">
+          {{
+            user.certificates.map((certificate) => certificate.name).join(",")
+          }}
+          <!-- {{ user.certificate_id }} -->
           <v-list-item-content>
             <v-list-item-title v-text="child.title"></v-list-item-title>
           </v-list-item-content>
@@ -42,8 +42,9 @@
             <v-list-item-title>Experience</v-list-item-title>
           </v-list-item-content>
         </template>
-        <v-list-item v-for="experience in experience.data" :key="experience.id">
-          {{ user.experience_id }}
+        <v-list-item v-for="experience in experiences" :key="experience.id">
+          {{ user.experiences.map((experience) => experience.name).join(",") }}
+          <!-- {{ user.experience_id }} -->
           <v-list-item-content>
             <v-list-item-title v-text="child.title"></v-list-item-title>
           </v-list-item-content>
@@ -61,10 +62,15 @@
           </v-list-item-content>
         </template>
         <v-list-item
-          v-for="organization in organization.data"
+          v-for="organization in organizations"
           :key="organization.id"
         >
-          {{ user.organization_id }}
+          {{
+            user.organizations
+              .map((organization) => organization.name)
+              .join(",")
+          }}
+          <!-- {{ user.organization_id }} -->
           <v-list-item-content>
             <v-list-item-title v-text="child.title"></v-list-item-title>
           </v-list-item-content>
@@ -76,6 +82,9 @@
 
 <script>
 export default {
+  props: {
+    user: Object,
+  },
   computed: {
     skills() {
       return this.$page.props.skills;

@@ -24,18 +24,25 @@ class StoreUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'email' => 'required',
-            'birth_date' => 'required',
-            'about' => 'required',
+            'name' => '',
+            'email' => '',
+            'birth_date' => '',
+            'about' => 'nullable',
             'featured_image' => 'file|image',
-            'mobile' => 'required|numeric',
-            'location_id' => 'required|numeric|exists:locations,id',
-            'skill_id' => 'numeric|exists:skills,id',
-            'new_skills' => 'required_without:skills|nullable|string',
-            'certificate_id' => 'numeric|exists:certificates,id',
-            'experience_id' => 'numeric|exists:experiences,id',
-            'organization_id' => 'numeric|exists:organizations,id'
+            'mobile' => 'numeric',
+            'location_id' => 'numeric|exists:locations,id',
+            'skill_id' => 'array|nullable',
+            'skill_id.*' => 'numeric|exists:skills,id',
+            'new_skills' => 'nullable|string',
+            'certificate_id' => 'array|nullable',
+            'certificate_id.*' => 'numeric|exists:certificates,id',
+            'new_certificates' => 'nullable|string',
+            'experience_id' => 'array|nullable', // I added nullable just to test
+            'experience_id.*' => 'numeric|exists:experiences,id',
+            'new_experiences' => 'nullable|string',
+            'organization_id' => 'array|nullable', // I added nullable just to test
+            'organization_id.*' => 'numeric|exists:organizations,id',
+            'new_organizations' => 'nullable|string'
         ];
     }
 }

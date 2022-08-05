@@ -169,6 +169,9 @@ export default {
     auth() {
       return this.$page.props.auth;
     },
+    user() {
+      return this.$page.props.user;
+    },
   },
   watch: {
     group() {

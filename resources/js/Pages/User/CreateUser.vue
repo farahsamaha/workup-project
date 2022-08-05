@@ -1,20 +1,22 @@
 <template>
   <v-container>
     <v-timeline class="mx-9">
-      <v-timeline-item color="teal accent-4">
-        <v-img
-          profile
-          background-color="grey darken-3"
-          class="ml-5 my-3 rounded-circle elevation-6"
-          height="170"
-          width="170"
-          :src="
-            $page.props.auth.user.featured_image
-              ? `/storage/${page.props.auth.user.featured_image}`
-              : 'https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light'
-          "
-        >
-        </v-img>
+      <v-timeline-item color="teal accent-4"
+        ><v-row>
+          <v-container>
+            <v-avatar size="170" class="ml-16">
+              <v-img
+                profile
+                class="rounded-circle elevation-6"
+                :src="
+                  user.featured_image
+                    ? `${user.featured_image}`
+                    : 'https://png.pngtree.com/png-vector/20191027/ourlarge/pngtree-avatar-vector-icon-white-background-png-image_1884971.jpg'
+                "
+              >
+              </v-img></v-avatar
+          ></v-container>
+        </v-row>
         <template v-slot:opposite>
           <v-container>
             <h2 class="mr-16 teal--text font-weight-medium">
@@ -37,7 +39,7 @@
             ></v-text-field>
             <h3 class="font-weight-regular mx-10">Birth Date</h3>
             <v-text-field
-              label="1/1/1990"
+              label="YYY-MM-DD"
               outlined
               class="mx-16"
               :counter="10"
@@ -49,7 +51,6 @@
               outlined
               class="mx-16"
               v-model="form.mobile"
-              :counter="10"
               :error-messages="form.errors.mobile"
               require
             ></v-text-field>
@@ -69,17 +70,18 @@
         <v-timeline-item right color="teal accent-4">
           <v-card class="pa-2" tile elevation="1">
             <h3 class="font-weight-regular mx-10 mt-5">Skills</h3>
+
             <v-autocomplete
               class="mx-16"
-              multiple
               outlined
               :items="skills"
               item-text="name"
               item-value="id"
               v-model="form.skill_id"
               :error-messages="form.errors.skill_id"
-            >
-            </v-autocomplete>
+              label="Select a your skills or create a new one"
+              multiple
+            ></v-autocomplete>
 
             <h3 class="font-weight-regular mx-10">Education</h3>
             <v-autocomplete
@@ -91,6 +93,7 @@
               item-value="id"
               v-model="form.certificate_id"
               :error-messages="form.errors.certificate_id"
+              label="Select your certificates or create a new one"
             >
             </v-autocomplete>
 
@@ -104,6 +107,7 @@
               item-value="id"
               v-model="form.experience_id"
               :error-messages="form.errors.experience_id"
+              label="Select your experiences or create a new one"
             >
             </v-autocomplete>
 
@@ -117,6 +121,7 @@
               item-value="id"
               v-model="form.organization_id"
               :error-messages="form.errors.organization_id"
+              label="Select your voluntering activites or create a new one"
             >
             </v-autocomplete>
             <v-btn
@@ -146,17 +151,10 @@ export default {
     certificates: Array,
     experiences: Array,
     organizations: Array,
+    user: Object,
   },
 
   data() {
-    // carousel: 0;
-    //  items: [
-    //   'location',
-    //   'skill',
-    //   'experience',
-    //   'certificate',
-    //   'organization'
-    //  ]
     return {
       form: this.$inertia.form({
         // featured_image: null,
@@ -171,7 +169,11 @@ export default {
       }),
     };
   },
-
+  //  computed: {
+  //     user() {
+  //       return this.$page.props.user;
+  //     },
+  //   },
   methods: {
     store() {
       this.form.post("/users");

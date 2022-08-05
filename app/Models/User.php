@@ -7,15 +7,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Storage;
 
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
 
-    public function locations()
+    public function location()
     {
-        return $this->belongsTo(Location::class );
+        return $this->belongsTo(Location::class);
     }
     public function skills()
     {
@@ -46,6 +47,11 @@ class User extends Authenticatable
         return $this->hasMany(Like::class);
     }
 
+
+    public function getFeaturedImageAttribute($value)
+    {
+        return $value ? Storage::url($value) : null;
+    }
 
 
     /**

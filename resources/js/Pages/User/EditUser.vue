@@ -1,26 +1,29 @@
 <template>
   <v-container>
-    <v-timeline>
-      <v-timeline-item>
-        <v-img
-          profile
-          background-color="grey darken-3"
-          class="ml-5 my-3 rounded-circle elevation-6"
-          height="170"
-          width="170"
-          :src="
-            user.featured_image
-              ? `/storage/${user.featured_image}`
-              : 'https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light'
-          "
-        >
-        </v-img>
+    <v-timeline class="mx-9">
+      <v-timeline-item color="orange darken-2">
+        <v-avatar size="170" class="ml-16">
+          <v-img
+            profile
+            class="rounded-circle elevation-6"
+            :src="
+              $page.props.auth.user.featured_image
+                ? `/storage/${page.props.auth.user.featured_image}`
+                : 'https://png.pngtree.com/png-vector/20191027/ourlarge/pngtree-avatar-vector-icon-white-background-png-image_1884971.jpg'
+            "
+          >
+          </v-img
+        ></v-avatar>
+        <template v-slot:opposite>
+          <v-container>
+            <h2 class="mr-16 teal--text font-weight-medium">
+              Edit Your Information
+            </h2></v-container
+          >
+        </template>
       </v-timeline-item>
-      <v-timeline-item class="text-left">
-        <v-card class="pa-2" outlined tile>
-          <v-card-title class="text-h5 my-5 mx-2 font-weight-bold orange--text">
-            Edit Your Information
-          </v-card-title>
+      <v-timeline-item class="text-left" color="teal accent-4">
+        <v-card class="pa-2">
           <form>
             <v-list two-line>
               <v-list-item>
@@ -223,23 +226,21 @@ export default {
   methods: {
     updateAbout() {
       this.loading = true;
-      this.$inertia.patch(`/users/${this.user.about}`, this.form).then(() => {
+      this.$inertia.put(`/users/${this.user.about}`, this.form).then(() => {
         this.loading = false;
       });
     },
     updateMobile() {
       this.loading = true;
-      this.$inertia.patch(`/users/${this.user.mobile}`, this.form).then(() => {
+      this.$inertia.put(`/users/${this.user.mobile}`, this.form).then(() => {
         this.loading = false;
       });
     },
     updateLocation() {
       this.loading = true;
-      this.$inertia
-        .patch(`/users/${this.user.location}`, this.form)
-        .then(() => {
-          this.loading = false;
-        });
+      this.$inertia.put(`/users/update`, this.form).then(() => {
+        this.loading = false;
+      });
     },
     deleteSkill() {
       if (confirm("Are you sure you want to delete this?")) {

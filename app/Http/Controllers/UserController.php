@@ -21,22 +21,6 @@ class UserController extends Controller
 {
     public function index(User $user, Post $post)
     {
-        // $user = User::all()->map(function ($user) {
-        //     return [
-        //         'id' => $user->id,
-        //         'name' => $user->name,
-        //         'email' => $user->email,
-        //         'birth_date' => $user->birth_date,
-        //         'about' =>$user->about,
-        //         'featured_image' =>$user->featured_image,
-        //         'mobile' => $user->mobile,
-        //         'location_id'=> $user->locations,
-        //         'skill_id'=> $user->skills,
-        //         'certificate_id'=> $user->certificates,
-        //         'experience_id' => $user->experiences,
-        //         'organization_id' =>$user->organizations,
-        //     ];
-        // });
 
         $user = Auth::user();
         $location = Location::get();
@@ -45,6 +29,7 @@ class UserController extends Controller
         $certificate = Certificate::get();
         $organization = Organization::get();
         $posts = PostResource::collection(Post::with('user')->latest()->paginate(30));
+        // $user->load(['location', 'skill', 'experience', 'organization']);
         return Inertia::render('user/UserProfile', compact('user', 'location', 'skills', 'experience', 'certificate', 'organization', 'posts'));
     }
 
@@ -62,17 +47,33 @@ class UserController extends Controller
 
     public function store(StoreUserRequest $request, User $user)
     {
-        $data = $request->validated();
+
         $data['user_id'] = auth()->id();
+        // dd($data);
+        $data = $request->validated();
 
-        $user->skills()->attach($request->skills);
-        $user->experiences()->attach($request->experiences);
-        $user->certificates()->attach($request->certificates);
-        $user->organizations()->attach($request->organizations);
-        $data['featured_image'] = $request->file('featured_image')->store('/', 'public');
+        if ($request->file('featured_image'))
+            $data['featured_image'] = $request->featured_image->store('public/assets');
 
+        auth()->user()->update($data);
+        // $user = User::update($request->except(['skill_id', 'experience_id']);
 
         // $user->skills()->attach($request->skills);
+        // $user->experiences()->attach($request->experiences);
+        // $user->certificates()->attach($request->certificates);
+        // $user->organizations()->attach($request->organizations);
+
+        if ($request->filled('skills'))
+            auth()->user()->skills()->attach($request->skills);
+        if ($request->filled('experiences'))
+            auth()->user()->experiences()->attach($request->experiences);
+        if ($request->filled('certificates'))
+            auth()->user()->certificates()->attach($request->certificates);
+        if ($request->filled('organizations'))
+            auth()->user()->organizations()->attach($request->organizations);
+
+        // for add new items
+
         // if ($request->filled(('new_skills'))) {
         //     $skills = explode(',', $request->new_skills);
         //     foreach ($skills as $skill) {
@@ -82,8 +83,36 @@ class UserController extends Controller
         //     }
         // }
 
-        User::create($data);
-        return Redirect::route('/userprofile')->with('success', 'information added successfully!');
+
+        // if ($request->filled(('new_experiences'))) {
+        //     $experiences = explode(',', $request->new_experiences);
+        //     foreach ($experiences as $experience) {
+        //         $experience = trim($experience);
+        //         $model = Experience::firstOrCreate(['name' => $experience]);
+        //         $user->experiences()->attach($model);
+        //     }
+        // }
+
+        // if ($request->filled(('new_certificates'))) {
+        //     $certificates = explode(',', $request->new_certificates);
+        //     foreach ($certificates as $certificate) {
+        //         $certificate = trim($certificate);
+        //         $model = Certificate::firstOrCreate(['name' => $certificate]);
+        //         $user->certificates()->attach($model);
+        //     }
+        // }
+
+
+        // if ($request->filled(('new_organizations'))) {
+        //     $organizations = explode(',', $request->new_organizations);
+        //     foreach ($organizations as $organization) {
+        //         $organization = trim($organization);
+        //         $model = Organization::firstOrCreate(['name' => $organization]);
+        //         $user->organizations()->attach($model);
+        //     }
+        // }
+
+        return Redirect::route('userprofile')->with('success', 'Done!');
     }
 
     public function edit()
@@ -100,19 +129,25 @@ class UserController extends Controller
 
     public function update(StoreUserRequest $request)
     {
-
         $data = $request->validated();
 
         $user = Auth::user();
-
         $user->update($data);
-        $user->skill()->sync($request->skills);
-        $user->certificate()->sync($request->certificates);
-        $user->experience()->sync($request->experiences);
-        $user->organization()->sync($request->organizations);
+        if ($request->filled('skills'))
+            auth()->user()->skills()->sync($request->skills);
+        if ($request->filled('experiences'))
+            auth()->user()->experiences()->sync($request->experiences);
+        if ($request->filled('certificates'))
+            auth()->user()->certificates()->sync($request->certificates);
+        if ($request->filled('organizations'))
+            auth()->user()->organizations()->sync($request->organizations);
 
+        // $user->skills()->sync($request->skills);
+        // $user->certificate()->sync($request->certificates);
+        // $user->experience()->sync($request->experiences);
+        // $user->organization()->sync($request->organizations);
 
-        return Redirect::route('user/UserProfile')->with('message', 'updated successfully!');
+        return Redirect::route('userprofile')->with('success', 'updated successfully!');
     }
 
     public function destroy(User $user)
@@ -125,6 +160,13 @@ class UserController extends Controller
 
     public function show(User $user)
     {
-        // return Inertia::render('user/UserIndex' , compact('user'));
+        $user = Auth::user();
+        $location = Location::get();
+        $skills = Skill::get();
+        $experience = Experience::get();
+        $certificate = Certificate::get();
+        $organization = Organization::get();
+        $posts = PostResource::collection(Post::with('user')->latest()->paginate(30));
+        return Inertia::render('user/ShowProfile', compact('user', 'location', 'skills', 'experience', 'certificate', 'organization', 'posts'));
     }
 }
