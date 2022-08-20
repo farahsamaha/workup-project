@@ -20,7 +20,7 @@
       </v-row>
       <div class="text-center">
         <v-pagination
-          color="orange"
+          color="orange darken-2"
           class="mt-16"
           v-model="page"
           :length="4"
@@ -44,7 +44,13 @@ export default {
       page: 1,
     };
   },
-  props: ["jobs", "Message", "types", "locations", "categories"],
+  props: {
+    jobs: Array,
+    types: Array,
+    locations: Array,
+    categories: Array,
+  },
+  // props: ["jobs", "Message", "types", "locations", "categories"],
 
   mounted() {
     console.log(this.jobs);

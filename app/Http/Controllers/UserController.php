@@ -28,7 +28,8 @@ class UserController extends Controller
         $experience = Experience::get();
         $certificate = Certificate::get();
         $organization = Organization::get();
-        $posts = PostResource::collection(Post::with('user')->latest()->paginate(30));
+        $posts = PostResource::collection(Post::where('user_id', '=', Auth::id())->latest()->paginate(30));
+        // $posts = PostResource::collection(Post::with('user')->latest()->paginate(30));
         // $user->load(['location', 'skill', 'experience', 'organization']);
         return Inertia::render('user/UserProfile', compact('user', 'location', 'skills', 'experience', 'certificate', 'organization', 'posts'));
     }
@@ -166,7 +167,7 @@ class UserController extends Controller
         $experience = Experience::get();
         $certificate = Certificate::get();
         $organization = Organization::get();
-        $posts = PostResource::collection(Post::with('user')->latest()->paginate(30));
+        $posts = PostResource::collection(Post::where('user_id', '=', Auth::id())->latest()->paginate(30));
         return Inertia::render('user/ShowProfile', compact('user', 'location', 'skills', 'experience', 'certificate', 'organization', 'posts'));
     }
 }

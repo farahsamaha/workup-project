@@ -24,7 +24,7 @@ class JobController extends Controller
         $locations = Location::get();
         $types = Type::get();
         // dd($query->toSql());
-        $jobs = $query->with(['location', 'types', 'places'])->paginate(6);
+        $jobs = $query->with(['location', 'types', 'places'])->paginate(22);
         // dd($jobs);
 
         return Inertia::render('job/JobIndex', compact('jobs', 'categories', 'locations', 'types'));

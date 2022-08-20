@@ -40,12 +40,12 @@ class Job extends Model
         }
 
         if (request()->query('location_id')) {
-
             $query->where('location_id', 'like', '%' . request('location_id') . '%');
         }
 
+
         if (request()->query('type_id')) {
-            $query->whereHas('types', fn ($q) => $q->where('id', '<>', [request('type_id')]));
+            $query->whereHas('types', fn ($q) => $q->where('id', '=', [request('type_id')]));
         }
 
         if (request()->query('title')) {

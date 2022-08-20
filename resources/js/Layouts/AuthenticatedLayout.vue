@@ -33,7 +33,7 @@
 
       <v-btn
         text
-        class="mx-4"
+        class="mx-6"
         color="teal"
         @click.prevent="$inertia.visit(route('createpost'))"
         :href="route('createpost')"
@@ -44,7 +44,7 @@
 
       <v-btn
         text
-        class="mr-9"
+        class="mr-16"
         color="teal"
         :href="route('jobs')"
         @click.prevent="$inertia.visit(route('jobs'))"
@@ -52,16 +52,17 @@
         <v-icon>mdi-wallet-travel</v-icon>
         <span>Jobs</span>
       </v-btn>
-      <v-responsive max-width="260">
+      <!-- <v-responsive max-width="260">
         <v-text-field
           prepend-inner-icon="mdi-magnify x-large"
           dense
+          hidden
           flat
           hide-details
           rounded
           solo-inverted
         ></v-text-field>
-      </v-responsive>
+      </v-responsive> -->
       <v-btn
         icon
         @click.prevent="$vuetify.theme.dark = !$vuetify.theme.dark"

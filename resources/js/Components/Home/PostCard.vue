@@ -5,7 +5,7 @@
         <v-card-title>
           <v-list-item-avatar
             color="grey darken-3"
-            :href="route('userprofile', post.user.name)"
+            :href="route('showprofile', { user })"
           >
             <v-img
               :src="post.user.featured_image"
@@ -72,10 +72,7 @@
                   >mdi-cards-heart-outline</v-icon
                 >
                 <!-- how to display likescount?? -->
-                <span class="subheading mr-2">
-                  {{ randomNumber() }}
-                  Likes</span
-                >
+                <span class="subheading mr-2"> Like</span>
 
                 <span class="mr-1">· </span>
                 <v-icon class="mr-1" small> mdi-comment</v-icon>
